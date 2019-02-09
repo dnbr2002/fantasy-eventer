@@ -21,56 +21,64 @@ const styles = theme => ({
 
 const Team = ({ team, classes }) => {
     if (team) {
-    return (
-        <div>
-            <Grid container className={classes.root} spacing={16}>
-                <Grid item xs={12}>
-                    <Grid container className={classes.demo} justify="center" spacing={Number(8)}>
-                        {team.map(competitor => (
-                            <Grid key={competitor.key} item>
-                                <Paper className={classes.paper} >
-                                    <Grid container justify="center">
-                                        <CustomAvatar
-                                            src={competitor.pic}
-                                            alt="competitor pic"
-                                            bigAvatar="BigAvatar"
-                                        />
-                                        <br />
+        return (
+            <div>
+                <Grid container className={classes.root} spacing={16}>
+                    <Grid item xs={12}>
+                        <Grid container className={classes.demo} justify="center" spacing={Number(8)}>
+                            {team.map(competitor => (
+                                <Grid key={competitor.key} item>
+                                    <Paper className={classes.paper} >
                                         <Grid container justify="center">
-                                            <Typography variant="caption">
-                                            Rider: <b>{competitor.rider}</b>
-                                            </Typography>
+                                            <CustomAvatar
+                                                src={competitor.pic}
+                                                alt="competitor pic"
+                                                bigAvatar="BigAvatar"
+                                            />
+                                            <br />
+                                            <Grid container justify="center">
+                                                <Typography variant="caption">
+                                                    Rider: <b>{competitor.rider}</b>
+                                                </Typography>
+                                            </Grid>
+                                            <Grid container justify="center">
+                                                <Typography variant="caption">
+                                                    Horse: <b>{competitor.horse}</b>
+                                                </Typography>
+                                            </Grid>
+                                            <Grid container justify="center">
+                                                <Typography variant="caption">
+                                                    Score: <b>{competitor.score}</b>
+                                                </Typography>
+                                            </Grid>
+                                            <Grid container justify="center">
+                                                <Typography variant="caption">
+                                                    Tier: <b>{competitor.tier}</b>
+                                                </Typography>
+                                            </Grid>
                                         </Grid>
-                                        <Grid container justify="center">
-                                            <Typography variant="caption">
-                                            Horse: <b>{competitor.horse}</b>
-                                            </Typography>
-                                        </Grid>
-                                        <Grid container justify="center">
-                                            <Typography variant="caption">
-                                            Score: <b>{competitor.score}</b>
-                                            </Typography>
-                                        </Grid>
-                                        <Grid container justify="center">
-                                            <Typography variant="caption">
-                                            Tier: <b>{competitor.tier}</b>
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Paper>
-                            </Grid>
-                        ))}
+                                    </Paper>
+                                </Grid>
+                            ))}
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </div>
-    );
-}
-else {
-return (
-<div><h2>waiting...</h2></div>
-);
-}
+            </div>
+        );
+    }
+    else {
+        return (
+            <div>
+                <Grid container className={classes.root} spacing={16}>
+                    <Grid item xs={12}>
+                        <Grid container className={classes.demo} justify="center" spacing={Number(8)}>
+                            <Typography component="h2" variant="h1">Pick your team...</Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </div>
+        );
+    }
 };
 
 Team.propTypes = {
