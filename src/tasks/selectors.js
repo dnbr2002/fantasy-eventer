@@ -6,6 +6,8 @@ export function getTasks(state) {
 }
 
 export function getTaskList(state) {
+  // console.log("SELECTA_List::",state)
+
   return getTasks(state).list;
 }
 

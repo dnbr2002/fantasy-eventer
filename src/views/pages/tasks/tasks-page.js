@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from 'react';
 import { List } from 'immutable';
 import PropTypes from 'prop-types';
@@ -66,7 +67,9 @@ export class TasksPage extends Component {
   }
 
   render() {
+    console.log("TASKSPROPS::",this.props)
     return (
+     
       <div className="g-row">
         <div className="g-col">
           <TaskForm handleSubmit={this.props.createTask} />

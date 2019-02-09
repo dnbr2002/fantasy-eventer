@@ -4,7 +4,11 @@ import {
   INIT_AUTH,
   SIGN_IN_ERROR,
   SIGN_IN_SUCCESS,
-  SIGN_OUT_SUCCESS
+  SIGN_OUT_SUCCESS,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_ERROR,
+  SIGN_IN_EMAIL_SUCCESS,
+  SIGN_IN_EMAIL_ERROR
 } from '../actions/actionTypes';
 import toastr from 'toastr';
 
@@ -16,14 +20,12 @@ function authenticate(provider) {
   };
 }
 
-
 export function initAuth(user) {
   return {
     type: INIT_AUTH,
     payload: user
   };
 }
-
 
 export function signInError(error) {
   if (error.code === "auth/account-exists-with-different-credential") {
@@ -37,18 +39,64 @@ export function signInError(error) {
     return {
       type: SIGN_IN_ERROR,
       payload: error,
-      container: toastr.warning('Looks like looks something went wrong with this Login.  Try a different provider', '', { timeOut: 9000, closeButton: true, })
+      container: toastr.error('Something went wrong with Login.  '+error, { timeOut: 9000, closeButton: true, })
     };
-
   }
-
 }
 
-
 export function signInSuccess(result) {
+  console.log('SISUCCESS::', result);
   return {
     type: SIGN_IN_SUCCESS,
     payload: result.user
+  };
+}
+
+export function signInEmailSuccess(result) {
+  console.log('SISUCCESS::', result);
+  return {
+    type: SIGN_IN_EMAIL_SUCCESS,
+    payload: result
+  };
+}
+
+export function signInEmailError(error) {
+  console.log('SISUCCESS::', error);
+  return {
+    type: SIGN_IN_EMAIL_ERROR,
+    payload: error
+  };
+}
+
+export function signUpSuccess(result) {
+  return {
+    type: SIGN_UP_SUCCESS,
+    payload: result.user,
+    container: toastr.info('Registration completed successfully.  Please Login now', { timeOut: 9000, closeButton: true, })
+  };
+}
+
+export function signUpError(error) {
+    return {
+      type: SIGN_UP_ERROR,
+      payload: error,
+      container: toastr.error(''+error, { timeOut: 9000, closeButton: true, })
+    };
+}
+
+export function signUpWithEmail(email, pass) {
+  return dispatch => {
+      firebaseAuth.createUserWithEmailAndPassword(email, pass)
+          .then(result => dispatch(signUpSuccess(result)))
+          .catch(error => dispatch(signUpError(error)));
+  };
+}
+
+export function signInWithEmail(email, pass) {
+  return dispatch => {
+      firebaseAuth.signInWithEmailAndPassword(email, pass)
+          .then(result => dispatch(signInEmailSuccess(result)))
+          .catch(error => dispatch(signInEmailError(error)));
   };
 }
 

@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { INIT_AUTH, SIGN_IN_SUCCESS, SIGN_OUT_SUCCESS } from '../actions/actionTypes';
+import { INIT_AUTH, SIGN_IN_SUCCESS, SIGN_OUT_SUCCESS, SIGN_IN_EMAIL_SUCCESS } from '../actions/actionTypes';
 
 
 export const AuthState = new Record({
@@ -16,6 +16,11 @@ export function authReducer(state = new AuthState(), {payload, type}) {
         authenticated: !!payload,
         id: payload ? payload.uid : null
       });
+    case SIGN_IN_EMAIL_SUCCESS:
+    return state.merge({
+      authenticated: !!payload,
+      id: payload ? payload.uid : null
+    });
 
     case SIGN_OUT_SUCCESS:
       return new AuthState();

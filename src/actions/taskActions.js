@@ -15,6 +15,7 @@ import {
 
 
 export function createTask(title) {
+  console.log("CREATETASK::",title);
   return dispatch => {
     taskList.push({completed: false, title})
       .catch(error => dispatch(createTaskError(error)));
@@ -81,6 +82,8 @@ export function updateTaskError(error) {
 }
 
 export function updateTask(task, changes) {
+  console.log("TASKCHANGES1::",changes);
+  console.log("TASKCHANGES2::",task);
   return dispatch => {
     taskList.update(task.key, changes)
       .catch(error => dispatch(updateTaskError(error)));
@@ -95,6 +98,7 @@ export function updateTaskSuccess(task) {
 }
 
 export function loadTasksSuccess(tasks) {
+  console.log('LOADTASKSSUCCESS::',tasks)
   return {
     type: LOAD_TASKS_SUCCESS,
     payload: tasks

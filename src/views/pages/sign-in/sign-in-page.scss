@@ -15,16 +15,16 @@
 
 .sign-in__button {
   margin-bottom: 10px;
-  border: 1px solid #ba000d;
+  border: 2px solid #013da0;
   width: 100%;
   height: 48px;
   font-family: inherit;
   font-size: rem(18px);
   line-height: 48px;
-  color: #ffffff;
+  color: #000000;
 
   &:hover {
-    border: 2px solid #ff7961;
+    border: 2px solid #4286f4;
     line-height: 46px;
   }
 }

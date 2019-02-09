@@ -13,10 +13,12 @@ export class FirebaseList {
   }
 
   set path(value) {
+    //console.log("PATH::",value)
     this._path = value;
   }
 
   push(value) {
+    console.log("VALUE::", value)
     return new Promise((resolve, reject) => {
       firebaseDb.ref(this._path)
         .push(value, error => error ? reject(error) : resolve());
@@ -24,22 +26,47 @@ export class FirebaseList {
   }
 
   remove(key) {
+    console.log("REMOVE1::", `${this._path}`);
     return new Promise((resolve, reject) => {
       firebaseDb.ref(`${this._path}/${key}`)
         .remove(error => error ? reject(error) : resolve());
     });
   }
 
+  removeNoKey() {
+    // console.log("REMOVE1::", `${this._path}`);
+    return new Promise((resolve, reject) => {
+      firebaseDb.ref(`${this._path}`)
+        .remove(error => error ? reject(error) : resolve());
+    });
+  }
+
   set(key, value) {
+    // console.log("PATH::", this._path);
     return new Promise((resolve, reject) => {
       firebaseDb.ref(`${this._path}/${key}`)
         .set(value, error => error ? reject(error) : resolve());
     });
   }
 
+  setNoKey(value) {
+    return new Promise((resolve, reject) => {
+      firebaseDb.ref(`${this._path}`)
+        .set(value, error => error ? reject(error) : resolve());
+    });
+  }
+
   update(key, value) {
+    // console.log("KEY::",key)
     return new Promise((resolve, reject) => {
       firebaseDb.ref(`${this._path}/${key}`)
+        .update(value, error => error ? reject(error) : resolve());
+    });
+  }
+
+  updateNoKey(value) {
+    return new Promise((resolve, reject) => {
+      firebaseDb.ref(`${this._path}`)
         .update(value, error => error ? reject(error) : resolve());
     });
   }
@@ -59,11 +86,13 @@ export class FirebaseList {
         emit(this._actions.onAdd(this.unwrapSnapshot(snapshot)));
       }
       else {
+        // debugger;
         list.push(this.unwrapSnapshot(snapshot));
       }
     });
 
     ref.on('child_changed', snapshot => {
+      console.log('SNAP::',snapshot);
       emit(this._actions.onChange(this.unwrapSnapshot(snapshot)));
     });
 
@@ -74,13 +103,64 @@ export class FirebaseList {
     this._unsubscribe = () => ref.off();
   }
 
+  subscribeOnce(emit) {
+    let ref = firebaseDb.ref(this._path);
+    console.log("REF::",ref)
+    let initialized = false;
+    let list = [];
+    console.log("ACTIONS::",this._actions)
+   
+    ref.once('value', snapshot => {
+      initialized = true
+      console.log("SNAPSHOT::", snapshot);
+      // emit(this._actions.onLoad(list));
+      emit(this._actions.onLoad(this.unwrapSnapshot(snapshot)));
+    });
+
+    // ref.on('child_added', snapshot => {
+    //   if (initialized) {
+    //     emit(this._actions.onAdd(this.unwrapSnapshot(snapshot)));
+    //   }
+    //   else {
+    //     // debugger;
+    //     list.push(this.unwrapSnapshot(snapshot));
+    //   }
+    // });
+
+    ref.on('child_changed', snapshot => {
+      console.log('SNAP::',snapshot);
+      emit(this._actions.onChange(this.unwrapSnapshot(snapshot)));
+    });
+
+    // ref.on('child_removed', snapshot => {
+    //   emit(this._actions.onRemove(this.unwrapSnapshot(snapshot)));
+    // });
+
+    this._unsubscribe = () => ref.off();
+  }
+
+  subscribeOnceKv(emit) {
+    let ref = firebaseDb.ref(this._path);
+    ref.once('value', snapshot => {
+      emit(this._actions.onLoad(this.unwrapSnapshot(snapshot)));
+    });
+  }
+
+
   unsubscribe() {
     this._unsubscribe();
   }
 
   unwrapSnapshot(snapshot) {
-    let attrs = snapshot.val();
-    attrs.key = snapshot.key;
+    if (snapshot.exists()) {
+      let attrs = snapshot.val();
+      attrs.key = snapshot.key;
+      return new this._modelClass(attrs);
+    }
+  }
+
+  unwrapSnapshotkv(snapshot) {
+    let attrs = { key: snapshot.key, value: snapshot.val() };
     return new this._modelClass(attrs);
   }
 }
