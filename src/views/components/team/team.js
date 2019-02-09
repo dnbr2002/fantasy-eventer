@@ -20,6 +20,7 @@ const styles = theme => ({
 });
 
 const Team = ({ team, classes }) => {
+    if (team) {
     return (
         <div>
             <Grid container className={classes.root} spacing={16}>
@@ -64,6 +65,12 @@ const Team = ({ team, classes }) => {
             </Grid>
         </div>
     );
+}
+else {
+return (
+<div><h2>waiting...</h2></div>
+);
+}
 };
 
 Team.propTypes = {

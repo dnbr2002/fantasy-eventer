@@ -1,29 +1,35 @@
 import { createSelector } from 'reselect';
 
 export function getTeamState(state) {
-  console.log("PROFILE::", state)
-  return state.team;
+  console.log("TEAM::", state)
+  if (state) {
+    return state.team;
+  }
 }
 
 export function getTeamRecord(state) {
-  console.log("PROFILESELECTORLISTVALUE::",state.team.list.slice(0,1))
-  var team
-  state.team.list.slice(0,1).forEach(t => {
-      console.log("PROFILESELECTORXXXXX::",t);
+  if (state) {
+    console.log("TEAMSELECTORLISTVALUE::", state.team.list.slice(0, 1))
+    var team
+    state.team.list.slice(0, 1).forEach(t => {
+      console.log("TEAMSELECTORXXXXX::", t);
       team = t
-  })
-  console.log("PROFILESELECTORPROFILE::",team);
-  return team;
+    })
+    console.log("TEAMSELECTORPROFILE::", team);
+    return team;
+  }
 }
 
 
-export function getTeamList(teamRecord) {
-  console.log("PROFILESTATE::", teamRecord)
-    var teamArray1 = teamRecord.team.teamKeysTier1.split(',');
-    var teamArray2 = teamRecord.team.teamKeysTier2.split(',');
-    var teamArray = teamArray1.concat(teamArray2);
-    console.log("SELECTORSTATE2::", teamArray)
-    return teamArray
+export function getTeamList(state) {
+  if (state) {
+    console.log("TEAMSTATE::", state)
+    // var teamArray1 = state.team.teamKeysTier1.split(',');
+    // var teamArray2 = state.team.teamKeysTier2.split(',');
+    // var teamArray = teamArray1.concat(teamArray2);
+    // console.log("SELECTORSTATE2::", teamArray)
+    // return teamArray
+  }
 }
 
 export function getCompetitorList(state) {
@@ -44,5 +50,5 @@ export function getTeamFilter(team, competitors) {
 export const TeamSelector = createSelector(
   getTeamState,
   getTeamRecord,
-  getTeamList,  
+  getTeamList,
 );

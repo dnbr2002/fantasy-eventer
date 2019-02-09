@@ -115,7 +115,7 @@ class Tier2Table extends React.Component {
   renderChecks(team) {
     const { selected } = this.state;
     let newSelected = [];
-
+    if (team) {
     team.forEach(competitor => {
       if (competitor.tier === '2') {
         var selectedIndex = selected.indexOf(competitor.key);
@@ -125,6 +125,7 @@ class Tier2Table extends React.Component {
         }
       }
     })
+  }
   }
 
   handleClick = (event, competitor) => {
