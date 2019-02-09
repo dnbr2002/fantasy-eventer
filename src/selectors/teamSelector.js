@@ -1,14 +1,14 @@
 import { createSelector } from 'reselect';
 
 export function getTeamState(state) {
-  console.log("TEAM::", state)
+  console.log("TEAM::", state.team.list.size)
   if (state) {
     return state.team;
   }
 }
 
 export function getTeamRecord(state) {
-  if (state) {
+  if (state.team) {
     console.log("TEAMSELECTORLISTVALUE::", state.team.list.slice(0, 1))
     var team
     state.team.list.slice(0, 1).forEach(t => {
@@ -20,15 +20,15 @@ export function getTeamRecord(state) {
   }
 }
 
-
 export function getTeamList(state) {
-  if (state) {
+  console.log("TEAM2::",state.list)
+  if (state.list > 0) {
     console.log("TEAMSTATE::", state)
-    // var teamArray1 = state.team.teamKeysTier1.split(',');
-    // var teamArray2 = state.team.teamKeysTier2.split(',');
-    // var teamArray = teamArray1.concat(teamArray2);
-    // console.log("SELECTORSTATE2::", teamArray)
-    // return teamArray
+    var teamArray1 = state.team.teamKeysTier1.split(',');
+    var teamArray2 = state.team.teamKeysTier2.split(',');
+    var teamArray = teamArray1.concat(teamArray2);
+    console.log("SELECTORSTATE2::", teamArray)
+    return teamArray
   }
 }
 
@@ -36,8 +36,8 @@ export function getCompetitorList(state) {
   return state.competitors.list
 }
 
-export function getTeamFilter(team, competitors) {
-  console.log("TEAM::", team)
+export function getTeamFilter(state, competitors) {
+  console.log("TEAM3::", state)
   const selectedTeam = competitors.filter(
     competitor => team.some(teammate => teammate === competitor.key));
   return selectedTeam
@@ -51,4 +51,6 @@ export const TeamSelector = createSelector(
   getTeamState,
   getTeamRecord,
   getTeamList,
+  getCompetitorList,
+  getTeamFilter
 );

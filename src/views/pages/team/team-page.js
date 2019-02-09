@@ -213,7 +213,7 @@ class TeamPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    profile: ProfileSelector(state),
+    // profile: ProfileSelector(state),
     profile: (state.profile),
     tier1: Tier1Selector(state),
     tier2: Tier2Selector(state),
