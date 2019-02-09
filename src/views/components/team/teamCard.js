@@ -40,16 +40,16 @@ class TeamCard extends Component {
     };
 }
 
-handleChange = event => {
-    console.log("here", event.target.value,"----",event.target.name)
-    if (event.target.name === 'profileName') {
-        this.setState({ profileName: event.target.value });
+componentWillReceiveProps(nextProps) {
+    console.log("here", nextProps.profile.list)
+    if (nextProps.profile.list.profileName != this.state.profileName) {
+        this.setState({ profileName: nextProps.profileName });
     }
-    if (event.target.name === 'teamName') {
-        this.setState({ teamName: event.target.value });
+    if (nextProps.profile.list.teamName != this.state.teamName) {
+        this.setState({ teamName: nextProps.teamName });
     }
-    if (event.target.name === 'profilePic') {
-        this.setState({ profilePic: event.target.value });
+    if (nextProps.profile.list.profilePic != this.state.profilePic) {
+        this.setState({ profilePic: nextProps.profilePic });
     }
 }
 

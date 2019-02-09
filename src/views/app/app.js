@@ -30,7 +30,7 @@ const App = ({ authenticated, signOut }) => (
       <RequireAuthRoute authenticated={authenticated} exact path="/" component={HomePage} />
       <RequireAuthRoute authenticated={authenticated} exact path="/teampage" component={TeamPage} />
       <RequireAuthRoute authenticated={authenticated} exact path="/leaguepage" component={LeaguePage} />
-      <RequireAuthRoute authenticated={authenticated} path="/adminpage" component={AdminPage} />
+      <RequireAuthRoute authenticated={authenticated} exact path="/adminpage" component={AdminPage} />
       <RequireAuthRoute authenticated={authenticated} exact path="/taskspage" component={TasksPage} />
       <RequireAuthRoute authenticated={authenticated} exact path="/profile" component={ProfilePage} />
       <RequireUnauthRoute authenticated={authenticated} path="/sign-in" component={SignInPage} />

@@ -128,7 +128,7 @@ class Tier1Table extends React.Component {
     renderChecks(team) {
         const { selected } = this.state;
         let newSelected = [];
-
+        if (team) {
         team.forEach(competitor => {
             if (competitor.tier === '1') {
                 var selectedIndex = selected.indexOf(competitor.key);
@@ -138,6 +138,7 @@ class Tier1Table extends React.Component {
                 }
             }
         })
+    }
     }
 
     handleRequestSort = (event, property) => {
