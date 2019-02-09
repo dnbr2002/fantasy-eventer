@@ -27,7 +27,7 @@ import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import toastr from 'toastr';
-import { Record, List } from 'immutable';
+import { Record } from 'immutable';
 
 export const TeamRecord = new Record({
   key: null,
