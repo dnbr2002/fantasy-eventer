@@ -24,8 +24,6 @@ export function profileReducer(state = new ProfileState(), { payload, type }) {
 
     case UPDATE_PROFILE_SUCCESS:
     return state.merge({
-      deleted: null,
-      previous: null,
       list: state.list.map(user => {
         return user.key === payload.key ? payload : user;
       })

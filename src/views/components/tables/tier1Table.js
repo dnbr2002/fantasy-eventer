@@ -120,6 +120,7 @@ class Tier1Table extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        console.log('PREPROPS::', prevProps)
         if (prevProps.team.size !== this.props.team.size) {
             this.renderChecks(this.props.team);
         }
@@ -129,16 +130,16 @@ class Tier1Table extends React.Component {
         const { selected } = this.state;
         let newSelected = [];
         if (team) {
-        team.forEach(competitor => {
-            if (competitor.tier === '1') {
-                var selectedIndex = selected.indexOf(competitor.key);
-                if (selectedIndex === -1) {
-                    newSelected = newSelected.concat(selected, competitor.key)
-                    this.setState({ selected: newSelected });
+            team.forEach(competitor => {
+                if (competitor.tier === '1') {
+                    var selectedIndex = selected.indexOf(competitor.key);
+                    if (selectedIndex === -1) {
+                        newSelected = newSelected.concat(selected, competitor.key)
+                        this.setState({ selected: newSelected });
+                    }
                 }
-            }
-        })
-    }
+            })
+        }
     }
 
     handleRequestSort = (event, property) => {
@@ -159,15 +160,15 @@ class Tier1Table extends React.Component {
 
     updateTeam(competitorKeys) {
         const changes = {
-            profileName: this.props.profile.profileName,
-            profilePic: this.props.profile.profilePic,
-            score: this.props.profile.score,
+            profileName: this.props.profile.list.get(0).profileName,
+            profilePic: this.props.profile.list.get(0).profilePic,
+            score: this.props.profile.list.get(0).score,
             teamKeysTier1: competitorKeys.toString(),
-            teamKeysTier2: this.props.profile.teamKeysTier2
+            teamKeysTier2: this.props.profile.list.get(0).teamKeysTier2
         }
         console.log("CHANGES::", changes)
-        console.log("KEY::", this.props.profile.key)
-        this.props.updateProfile(this.props.profile.key, changes);
+        console.log("KEY::", this.props.profile.list.get(0).key)
+        this.props.updateProfile(this.props.profile.list.get(0).key, changes);
     }
 
     handleClick = (event, competitor) => {

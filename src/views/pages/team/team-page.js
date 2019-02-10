@@ -27,7 +27,7 @@ import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import toastr from 'toastr';
-import { Record, List } from 'immutable';
+import { Record } from 'immutable';
 
 export const TeamRecord = new Record({
   key: null,
@@ -213,7 +213,7 @@ class TeamPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    profile: ProfileSelector(state),
+    // profile: ProfileSelector(state),
     profile: (state.profile),
     tier1: Tier1Selector(state),
     tier2: Tier2Selector(state),

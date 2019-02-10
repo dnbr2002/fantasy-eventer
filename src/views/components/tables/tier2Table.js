@@ -101,15 +101,15 @@ class Tier2Table extends React.Component {
 
   updateTeam(competitorKeys) {
     const changes = {
-      profileName: this.props.profile.profileName,
-      profilePic: this.props.profile.profilePic,
-      score: this.props.profile.score,
-      teamKeysTier1: this.props.profile.teamKeysTier1,
+      profileName: this.props.profile.list.get(0).profileName,
+      profilePic: this.props.profile.list.get(0).profilePic,
+      score: this.props.profile.list.get(0).score,
+      teamKeysTier1: this.props.profile.list.get(0).teamKeysTier1,
       teamKeysTier2: competitorKeys.toString()
   }
   console.log("CHANGES::", changes)
   console.log("KEY::", this.props.profile.key)
-  this.props.updateProfile(this.props.profile.key, changes);
+  this.props.updateProfile(this.props.profile.list.get(0).key, changes);
   }
 
   renderChecks(team) {
