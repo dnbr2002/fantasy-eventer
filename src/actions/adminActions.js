@@ -3,8 +3,6 @@ import { Record } from 'immutable';
 import { FirebaseList } from 'src/firebase';
 import { firebaseDb } from '../firebase';
 import toastr from 'toastr';
-import { TeamSelector } from '../selectors/teamSelector';
-import _ from 'lodash';
 
 export const Competitor = new Record({
   horse: null,
@@ -197,12 +195,12 @@ export function bulkRemoveCompetitor(competitor) {
     ref.once('value').then(snapshot => {
       const users = snapshot.val();
       for (var user_id in users) {
+        // eslint-disable-next-line
         return firebaseDb.ref(`users/${user_id}/${user_id}`).once('value').then(function (snapshot) {
           var t1 = snapshot.val().teamKeysTier1.split(",")
           var t2 = snapshot.val().teamKeysTier2.split(",")
-          var team = t1.concat(t2)
-          const newTeam1 = t1.filter(tm1 => tm1 != competitor.value.key)
-          const newTeam2 = t2.filter(tm2 => tm2 != competitor.value.key)
+          const newTeam1 = t1.filter(tm1 => tm1 !== competitor.value.key)
+          const newTeam2 = t2.filter(tm2 => tm2 !== competitor.value.key)
           console.log("NEWTEAM::", newTeam1);
           var profilerec = firebaseDb.ref(`users/${user_id}/${user_id}`)
           profilerec.child('teamKeysTier1').set(newTeam1.toString());
@@ -240,11 +238,14 @@ export function bulkUpdateScores(competitors) {
     ref.once('value').then(snapshot => {
       const users = snapshot.val();
       for (var user_id in users) {
+        // eslint-disable-next-line
         return firebaseDb.ref(`users/${user_id}/${user_id}`).once('value').then(function (snapshot) {
           var t1 = snapshot.val().teamKeysTier1.split(",")
           var t2 = snapshot.val().teamKeysTier2.split(",")
           var team = t1.concat(t2)
+          // eslint-disable-next-line
           team.map(key => {
+            // eslint-disable-next-line
             competitors.map(competitor => {
               if (key === competitor.key) {
                 totalScores.push(Number(competitor.score))

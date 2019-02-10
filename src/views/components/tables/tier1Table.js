@@ -213,7 +213,7 @@ class Tier1Table extends React.Component {
 
     render() {
         const { classes } = this.props;
-        console.log("T1TPROPS::", this.props)
+        // console.log("T1TPROPS::", this.props)
         return (
             <div>
                 <Paper className={classes.root}>

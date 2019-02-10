@@ -42,14 +42,14 @@ class TeamCard extends Component {
 
 componentWillReceiveProps(nextProps) {
   if(nextProps.profile.list.get(0)) {
-    console.log("here", nextProps.profile.list.get(0))
-    if (nextProps.profile.list.get(0).profileName != this.state.profileName) {
+    // console.log("TEAMCARDCWRP::", nextProps.profile.list.get(0))
+    if (nextProps.profile.list.get(0).profileName !== this.state.profileName) {
         this.setState({ profileName: nextProps.profile.list.get(0).profileName });
     }
-    if (nextProps.profile.list.get(0).teamName != this.state.teamName) {
+    if (nextProps.profile.list.get(0).teamName !== this.state.teamName) {
         this.setState({ teamName: nextProps.profile.list.get(0).teamName });
     }
-    if (nextProps.profile.list.get(0).profilePic != this.state.profilePic) {
+    if (nextProps.profile.list.get(0).profilePic !== this.state.profilePic) {
         this.setState({ profilePic: nextProps.profile.list.get(0).profilePic });
     }
   }
@@ -57,7 +57,7 @@ componentWillReceiveProps(nextProps) {
 
   render() {
     const { classes } = this.props;
-    console.log('TEAMCARDPROPS::', this.props)
+    // console.log('TEAMCARDPROPS::', this.props)
     return (
       <Card className={classes.root}>
 

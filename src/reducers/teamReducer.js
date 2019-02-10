@@ -41,7 +41,6 @@ export function teamReducer(state = new TeamState(), { payload, type }) {
       
 
     case LOAD_TEAM_SUCCESS:
-    console.log("LOADTEAM::",payload)
       return state.set('list', new List(payload));
 
 

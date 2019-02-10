@@ -20,7 +20,7 @@ export const profileFireDB = new FirebaseList({
 }, Profile);
 
 export function createProfile(data) {
-    console.log('CREATEPROFILE::',data)
+    // console.log('CREATEPROFILE::',data)
     var profileName = data.profileName
     var teamName = data.teamName
     var profilePic = data.profilePic
@@ -36,7 +36,7 @@ export function createProfile(data) {
 }
 
 export function createProfileSuccess(data) {
-    console.log('CREATEPROFILESUSUCCESS::', data)
+    // console.log('CREATEPROFILESUSUCCESS::', data)
     return {
         type: types.CREATE_PROFILE_SUCCESS,
         payload: data,
@@ -60,7 +60,7 @@ export function loadProfile() {
   }
 
   export function loadProfileSuccess(data) {
-    console.log('LOADPROFILESUSUCCESS::', data)
+    // console.log('LOADPROFILESUSUCCESS::', data)
     return {
         type: types.LOAD_PROFILE_SUCCESS,
         payload: data,
@@ -76,7 +76,7 @@ export function loadProfileError(error) {
 }
   
   export function updateProfile(key, changes) {
-    console.log("PROFILECHANGES1::",changes);
+    // console.log("PROFILECHANGES1::",changes);
     return (dispatch, getState) => {
         const { auth } = getState();
         console.log("PROFILECHANGES2::",auth.id);
@@ -86,7 +86,7 @@ export function loadProfileError(error) {
   }
 
   export function updateProfileSuccess(profile) {
-    console.log("PROFILECHANGESSUCCESS::",profile);
+    // console.log("PROFILECHANGESSUCCESS::",profile);
     return {
       type: types.UPDATE_PROFILE_SUCCESS,
       payload: profile
@@ -94,7 +94,7 @@ export function loadProfileError(error) {
   }
 
   export function updateProfileError(error) {
-    console.log("PROFILECHANGESERROR::",error);
+    // console.log("PROFILECHANGESERROR::",error);
     return {
       type: types.UPDATE_PROFILE_ERROR,
       payload: error

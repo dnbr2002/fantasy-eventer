@@ -18,7 +18,6 @@ export function profileReducer(state = new ProfileState(), { payload, type }) {
       });
 
     case LOAD_PROFILE_SUCCESS:
-      console.log("RED---LOADPROFILE::",payload);
       return state.set('list', new List(payload.reverse()));
 
 

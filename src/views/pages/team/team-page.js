@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { TeamSelector } from '../../../selectors/teamSelector';
-import { ProfileSelector } from '../../../selectors/profileSelector';
+// import { ProfileSelector } from '../../../selectors/profileSelector';
 import { Tier1Selector } from '../../../selectors/tier1Selector';
 import { Tier2Selector } from '../../../selectors/tier2Selector';
 import { CompetitionStatusSelector } from '../../../selectors/competitionStatusSelector';
@@ -181,7 +181,7 @@ class TeamPage extends Component {
   }
 
   render() {
-    console.log("TEAMPROPS::",this.props)
+    // console.log("TEAMPROPS::",this.props)
     return (
       <div className="g-row">
         <div className="g-col">
