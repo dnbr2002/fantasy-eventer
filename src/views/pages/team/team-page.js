@@ -66,7 +66,6 @@ class TeamPage extends Component {
     this.handleToggle = this.handleToggle.bind(this)
     this.renderTeamName = this.renderTeamName.bind(this)
     this.renderDefaultTitle = this.renderDefaultTitle.bind(this)
-    this.renderTotalScore = this.renderTotalScore.bind(this)
     this.renderAddTeamName = this.renderAddTeamName.bind(this)
     this.renderEventName = this.renderEventName.bind(this)
     this.handleClickOpen = this.handleClickOpen.bind(this)
@@ -81,7 +80,6 @@ class TeamPage extends Component {
     this.props.loadTeam();
     this.props.loadTeamName();
     this.props.loadCompetition();
-    // this.renderTotalScore();
     if(this.props.compStatus === true) {
       this.setState({toggle: false})
     }
@@ -94,10 +92,6 @@ class TeamPage extends Component {
 
     if (prevProps.compStatus !== this.props.compStatus) {
       this.setState({toggle: JSON.parse(this.props.compStatus)})
-    }
-
-    if (prevProps.team !== this.props.team) {
-      this.renderTotalScore();
     }
   }
 
@@ -146,14 +140,6 @@ class TeamPage extends Component {
     }
   }
 
-  renderTotalScore() {
-    // console.log("THISTEAMPROPS:::",this.props.team)
-    var sum = this.props.team.reduce((accum, total) => {
-      return accum + Number(total.score)
-    }, 0);
-
-    this.setState({score: sum});
-  }
 
   renderDefaultTitle() {
     return <Typography variant="display2" gutterBottom>
@@ -191,7 +177,7 @@ class TeamPage extends Component {
           <br />
           <br />
           <Grid container justify="center">
-            <TeamCard {...this.props} score={this.state.score} renderAddTeamName={this.renderAddTeamName} />              
+            <TeamCard {...this.props} renderAddTeamName={this.renderAddTeamName} />              
             </Grid>
           <br />            
             <Team team={this.props.team} />

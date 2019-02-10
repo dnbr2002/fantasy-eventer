@@ -34,26 +34,30 @@ class TeamCard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        profileName: '',
-        teamName: '',
-        profilePic: '',
+      profileName: '',
+      teamName: '',
+      profilePic: '',
+      score: 0
     };
-}
+  }
 
-componentWillReceiveProps(nextProps) {
-  if(nextProps.profile.list.get(0)) {
-    // console.log("TEAMCARDCWRP::", nextProps.profile.list.get(0))
-    if (nextProps.profile.list.get(0).profileName !== this.state.profileName) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.profile.list.get(0)) {
+      // console.log("TEAMCARDCWRP::", nextProps.profile.list.get(0))
+      if (nextProps.profile.list.get(0).profileName !== this.state.profileName) {
         this.setState({ profileName: nextProps.profile.list.get(0).profileName });
-    }
-    if (nextProps.profile.list.get(0).teamName !== this.state.teamName) {
+      }
+      if (nextProps.profile.list.get(0).teamName !== this.state.teamName) {
         this.setState({ teamName: nextProps.profile.list.get(0).teamName });
-    }
-    if (nextProps.profile.list.get(0).profilePic !== this.state.profilePic) {
+      }
+      if (nextProps.profile.list.get(0).profilePic !== this.state.profilePic) {
         this.setState({ profilePic: nextProps.profile.list.get(0).profilePic });
+      }
+      if (nextProps.profile.list.get(0).score !== this.state.score) {
+        this.setState({ score: nextProps.profile.list.get(0).score });
+      }
     }
   }
-}
 
   render() {
     const { classes } = this.props;
@@ -63,9 +67,9 @@ componentWillReceiveProps(nextProps) {
 
         <Grid container spacing={16}>
           <Grid item>
-              <ButtonBase className={classes.image}>
-                <img className={classes.img} alt="complex" src={this.state.profilePic} />
-              </ButtonBase>
+            <ButtonBase className={classes.image}>
+              <img className={classes.img} alt="complex" src={this.state.profilePic} />
+            </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={16}>
@@ -79,7 +83,7 @@ componentWillReceiveProps(nextProps) {
             </Grid>
             <Grid item>
               <div>
-                <Typography variant="display1">Team Score: {this.props.score}</Typography>
+                <Typography variant="display1">Team Score: {this.state.score}</Typography>
                 <br />
                 <br />
                 <CardActions>
