@@ -36,10 +36,10 @@ export function getCompetitorList(state) {
   return state.competitors.list
 }
 
-export function getTeamFilter(state, competitors) {
+export function getTeamFilter(state) {
   console.log("TEAM3::", state)
-  const selectedTeam = competitors.filter(
-    competitor => team.some(teammate => teammate === competitor.key));
+  const selectedTeam = state.competitors.filter(
+    competitor => state.team.some(teammate => teammate === competitor.key));
   return selectedTeam
 }
 
