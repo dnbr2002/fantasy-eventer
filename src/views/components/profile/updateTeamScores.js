@@ -17,7 +17,7 @@ class UpdateScores extends Component {
 
     handleUpdate(competitors) {
         console.log("DELETE::");
-            this.props.bulkUpdateScores(competitors)
+            this.props.bulkUpdateScores(competitors, this.props)
     }
 
     render() {

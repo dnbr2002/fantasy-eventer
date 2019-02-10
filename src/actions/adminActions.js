@@ -3,6 +3,7 @@ import { Record } from 'immutable';
 import { FirebaseList } from 'src/firebase';
 import { firebaseDb } from '../firebase';
 import toastr from 'toastr';
+import { TeamSelector } from '../selectors/teamSelector';
 import _ from 'lodash';
 
 export const Competitor = new Record({
@@ -230,7 +231,8 @@ export function bulkRemoveTeams() {
   }
 }
 
-export function bulkUpdateScores(competitors) {
+export function bulkUpdateScores(competitors, state) {
+  console.log("COMPS::",state)
   var usercounter = 0;
   var matchescounter = 0;
   var teamkeys;
@@ -242,6 +244,7 @@ export function bulkUpdateScores(competitors) {
         let totalScores = [];
         usercounter++;
         teamkeys = users[user_id].team;
+        // console.log("teamKeys",team);
         const ldarrtmkeys = _.values(teamkeys)
         const compkeys = ldarrtmkeys.map(tks => {
           return tks.competitorKey;
@@ -255,14 +258,18 @@ export function bulkUpdateScores(competitors) {
           })
         })
         const sum = totalScores.reduce((total, value) => total + value, 0);
-        if (firebaseDb.ref(`users/${user_id}/profile`)) {
-          firebaseDb.ref(`users/${user_id}/profile/score`).set(sum.toString());
+        if (firebaseDb.ref(`users/${user_id}`)) {
+          firebaseDb.ref(`users/${user_id}/${user_id}/score`).set(sum.toString());
         }
       }
       toastr.success("Users Found --" + usercounter + ".  Team Matches -- " + matchescounter);
     });
   }
 }
+
+
+
+
 
 
 
