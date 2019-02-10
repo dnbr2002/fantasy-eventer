@@ -166,53 +166,54 @@ export function removeCompetitorError(error) {
   };
 }
 
-export function bulkRemoveCompetitors(competitors) {
-  return dispatch => {
-    var teamcounter = 0;
-    var compcounter = 0
-    const ref = firebaseDb.ref('users');
-    ref.once('value').then(snapshot => {
-      const users = snapshot.val();
-      for (var user_id in users) {
-        const team = users[user_id].team;
-        for (var tm_id in team) {
-          teamcounter++
-          // eslint-disable-next-line
-          if (competitors.some(comp => comp.key === team[tm_id].competitorKey)) {
-            compcounter++
-            firebaseDb.ref(`users/${user_id}/team/${tm_id}`)
-              .set(null);
-          }
-        }
-      }
-      toastr.success("Checked " + teamcounter + " teams.  Found and removed " + compcounter + " matches.");
-    });
-  }
-}
+// export function bulkRemoveCompetitors(competitors) {
+//   return dispatch => {
+//     var teamcounter = 0;
+//     var compcounter = 0
+//     const ref = firebaseDb.ref('users');
+//     ref.once('value').then(snapshot => {
+//       const users = snapshot.val();
+//       for (var user_id in users) {
+//         const team = users[user_id].team;
+//         for (var tm_id in team) {
+//           teamcounter++
+//           // eslint-disable-next-line
+//           if (competitors.some(comp => comp.key === team[tm_id].competitorKey)) {
+//             compcounter++
+//             firebaseDb.ref(`users/${user_id}/team/${tm_id}`)
+//               .set(null);
+//           }
+//         }
+//       }
+//       toastr.success("Checked " + teamcounter + " teams.  Found and removed " + compcounter + " matches.");
+//     });
+//   }
+// }
 
 export function bulkRemoveCompetitor(competitor) {
   return dispatch => {
     var teamcounter = 0;
-    var compcounter = 0
     const ref = firebaseDb.ref('users');
     ref.once('value').then(snapshot => {
       const users = snapshot.val();
       for (var user_id in users) {
-        const team = users[user_id].team;
-        for (var tm_id in team) {
-          teamcounter++
-          // eslint-disable-next-line
-          if (competitor.value.key === team[tm_id].competitorKey) {
-            compcounter++
-            firebaseDb.ref(`users/${user_id}/team/${tm_id}`)
-              .set(null);
-          }
-        }
-      }
-      toastr.success("Checked " + teamcounter + " teams.  Found and removed " + compcounter + " matches.");
+        return firebaseDb.ref(`users/${user_id}/${user_id}`).once('value').then(function (snapshot) {
+          var t1 = snapshot.val().teamKeysTier1.split(",")
+          var t2 = snapshot.val().teamKeysTier2.split(",")
+          var team = t1.concat(t2)
+          const newTeam1 = t1.filter(tm1 => tm1 != competitor.value.key)
+          const newTeam2 = t2.filter(tm2 => tm2 != competitor.value.key)
+          console.log("NEWTEAM::", newTeam1);
+          var profilerec = firebaseDb.ref(`users/${user_id}/${user_id}`)
+          profilerec.child('teamKeysTier1').set(newTeam1.toString());
+          profilerec.child('teamKeysTier2').set(newTeam2.toString());
+         })        
+      };
+      toastr.success("Checked " + teamcounter + " teams.");
     });
   }
 }
+
 
 export function bulkRemoveTeams() {
   return dispatch => {
@@ -223,47 +224,39 @@ export function bulkRemoveTeams() {
       for (var user_id in users) {
         counter++
         console.log("count::", counter)
-        firebaseDb.ref(`users/${user_id}/team`)
-          .set(null);
+        var profilerec = firebaseDb.ref(`users/${user_id}/${user_id}`)
+        profilerec.child('teamKeysTier1').set('PH');
+        profilerec.child('teamKeysTier2').set('PH');
       }
       toastr.success("Removed " + counter + " teams");
     })
   }
 }
 
-export function bulkUpdateScores(competitors, state) {
-  console.log("COMPS::",state)
-  var usercounter = 0;
-  var matchescounter = 0;
-  var teamkeys;
+export function bulkUpdateScores(competitors) {
+  let totalScores = []
   return dispatch => {
     const ref = firebaseDb.ref('users');
     ref.once('value').then(snapshot => {
       const users = snapshot.val();
       for (var user_id in users) {
-        let totalScores = [];
-        usercounter++;
-        teamkeys = users[user_id].team;
-        // console.log("teamKeys",team);
-        const ldarrtmkeys = _.values(teamkeys)
-        const compkeys = ldarrtmkeys.map(tks => {
-          return tks.competitorKey;
-        })
-        compkeys.map(tmcompkey => {
-          competitors.map(competitor => {
-            if (tmcompkey === competitor.key) {
-              matchescounter++
-              totalScores.push(Number(competitor.score))
-            }
+        return firebaseDb.ref(`users/${user_id}/${user_id}`).once('value').then(function (snapshot) {
+          var t1 = snapshot.val().teamKeysTier1.split(",")
+          var t2 = snapshot.val().teamKeysTier2.split(",")
+          var team = t1.concat(t2)
+          team.map(key => {
+            competitors.map(competitor => {
+              if (key === competitor.key) {
+                totalScores.push(Number(competitor.score))
+              }
+            })
           })
-        })
-        const sum = totalScores.reduce((total, value) => total + value, 0);
-        if (firebaseDb.ref(`users/${user_id}`)) {
+          const sum = totalScores.reduce((total, value) => total + value, 0);
           firebaseDb.ref(`users/${user_id}/${user_id}/score`).set(sum.toString());
-        }
+          toastr.success("Users Scores Updated");
+        })
       }
-      toastr.success("Users Found --" + usercounter + ".  Team Matches -- " + matchescounter);
-    });
+    })
   }
 }
 
