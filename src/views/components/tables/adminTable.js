@@ -318,8 +318,6 @@ AdminTable.propTypes = {
     updateCompetitor: PropTypes.func.isRequired,
     removeCompetitor: PropTypes.func.isRequired,
     bulkRemoveCompetitor: PropTypes.func.isRequired,
-    bulkRemoveCompetitors: PropTypes.func.isRequired,
-    bulkUpdateScores: PropTypes.func.isRequired
 };
 
 
