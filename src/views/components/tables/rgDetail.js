@@ -93,7 +93,7 @@ export default class Demo extends React.PureComponent {
     render() {
         const { rows, columns, expandedRowIds } = this.state;
         // console.log("expandedrowid::", expandedRowIds)
-
+        console.log("TABLEPROPS::",this.props)
         return (
             <Paper>
                 <Grid

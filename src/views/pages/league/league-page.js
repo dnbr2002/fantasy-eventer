@@ -38,13 +38,13 @@ class LeaguePage extends Component {
             <div className="g-row">
                 <div className="g-col">
                 <h1>LeaguePage</h1>
-                <LeagueTable {...this.props} />
+                {/* <LeagueTable {...this.props} /> */}
                 <br />
                 <br />
                 <RgDetail {...this.props}  />
                 <br />
                 <br />
-                <RgTable />
+                {/* <RgTable /> */}
                 <br />
                 <br />
                 <br />
@@ -57,7 +57,7 @@ class LeaguePage extends Component {
 const mapStateToProps = (state, ownProps) => {
     console.log("MYSTATE::",state)
     return {
-        league: LeagueSelector(state),
+        league: state.league,
     }
   }
   

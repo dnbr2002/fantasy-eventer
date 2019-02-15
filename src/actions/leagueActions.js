@@ -13,7 +13,7 @@ export function loadLeague() {
   console.log("LOADLEAGUE::");
   return dispatch => {
     leagueFireDB.path = `users/`;
-    leagueFireDB.subscribeOnceKv(dispatch);
+    leagueFireDB.subscribe(dispatch);
   };
 }
 

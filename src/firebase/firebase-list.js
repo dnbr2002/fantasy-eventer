@@ -106,7 +106,9 @@ export class FirebaseList {
   subscribeOnce(emit) {
     let ref = firebaseDb.ref(this._path);
     console.log("REF::",ref)
+    // eslint-disable-next-line
     let initialized = false;
+    // eslint-disable-next-line
     let list = [];
     console.log("ACTIONS::",this._actions)
    
