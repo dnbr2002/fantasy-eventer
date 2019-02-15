@@ -2,10 +2,13 @@ import { createSelector } from 'reselect';
 import { Record, Map } from 'immutable';
 
 // var ProfileRecord = Record({
+//   key: null,
 //   profileName: '',
 //   profilePic: '',
-//   teamName: '',
-//   score: ''
+//   score: '',
+//   teamKeysTier1: '',
+//   teamKeysTier2: '',
+//   teamName: ''
 // });
 
 // var teamRecord = Record({
@@ -19,24 +22,31 @@ import { Record, Map } from 'immutable';
 // }
 
 // export function getLeague(state) {
-//   console.log("STATELEAGEVALUE::",state.league.teams)
-//   return state
+//   if (state.league) {
+//     console.log("STATELEAGEVALUE::", state.league)
+//     return state
+//   }
 // }
 
 // export function getLeagueList(state) {
-//   return Map(state.league.teams).map(x => new User(x));
+//   return Map(state.league.list).map(x => new User(x));
 // }
 
 export function getLeague(state) {
-  console.log("LSELECT::",state);
-  return state;
+  if (state) {
+    console.log("LSELECT::", state);
+    return state;
+  }
 }
 
 export function getLeagueList(state) {
-  // console.log("SELECTA_List::",state)
-
-  return getLeague(state).list;
+  if (getLeague(state).league.list.size > 0) {
+    console.log("SELECTA_List::", state)
+    return getLeague(state).list;
+  }
 }
+
+
 
 
 //=====================================
@@ -45,5 +55,5 @@ export function getLeagueList(state) {
 
 export const LeagueSelector = createSelector(
   getLeague,
-  // getLeagueList,
+  getLeagueList,
 );
