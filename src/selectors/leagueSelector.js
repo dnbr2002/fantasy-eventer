@@ -12,7 +12,6 @@ import { Record, Map } from 'immutable';
 // });
 
 // var teamRecord = Record({
-//   competitorKey: ''
 // });
 
 // class User extends Record({ 'profile': new ProfileRecord(), 'team': Map() }) {
@@ -28,9 +27,6 @@ import { Record, Map } from 'immutable';
 //   }
 // }
 
-// export function getLeagueList(state) {
-//   return Map(state.league.list).map(x => new User(x));
-// }
 
 export function getLeague(state) {
   if (state) {
@@ -39,11 +35,22 @@ export function getLeague(state) {
   }
 }
 
+// export function getLeagueList(state) {
+//   console.log("XX::", state.league.list);
+//   var thing = Map(state.league.list).map(x =>  
+//     console.log("XXX::", x)
+//     // new User(x)
+//     );
+//   console.log("THING::",thing)
+//   return thing;
+// }
+
 export function getLeagueList(state) {
-  if (getLeague(state).league.list.size > 0) {
-    console.log("SELECTA_List::", state)
-    return getLeague(state).list;
-  }
+
+  getLeague(state).league.forEach(ss => {
+    var data = []
+    console.log("DATA::",data.push(ss.child('name').val()));
+  });
 }
 
 

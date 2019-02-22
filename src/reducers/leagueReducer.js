@@ -4,15 +4,19 @@ import {
     // LOAD_LEAGUE_ERROR,
 } from '../actions/actionTypes';
 
-export const LeagueState = new Record({
-    list: new List()
-})
+// export const LeagueState = new Record({
+//     list: new List()
+// })
+var is = {
+    league: []
+}
 
-export function leagueReducer(state = new LeagueState(), {payload, type}) {
+export function leagueReducer(state = is.league, {payload, type}) {
     switch (type) {
         case LOAD_LEAGUE_SUCCESS:
         console.log("REDPAYLOAD::",payload)
-        return state.set('list', new List(payload));
+        return payload
+        // return state.set('list', new List(payload));
                 
         default:
             return state;

@@ -1,6 +1,5 @@
 import { firebaseDb } from './firebase';
 
-
 export class FirebaseList {
   constructor(actions, modelClass, path = null) {
     this._actions = actions;

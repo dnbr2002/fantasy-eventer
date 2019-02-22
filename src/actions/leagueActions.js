@@ -1,20 +1,36 @@
 import * as types from './actionTypes';
-import { Record } from 'immutable'; //, Map, List 
+import { Record, List, Map, fromJS } from 'immutable'; //, Map, List 
 import { FirebaseList } from 'src/firebase';
+import { firebaseDb } from '../firebase';
 
-export const League = new Record({
-})
+// export const League = new Record({
+//   Users: new Map()
+// })
 
-export const leagueFireDB = new FirebaseList({
-  onLoad: loadLeagueSuccess,
-},League);
+// export const leagueFireDB = new FirebaseList({
+//   onLoad: loadLeagueSuccess,
+// }, League);
+
+// export function loadLeague() {
+//   console.log("LOADLEAGUE::");
+//   return dispatch => {
+//     leagueFireDB.path = `users/`;
+//     leagueFireDB.subscribe(dispatch);
+//   };
+// }
 
 export function loadLeague() {
-  console.log("LOADLEAGUE::");
+  const ref = firebaseDb.ref('users');
   return dispatch => {
-    leagueFireDB.path = `users/`;
-    leagueFireDB.subscribe(dispatch);
-  };
+    ref.once('value').then(snapshot => {
+      return snapshot
+    }).then(snapshot => snapshot.val())
+      .then(snapshot => {
+        dispatch(loadLeagueSuccess(snapshot));
+      }).catch((error) => {
+        dispatch(loadLeagueError(error));
+      })
+  }
 }
 
 
@@ -33,3 +49,5 @@ export function loadLeagueError(error) {
     payload: error
   };
 }
+
+
