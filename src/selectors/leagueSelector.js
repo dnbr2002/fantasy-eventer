@@ -46,11 +46,10 @@ export function getLeague(state) {
 // }
 
 export function getLeagueList(state) {
-
-  getLeague(state).league.forEach(ss => {
-    var data = []
-    console.log("DATA::",data.push(ss.child('name').val()));
-  });
+  // getLeague(state).league.forEach(ss => {
+  //   var data = []
+  //   console.log("DATA::",data.push(ss.child('name').val()));
+  // });
 }
 
 
