@@ -44,7 +44,16 @@ export function getLeague(state) {
 //   console.log("THING::",thing)
 //   return thing;
 // }
+export function getSortedLeague(state) {
+  if (state.league.length > 0) {
+    var sorted = state.league.sort((a, b) => parseFloat(a.VpZzuZcf1ENLCm1muzGHgPzvEtQ2.score) - parseFloat(b.FIXBObMxXoOzFE7hsb4wHl8esfe2.score)
+    // console.log("ASORT::",a.VpZzuZcf1ENLCm1muzGHgPzvEtQ2.score) + console.log("BSORT::",b.FIXBObMxXoOzFE7hsb4wHl8esfe2.score)
 
+    )
+    console.log("LSELECT2::", sorted);
+  }
+
+}
 export function getLeagueList(state) {
   // getLeague(state).league.forEach(ss => {
   //   var data = []
@@ -61,5 +70,6 @@ export function getLeagueList(state) {
 
 export const LeagueSelector = createSelector(
   getLeague,
-  getLeagueList,
+  getSortedLeague
+  // getLeagueList,
 );
