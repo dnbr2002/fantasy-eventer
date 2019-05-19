@@ -25,9 +25,13 @@ export function getSortedLeague(state) {
   console.log("TRANSFORM4::", data);
   return data;
 }
-export function getLeagueList(state) {
+export function getLeagueList(state) {  
   const ll = List.of(data);
   console.log("LL::",ll);
+  ll.sort(
+    (a,b) => parseFloat(a.get('score')) - parseFloat(b.get('score'))
+  )
+  console.log("LL2::",ll);
   return ll;
 }
 
