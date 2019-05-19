@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 import AddLocation from '@material-ui/icons/AddLocation';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';

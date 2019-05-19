@@ -11,8 +11,8 @@ import history from './history';
 import configureStore from './store';
 import registerServiceWorker from './utils/register-service-worker';
 import App from './views/app';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { createMuiTheme } from 'material-ui/styles';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {

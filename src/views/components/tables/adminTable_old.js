@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory from 'react-bootstrap-table2-editor';
-import Avatar from 'material-ui/Avatar';
+import Avatar from '@material-ui/core/Avatar';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 var compKey

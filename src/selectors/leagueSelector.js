@@ -1,32 +1,9 @@
 import { createSelector } from 'reselect';
-import { Record, Map } from 'immutable';
+import { Record, Map, fromJS, List } from 'immutable';
+import { from } from 'rxjs';
+import _ from 'lodash';
 
-// var ProfileRecord = Record({
-//   key: null,
-//   profileName: '',
-//   profilePic: '',
-//   score: '',
-//   teamKeysTier1: '',
-//   teamKeysTier2: '',
-//   teamName: ''
-// });
-
-// var teamRecord = Record({
-// });
-
-// class User extends Record({ 'profile': new ProfileRecord(), 'team': Map() }) {
-//   constructor({ profile, team } = {}) {
-//     super({ team: Map(team).map(x => new teamRecord(x)), profile: new ProfileRecord(profile) })
-//   }
-// }
-
-// export function getLeague(state) {
-//   if (state.league) {
-//     console.log("STATELEAGEVALUE::", state.league)
-//     return state
-//   }
-// }
-
+const data = [];
 
 export function getLeague(state) {
   if (state) {
@@ -35,30 +12,23 @@ export function getLeague(state) {
   }
 }
 
-// export function getLeagueList(state) {
-//   console.log("XX::", state.league.list);
-//   var thing = Map(state.league.list).map(x =>  
-//     console.log("XXX::", x)
-//     // new User(x)
-//     );
-//   console.log("THING::",thing)
-//   return thing;
-// }
+function transform(UserRecord)
+{
+  const outerObj = UserRecord[Object.keys(UserRecord)[0]];
+  const item = outerObj[Object.keys(outerObj)[0]];
+  data.push(outerObj);
+}
+
 export function getSortedLeague(state) {
-  if (state.league.length > 0) {
-    var sorted = state.league.sort((a, b) => parseFloat(a.VpZzuZcf1ENLCm1muzGHgPzvEtQ2.score) - parseFloat(b.FIXBObMxXoOzFE7hsb4wHl8esfe2.score)
-    // console.log("ASORT::",a.VpZzuZcf1ENLCm1muzGHgPzvEtQ2.score) + console.log("BSORT::",b.FIXBObMxXoOzFE7hsb4wHl8esfe2.score)
-
-    )
-    console.log("LSELECT2::", sorted);
-  }
-
+  var league2 = from(state.league)
+  var subscribeLeague = league2.subscribe(val => transform(val));
+  console.log("TRANSFORM4::", data);
+  return data;
 }
 export function getLeagueList(state) {
-  // getLeague(state).league.forEach(ss => {
-  //   var data = []
-  //   console.log("DATA::",data.push(ss.child('name').val()));
-  // });
+  const ll = List.of(data);
+  console.log("LL::",ll);
+  return ll;
 }
 
 
@@ -70,6 +40,6 @@ export function getLeagueList(state) {
 
 export const LeagueSelector = createSelector(
   getLeague,
-  getSortedLeague
-  // getLeagueList,
+  getSortedLeague,
+  getLeagueList,
 );

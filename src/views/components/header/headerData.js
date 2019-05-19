@@ -1,5 +1,5 @@
 import React from 'react';
-import {ListItem, ListItemIcon, ListItemText} from 'material-ui';
+import {ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ProfileIcon from '@material-ui/icons/AccountCircle'
 import TeamIcon from '@material-ui/icons/List';
