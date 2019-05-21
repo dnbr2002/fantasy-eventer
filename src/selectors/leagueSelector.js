@@ -4,6 +4,9 @@ import { from } from 'rxjs';
 import _ from 'lodash';
 
 const data = [];
+const lData = [];
+var list;
+var l2Data = [];
 
 export function getLeague(state) {
   if (state) {
@@ -15,23 +18,27 @@ export function getLeague(state) {
 function transform(UserRecord)
 {
   const outerObj = UserRecord[Object.keys(UserRecord)[0]];
-  const item = outerObj[Object.keys(outerObj)[0]];
+  list.push(outerObj);
+  console.log("LODASH::",list);
   data.push(outerObj);
 }
 
 export function getSortedLeague(state) {
   var league2 = from(state.league)
+  list = new List();
   var subscribeLeague = league2.subscribe(val => transform(val));
   console.log("TRANSFORM4::", data);
+  console.log("LODASH2::",list);
   return data;
 }
 export function getLeagueList(state) {  
   const ll = List.of(data);
   console.log("LL::",ll);
-  ll.sort(
-    (a,b) => parseFloat(a.get('score')) - parseFloat(b.get('score'))
-  )
-  console.log("LL2::",ll);
+  // console.log("2".localeCompare("10", undefined, {numeric: true}));
+  // console.log("10".localeCompare("2", undefined, {numeric: true}));
+  
+  console.log("ll2::",ll.sort((a,b) => (a.get('score')).localCompare(b.get('score'), undefined, {numeric: true})));
+  // console.log("LL2::",sortledll);
   return ll;
 }
 
