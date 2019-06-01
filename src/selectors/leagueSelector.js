@@ -5,8 +5,12 @@ import _ from 'lodash';
 
 const data = [];
 const lData = [];
-var list;
+var list = new List([]);
 var l2Data = [];
+
+const initialState = fromJS({});
+const state = initialState.set(List()); 
+var updatedList
 
 export function getLeague(state) {
   if (state) {
@@ -18,14 +22,14 @@ export function getLeague(state) {
 function transform(UserRecord)
 {
   const outerObj = UserRecord[Object.keys(UserRecord)[0]];
-  list.push(outerObj);
-  console.log("LODASH::",list);
+  updatedList = state.update('myList', myList => myList.push(outerObj));
+  console.log("LIST1::",updatedList);
   data.push(outerObj);
+  console.log("LIST2::",data);
 }
 
 export function getSortedLeague(state) {
   var league2 = from(state.league)
-  list = new List();
   var subscribeLeague = league2.subscribe(val => transform(val));
   console.log("TRANSFORM4::", data);
   console.log("LODASH2::",list);
