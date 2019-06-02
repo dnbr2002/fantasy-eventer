@@ -57,7 +57,7 @@ class LeaguePage extends Component {
 const mapStateToProps = (state, ownProps) => {
     console.log("MYSTATE::",state)
     return {
-        league: LeagueSelector(state),
+        league: state.league,
     }
   }
   

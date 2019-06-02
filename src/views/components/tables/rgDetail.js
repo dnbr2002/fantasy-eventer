@@ -41,6 +41,13 @@ const data = [{
     dueDate: 'later',
     priority: 'high',
     status: 'incomplete'
+},
+{
+    subject: 'mark',
+    startDate: 'now',
+    dueDate: 'later',
+    priority: 'high',
+    status: 'incomplete'
 }]
 
 
@@ -80,20 +87,24 @@ export default class Demo extends React.PureComponent {
         this.state = {
             columns: [
                 { name: '', title: 'Rank' },
-                { name: 'pic', title: 'Pic' },
-                { name: 'teamName', title: 'Tean' },
-                { name: 'ProfilePic', title: 'Owner' },
+                { 
+                    name: 'profileName', 
+                    title: 'Name',
+                    getCellValue: row => (row.profileName ? row.user.profileName : undefined)    
+                },
+                { name: 'teamName', title: 'Team' },
+                { name: 'ProfilePic', title: 'Avatar' },
                 { name: 'score', title: 'Score' },
 
             ],
-            rows: generateRows({ length: 8 }),
+            rows: this.props.league,
         };
     }
 
     render() {
         const { rows, columns, expandedRowIds } = this.state;
         // console.log("expandedrowid::", expandedRowIds)
-        console.log("TABLEPROPS::",this.props)
+        console.log("TABLEPROPS::",this.state)
         return (
             <Paper>
                 <Grid

@@ -29,8 +29,9 @@ export function createProfile(data) {
     var score = 0
     return (dispatch, getState) => {
         const { auth } = getState();
-            // profileFireDB.path=`users/${auth.id}/`;
-            profileFireDB.set(auth.id,{ profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score })
+        const key = auth.id
+            console.log("AUTHID::",key);
+            profileFireDB.set(key,{ profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, key })
             .catch(error => dispatch(createProfileError(error)));
     };
 }
