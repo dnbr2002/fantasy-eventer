@@ -8,8 +8,9 @@ import {
     TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
 import { withStyles } from '@material-ui/core/styles';
+import _ from 'lodash';
+import Avatar from '@material-ui/core/Avatar';
 
-import { generateRows } from './generator';
 
 const styles = theme => ({
     detailContainer: {
@@ -50,6 +51,16 @@ const data = [{
     status: 'incomplete'
 }]
 
+// const useStyles = makeStyles({
+//     avatar: {
+//       margin: 10,
+//     },
+//     bigAvatar: {
+//       margin: 10,
+//       width: 60,
+//       height: 60,
+//     },
+//   });
 
 let RowDetailBase = ({ row, classes }) => (
     <div className={classes.detailContainer}>
@@ -76,9 +87,20 @@ let RowDetailBase = ({ row, classes }) => (
 
 const RowDetail = withStyles(styles)(RowDetailBase);
 
-// class RowDetail extends React.Component {
+const TeamAvatar = ({value, style, ...restProps }) => (
+    <Table.Cell>
+    <Avatar alt="Remy Sharp" src={value}  />
+  </Table.Cell>
+);
 
-// }
+
+const Cell = (props) => {
+    const { column } = props;
+    if (column.name === 'profilePic') {
+      return <TeamAvatar {...props} />;
+    }
+    return <Table.Cell {...props} />;
+  };
 
 export default class Demo extends React.PureComponent {
     constructor(props) {
@@ -87,23 +109,19 @@ export default class Demo extends React.PureComponent {
         this.state = {
             columns: [
                 { name: '', title: 'Rank' },
-                { 
-                    name: 'profileName', 
-                    title: 'Name',
-                    getCellValue: row => (row.profileName ? row.user.profileName : undefined)    
-                },
+                { name: 'profileName', title: 'profileName' },
                 { name: 'teamName', title: 'Team' },
-                { name: 'ProfilePic', title: 'Avatar' },
+                { name: 'profilePic', title: 'Avatar' },
                 { name: 'score', title: 'Score' },
 
             ],
-            rows: this.props.league,
+            rows: this.props.league
         };
     }
 
     render() {
         const { rows, columns, expandedRowIds } = this.state;
-        // console.log("expandedrowid::", expandedRowIds)
+        console.log("expandedrowid::");
         console.log("TABLEPROPS::",this.state)
         return (
             <Paper>
@@ -115,7 +133,9 @@ export default class Demo extends React.PureComponent {
                         expandedRowIds={expandedRowIds}
                         onExpandedRowIdsChange={this.changeExpandedDetails}
                     />
-                    <Table />
+                    <Table 
+                        cellComponent={Cell}
+                    />
                     <TableHeaderRow />
                     <TableRowDetail
                         contentComponent={RowDetail}

@@ -29,9 +29,9 @@ export function createProfile(data) {
     var score = 0
     return (dispatch, getState) => {
         const { auth } = getState();
-        const key = auth.id
-            console.log("AUTHID::",key);
-            profileFireDB.set(key,{ profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, key })
+        const uid = auth.id
+            console.log("AUTHID::",uid);
+            profileFireDB.push({ profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, uid })
             .catch(error => dispatch(createProfileError(error)));
     };
 }
@@ -52,7 +52,7 @@ export function createProfileError(error) {
     }
 }
 
-export function loadProfile() {
+export function loadProfile(key) {
     return (dispatch, getState) => {
        const { auth } = getState();
        profileFireDB.path = `users/${auth.id}`;
