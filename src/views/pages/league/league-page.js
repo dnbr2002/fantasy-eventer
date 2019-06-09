@@ -20,13 +20,12 @@ class LeaguePage extends Component {
         };
     }
 
-    // shouldComponentUpdate(nextProps) {
-    //     console.log("UPDATE1::",this.props.league + "---" +nextProps.league)
-    //       if (this.props.league != nextProps.league) {
-    //           console.log("UPDATE2::",this.props.league + "---" +nextProps.league)
-    //         this.setState({shouldUpdate: true});
-    //       }
-    //   }
+    shouldComponentUpdate(nextProps) {
+          if (this.props != nextProps) {
+            this.setState({shouldUpdate: true});
+          }
+          
+      }
 
     componentWillMount() {
         this.props.loadLeague();

@@ -31,7 +31,7 @@ export function createProfile(data) {
         const { auth } = getState();
         const uid = auth.id
             console.log("AUTHID::",uid);
-            profileFireDB.push({ profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, uid })
+            profileFireDB.set(uid,{ profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, uid })
             .catch(error => dispatch(createProfileError(error)));
     };
 }

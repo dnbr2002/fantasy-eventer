@@ -105,19 +105,25 @@ const Cell = (props) => {
 export default class Demo extends React.PureComponent {
     constructor(props) {
         super(props);
-
         this.state = {
-            columns: [
-                { name: '', title: 'Rank' },
-                { name: 'profileName', title: 'profileName' },
-                { name: 'teamName', title: 'Team' },
+            shouldUpdate: false,
+            columns: [  
+                { name: 'profileName', title: 'profileName' },              
                 { name: 'profilePic', title: 'Avatar' },
                 { name: 'score', title: 'Score' },
-
+                { name: 'teamName', title: 'Team' },                   
+                { name: '', title: 'Rank' }
             ],
             rows: this.props.league
         };
     }
+
+    shouldComponentUpdate(nextProps) {
+        if (this.props != nextProps) {
+          this.setState({shouldUpdate: true});
+        }
+    }
+
 
     render() {
         const { rows, columns, expandedRowIds } = this.state;
