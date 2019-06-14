@@ -20,13 +20,12 @@ class LeaguePage extends Component {
         };
     }
 
-    // shouldComponentUpdate(nextProps) {
-    //     console.log("UPDATE1::",this.props.league + "---" +nextProps.league)
-    //       if (this.props.league != nextProps.league) {
-    //           console.log("UPDATE2::",this.props.league + "---" +nextProps.league)
-    //         this.setState({shouldUpdate: true});
-    //       }
-    //   }
+    shouldComponentUpdate(nextProps) {
+          if (this.props != nextProps) {
+            this.setState({shouldUpdate: true});
+          }
+          
+      }
 
     componentWillMount() {
         this.props.loadLeague();
@@ -38,13 +37,13 @@ class LeaguePage extends Component {
             <div className="g-row">
                 <div className="g-col">
                 <h1>LeaguePage</h1>
-                <LeagueTable {...this.props} />
+                {/* <LeagueTable {...this.props} /> */}
                 <br />
                 <br />
                 <RgDetail {...this.props}  />
                 <br />
                 <br />
-                <RgTable />
+                {/* <RgTable /> */}
                 <br />
                 <br />
                 <br />

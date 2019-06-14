@@ -1,31 +1,40 @@
 import { createSelector } from 'reselect';
-import { Record, Map } from 'immutable';
+import _ from 'lodash';
 
-var ProfileRecord = Record({
-  profileName: '',
-  profilePic: '',
-  teamName: '',
-  score: ''
-});
+var data = [];
+var ldata = [];
 
-var teamRecord = Record({
-  competitorKey: ''
-});
-
-class User extends Record({ 'profile': new ProfileRecord(), 'team': Map() }) {
-  constructor({ profile, team } = {}) {
-    super({ team: Map(team).map(x => new teamRecord(x)), profile: new ProfileRecord(profile) })
+export function getLeague(state) {
+  if (state.league) {
+    console.log("LSELECT::", state.league);
+    return state.league;
   }
 }
 
-export function getLeague(state) {
-  console.log("STATELEAGEVALUE::",state.league.teams)
-  return state
+function transform(UserRecord)
+{
+  const outerObj = UserRecord[Object.keys(UserRecord)[0]];
+  data.push(outerObj);
+  return data  
 }
 
-export function getLeagueList(state) {
-  return Map(state.league.teams).map(x => new User(x));
+export function getSortedLeague(state) {
+  if (state.length > 1) {
+    console.log("LSELECT5::", state)
+    state.map(x => transform(x));
+  console.log("LSELECT2::",data);
+  return data;
 }
+else 
+return data;
+
+}
+export function getLeagueList(state) {  
+
+}
+
+
+
 
 //=====================================
 //  MEMOIZED SELECTORS
@@ -33,5 +42,6 @@ export function getLeagueList(state) {
 
 export const LeagueSelector = createSelector(
   getLeague,
-  getLeagueList,
+  getSortedLeague
+  // getLeagueList,
 );

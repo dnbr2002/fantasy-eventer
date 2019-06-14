@@ -1,15 +1,22 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { RowDetailState } from '@devexpress/dx-react-grid';
+import {
+    RowDetailState,
+    PagingState,
+    IntegratedPaging,
+} from '@devexpress/dx-react-grid';
 import {
     Grid,
     Table,
     TableHeaderRow,
     TableRowDetail,
+    PagingPanel
 } from '@devexpress/dx-react-grid-material-ui';
-import { withStyles } from '@material-ui/core/styles';
 
-import { generateRows } from './generator';
+import { withStyles } from '@material-ui/core/styles';
+import _ from 'lodash';
+import Avatar from '@material-ui/core/Avatar';
+
 
 const styles = theme => ({
     detailContainer: {
@@ -41,8 +48,25 @@ const data = [{
     dueDate: 'later',
     priority: 'high',
     status: 'incomplete'
+},
+{
+    subject: 'mark',
+    startDate: 'now',
+    dueDate: 'later',
+    priority: 'high',
+    status: 'incomplete'
 }]
 
+// const useStyles = makeStyles({
+//     avatar: {
+//       margin: 10,
+//     },
+//     bigAvatar: {
+//       margin: 10,
+//       width: 60,
+//       height: 60,
+//     },
+//   });
 
 let RowDetailBase = ({ row, classes }) => (
     <div className={classes.detailContainer}>
@@ -69,47 +93,75 @@ let RowDetailBase = ({ row, classes }) => (
 
 const RowDetail = withStyles(styles)(RowDetailBase);
 
-// class RowDetail extends React.Component {
+const TeamAvatar = ({ value, style, ...restProps }) => (
+    <Table.Cell>
+        <Avatar alt="Remy Sharp" src={value} />
+    </Table.Cell>
+);
 
-// }
+
+const Cell = (props) => {
+    const { column } = props;
+    if (column.name === 'profilePic') {
+        return <TeamAvatar {...props} />;
+    }
+    return <Table.Cell {...props} />;
+};
 
 export default class Demo extends React.PureComponent {
     constructor(props) {
         super(props);
-
         this.state = {
+            shouldUpdate: false,
             columns: [
-                { name: '', title: 'Rank' },
-                { name: 'pic', title: 'Pic' },
-                { name: 'teamName', title: 'Tean' },
-                { name: 'ProfilePic', title: 'Owner' },
+                { name: 'teamName', title: 'Team' },
+                { name: 'profilePic', title: 'Avatar' },
                 { name: 'score', title: 'Score' },
-
+                { name: 'profileName', title: 'profileName' },
+                { name: '', title: 'Rank' }
             ],
-            rows: generateRows({ length: 8 }),
+            rows: this.props.league,
+            pageSizes: [5, 10, 15]
         };
     }
 
-    render() {
-        const { rows, columns, expandedRowIds } = this.state;
-        // console.log("expandedrowid::", expandedRowIds)
+    shouldComponentUpdate(nextProps) {
+        if (this.props != nextProps) {
+            this.setState({ shouldUpdate: true });
+        }
+    }
 
+
+    render() {
+        const { rows, columns, expandedRowIds, pageSizes } = this.state;
+        console.log("expandedrowid::");
+
+        console.log("TABLEPROPS::", this.state)
         return (
             <Paper>
                 <Grid
                     rows={rows}
                     columns={columns}
                 >
+                    <PagingState
+                        defaultCurrentPage={0}
+                        pageSize={5}
+                    />
                     <RowDetailState
                         expandedRowIds={expandedRowIds}
                         onExpandedRowIdsChange={this.changeExpandedDetails}
                     />
-                    <Table />
+
+                    <IntegratedPaging />
+                    <Table
+                        cellComponent={Cell}
+                    />
                     <TableHeaderRow />
                     <TableRowDetail
                         contentComponent={RowDetail}
                     />
                 </Grid>
+                {/* <PagingPanel /> */}
             </Paper>
         );
     }

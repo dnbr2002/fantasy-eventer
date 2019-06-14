@@ -3,6 +3,7 @@ import { Record } from 'immutable';
 import { FirebaseList } from 'src/firebase';
 import { firebaseDb } from '../firebase';
 import toastr from 'toastr';
+import _ from 'lodash';
 
 export const Competitor = new Record({
   horse: null,
@@ -205,7 +206,7 @@ export function bulkRemoveCompetitor(competitor) {
           var profilerec = firebaseDb.ref(`users/${user_id}/${user_id}`)
           profilerec.child('teamKeysTier1').set(newTeam1.toString());
           profilerec.child('teamKeysTier2').set(newTeam2.toString());
-         })        
+        })
       };
       toastr.success("Checked " + teamcounter + " teams.");
     });
@@ -232,34 +233,45 @@ export function bulkRemoveTeams() {
 }
 
 export function bulkUpdateScores(competitors) {
-  let totalScores = []
   return dispatch => {
     const ref = firebaseDb.ref('users');
     ref.once('value').then(snapshot => {
-      const users = snapshot.val();
-      for (var user_id in users) {
+      const users = _.toArray(snapshot.val());
+      console.log("USERS::", users);
+      users.forEach(user_id => {
+        const record = user_id[Object.keys(user_id)[0]];
+        var teamstring = record.teamKeysTier1 + ',' + record.teamKeysTier2
+        var team = teamstring.split(',');
         // eslint-disable-next-line
-        return firebaseDb.ref(`users/${user_id}/${user_id}`).once('value').then(function (snapshot) {
-          var t1 = snapshot.val().teamKeysTier1.split(",")
-          var t2 = snapshot.val().teamKeysTier2.split(",")
-          var team = t1.concat(t2)
+        let totalScores = []
+        team.map(key => {
           // eslint-disable-next-line
-          team.map(key => {
-            // eslint-disable-next-line
-            competitors.map(competitor => {
-              if (key === competitor.key) {
-                totalScores.push(Number(competitor.score))
-              }
-            })
+          competitors.map(competitor => {
+            if (key === competitor.key) {
+              totalScores.push(Number(competitor.score))
+            }
           })
-          const sum = totalScores.reduce((total, value) => total + value, 0);
-          firebaseDb.ref(`users/${user_id}/${user_id}/score`).set(sum.toString());
-          toastr.success("Users Scores Updated");
         })
-      }
-    })
+        const sum = totalScores.reduce((total, value) => total + value, 0);
+        firebaseDb.ref(`users/${record.uid}/${record.uid}/score`).set(sum.toString());
+        toastr.success("Users Scores Updated");
+      })
+    });
   }
-}
+};
+
+
+
+// export function bulkUpdateScores(competitors) {
+//   debugger;
+
+//   var snapArray = firebaseDb.ref('users').once('value').then(snapshot => {
+//     snapArray = _.toArray(snapshot.val());    
+//   })
+
+//   return snapArray;
+
+//  };
 
 
 

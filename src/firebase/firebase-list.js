@@ -1,6 +1,5 @@
 import { firebaseDb } from './firebase';
 
-
 export class FirebaseList {
   constructor(actions, modelClass, path = null) {
     this._actions = actions;
@@ -106,7 +105,9 @@ export class FirebaseList {
   subscribeOnce(emit) {
     let ref = firebaseDb.ref(this._path);
     console.log("REF::",ref)
+    // eslint-disable-next-line
     let initialized = false;
+    // eslint-disable-next-line
     let list = [];
     console.log("ACTIONS::",this._actions)
    
@@ -153,6 +154,7 @@ export class FirebaseList {
 
   unwrapSnapshot(snapshot) {
     if (snapshot.exists()) {
+      console.log("SP::",snapshot);
       let attrs = snapshot.val();
       attrs.key = snapshot.key;
       return new this._modelClass(attrs);
