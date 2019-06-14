@@ -107,11 +107,11 @@ export default class Demo extends React.PureComponent {
         super(props);
         this.state = {
             shouldUpdate: false,
-            columns: [  
-                { name: 'profileName', title: 'profileName' },              
+            columns: [ 
+                { name: 'teamName', title: 'Team' },               
                 { name: 'profilePic', title: 'Avatar' },
                 { name: 'score', title: 'Score' },
-                { name: 'teamName', title: 'Team' },                   
+                { name: 'profileName', title: 'profileName' },                   
                 { name: '', title: 'Rank' }
             ],
             rows: this.props.league

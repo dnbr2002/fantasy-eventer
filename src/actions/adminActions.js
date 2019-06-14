@@ -238,11 +238,13 @@ export function bulkUpdateScores(competitors) {
     ref.once('value').then(snapshot => {
       const users = snapshot.val();
       for (var user_id in users) {
+        debugger;
         // eslint-disable-next-line
-        return firebaseDb.ref(`users/${user_id}/${user_id}`).once('value').then(function (snapshot) {
+        firebaseDb.ref(`users/${user_id}/${user_id}`).once('value').then(snapshot => {
           var t1 = snapshot.val().teamKeysTier1.split(",")
           var t2 = snapshot.val().teamKeysTier2.split(",")
           var team = t1.concat(t2)
+          debugger;
           // eslint-disable-next-line
           team.map(key => {
             // eslint-disable-next-line
@@ -253,6 +255,7 @@ export function bulkUpdateScores(competitors) {
             })
           })
           const sum = totalScores.reduce((total, value) => total + value, 0);
+          debugger;
           firebaseDb.ref(`users/${user_id}/${user_id}/score`).set(sum.toString());
           toastr.success("Users Scores Updated");
         })
