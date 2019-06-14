@@ -161,7 +161,7 @@ export default class Demo extends React.PureComponent {
                         contentComponent={RowDetail}
                     />
                 </Grid>
-                {/* <PagingPanel /> */}
+                <PagingPanel />
             </Paper>
         );
     }
