@@ -1,12 +1,18 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { RowDetailState } from '@devexpress/dx-react-grid';
+import {
+    RowDetailState,
+    PagingState,
+    IntegratedPaging,
+} from '@devexpress/dx-react-grid';
 import {
     Grid,
     Table,
     TableHeaderRow,
     TableRowDetail,
+    PagingPanel
 } from '@devexpress/dx-react-grid-material-ui';
+
 import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 import Avatar from '@material-ui/core/Avatar';
@@ -87,59 +93,67 @@ let RowDetailBase = ({ row, classes }) => (
 
 const RowDetail = withStyles(styles)(RowDetailBase);
 
-const TeamAvatar = ({value, style, ...restProps }) => (
+const TeamAvatar = ({ value, style, ...restProps }) => (
     <Table.Cell>
-    <Avatar alt="Remy Sharp" src={value}  />
-  </Table.Cell>
+        <Avatar alt="Remy Sharp" src={value} />
+    </Table.Cell>
 );
 
 
 const Cell = (props) => {
     const { column } = props;
     if (column.name === 'profilePic') {
-      return <TeamAvatar {...props} />;
+        return <TeamAvatar {...props} />;
     }
     return <Table.Cell {...props} />;
-  };
+};
 
 export default class Demo extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
             shouldUpdate: false,
-            columns: [ 
-                { name: 'teamName', title: 'Team' },               
+            columns: [
+                { name: 'teamName', title: 'Team' },
                 { name: 'profilePic', title: 'Avatar' },
                 { name: 'score', title: 'Score' },
-                { name: 'profileName', title: 'profileName' },                   
+                { name: 'profileName', title: 'profileName' },
                 { name: '', title: 'Rank' }
             ],
-            rows: this.props.league
+            rows: this.props.league,
+            pageSizes: [5, 10, 15]
         };
     }
 
     shouldComponentUpdate(nextProps) {
         if (this.props != nextProps) {
-          this.setState({shouldUpdate: true});
+            this.setState({ shouldUpdate: true });
         }
     }
 
 
     render() {
-        const { rows, columns, expandedRowIds } = this.state;
+        const { rows, columns, expandedRowIds, pageSizes } = this.state;
         console.log("expandedrowid::");
-        console.log("TABLEPROPS::",this.state)
+
+        console.log("TABLEPROPS::", this.state)
         return (
             <Paper>
                 <Grid
                     rows={rows}
                     columns={columns}
                 >
+                    <PagingState
+                        defaultCurrentPage={0}
+                        pageSize={5}
+                    />
                     <RowDetailState
                         expandedRowIds={expandedRowIds}
                         onExpandedRowIdsChange={this.changeExpandedDetails}
                     />
-                    <Table 
+
+                    <IntegratedPaging />
+                    <Table
                         cellComponent={Cell}
                     />
                     <TableHeaderRow />
@@ -147,6 +161,7 @@ export default class Demo extends React.PureComponent {
                         contentComponent={RowDetail}
                     />
                 </Grid>
+                {/* <PagingPanel /> */}
             </Paper>
         );
     }
