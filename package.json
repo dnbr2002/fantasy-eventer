@@ -60,7 +60,9 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "rxjs": "^6.5.2",
-    "toastr": "^2.1.4"
+    "toastr": "^2.1.4",
+    "underscore": "^1.9.1",
+    "validate.js": "^0.12.0"
   },
   "devDependencies": {
     "cross-env": "^5.0.1",
