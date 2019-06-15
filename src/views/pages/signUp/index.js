@@ -44,22 +44,22 @@ const signUp = () => {
 class SignUp extends Component {
   state = {
     values: {
-      firstName: '',
-      lastName: '',
+      name: '',
+      teamName: '',
       email: '',
       password: '',
       policy: false
     },
     touched: {
-      firstName: false,
-      lastName: false,
+      name: false,
+      teamName: false,
       email: false,
       password: false,
       policy: null
     },
     errors: {
-      firstName: null,
-      lastName: null,
+      name: null,
+      teamName: null,
       email: null,
       password: null,
       policy: null
@@ -97,21 +97,16 @@ class SignUp extends Component {
     this.setState(newState, this.validateForm);
   };
 
-  handleSignUp = async () => {
+  handleSignUp = () => {
     try {
       const { history } = this.props;
       const { values } = this.state;
 
       this.setState({ isLoading: true });
 
-      await signUp({
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
-        password: values.password
-      });
+      this.props.signUpWithEmail(values.name, values.teamName, values.email, values.password)
 
-      history.push('/sign-in');
+      history.push('/signin');
     } catch (error) {
       this.setState({
         isLoading: false,
@@ -131,10 +126,10 @@ class SignUp extends Component {
       isLoading
     } = this.state;
 
-    const showFirstNameError =
-      touched.firstName && errors.firstName ? errors.firstName[0] : false;
-    const showLastNameError =
-      touched.lastName && errors.lastName ? errors.lastName[0] : false;
+    const showNameError =
+      touched.name && errors.name ? errors.name[0] : false;
+    const showTeamNameError =
+      touched.teamName && errors.teamName ? errors.teamName[0] : false;
     const showEmailError =
       touched.email && errors.email ? errors.email[0] : false;
     const showPasswordError =
@@ -221,37 +216,37 @@ class SignUp extends Component {
                   <div className={classes.fields}>
                     <TextField
                       className={classes.textField}
-                      label="First name"
-                      name="firstName"
+                      label="Name"
+                      name="name"
                       onChange={event =>
-                        this.handleFieldChange('firstName', event.target.value)
+                        this.handleFieldChange('name', event.target.value)
                       }
-                      value={values.firstName}
+                      value={values.name}
                       variant="outlined"
                     />
-                    {showFirstNameError && (
+                    {showNameError && (
                       <Typography
                         className={classes.fieldError}
                         variant="body2"
                       >
-                        {errors.firstName[0]}
+                        {errors.name[0]}
                       </Typography>
                     )}
                     <TextField
                       className={classes.textField}
-                      label="Last name"
+                      label="Team name"
                       onChange={event =>
-                        this.handleFieldChange('lastName', event.target.value)
+                        this.handleFieldChange('teamName', event.target.value)
                       }
-                      value={values.lastName}
+                      value={values.teamName}
                       variant="outlined"
                     />
-                    {showLastNameError && (
+                    {showTeamNameError && (
                       <Typography
                         className={classes.fieldError}
                         variant="body2"
                       >
-                        {errors.lastName[0]}
+                        {errors.teamName[0]}
                       </Typography>
                     )}
                     <TextField

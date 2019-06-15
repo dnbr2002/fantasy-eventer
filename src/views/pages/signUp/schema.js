@@ -1,11 +1,11 @@
 export default {
-    firstName: {
+    name: {
       presence: { allowEmpty: false, message: 'is required' },
       length: {
         maximum: 32
       }
     },
-    lastName: {
+    teamName: {
       presence: { allowEmpty: false, message: 'is required' },
       length: {
         maximum: 32
