@@ -135,7 +135,6 @@ export default class Demo extends React.PureComponent {
     render() {
         const { rows, columns, expandedRowIds, pageSizes } = this.state;
         console.log("expandedrowid::");
-
         console.log("TABLEPROPS::", this.state)
         return (
             <Paper>
