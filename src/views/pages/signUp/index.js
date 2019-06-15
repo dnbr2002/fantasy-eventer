@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { authActions } from 'src/auth';
 
 // Externals
 import PropTypes from 'prop-types';
@@ -10,24 +8,21 @@ import validate from 'validate.js';
 import _ from 'underscore';
 
 // Material helpers
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles/index';
 
 // Material components
-import Grid from '@material-ui/core/Grid/index';
 import Button from '@material-ui/core/Button/index';
+import Checkbox from '@material-ui/core/Checkbox/index';
 import CircularProgress from '@material-ui/core/CircularProgress/index';
+import Grid from '@material-ui/core/Grid/index';
 import IconButton from '@material-ui/core/IconButton/index';
 import TextField from '@material-ui/core/TextField/index';
 import Typography from '@material-ui/core/Typography/index';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-// Shared components
-import FacebookIcon from '../../components/icon/facebook';
-import GoogleIcon from '../../components/icon/google';
-import TwitterIcon from '../../components/icon/twitter';
-import { FacebookLoginButton, GoogleLoginButton, TwitterLoginButton } from "react-social-login-buttons";
-
+// Shared utilities
+import validators from '../../../common/validators';
 
 // Component styles
 import styles from './styles';
@@ -35,8 +30,10 @@ import styles from './styles';
 // Form validation schema
 import schema from './schema';
 
+validate.validators.checked = validators.checked;
+
 // Service methods
-const signIn = () => {
+const signUp = () => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve(true);
@@ -44,19 +41,28 @@ const signIn = () => {
   });
 };
 
-class SignIn extends Component {
+class SignUp extends Component {
   state = {
     values: {
+      firstName: '',
+      lastName: '',
       email: '',
-      password: ''
+      password: '',
+      policy: false
     },
     touched: {
+      firstName: false,
+      lastName: false,
       email: false,
-      password: false
+      password: false,
+      policy: null
     },
     errors: {
+      firstName: null,
+      lastName: null,
       email: null,
-      password: null
+      password: null,
+      policy: null
     },
     isValid: false,
     isLoading: false,
@@ -91,18 +97,21 @@ class SignIn extends Component {
     this.setState(newState, this.validateForm);
   };
 
-  handleSignIn = () => {
+  handleSignUp = async () => {
     try {
       const { history } = this.props;
       const { values } = this.state;
 
       this.setState({ isLoading: true });
 
-      this.props.signInWithEmail(values.email, values.password);
+      await signUp({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        password: values.password
+      });
 
-      localStorage.setItem('isAuthenticated', true);
-
-      history.push('/sign-up');
+      history.push('/sign-in');
     } catch (error) {
       this.setState({
         isLoading: false,
@@ -122,8 +131,16 @@ class SignIn extends Component {
       isLoading
     } = this.state;
 
-    const showEmailError = touched.email && errors.email;
-    const showPasswordError = touched.password && errors.password;
+    const showFirstNameError =
+      touched.firstName && errors.firstName ? errors.firstName[0] : false;
+    const showLastNameError =
+      touched.lastName && errors.lastName ? errors.lastName[0] : false;
+    const showEmailError =
+      touched.email && errors.email ? errors.email[0] : false;
+    const showPasswordError =
+      touched.password && errors.password ? errors.password[0] : false;
+    const showPolicyError =
+      touched.policy && errors.policy ? errors.policy[0] : false;
 
     return (
       <div className={classes.root}>
@@ -149,13 +166,13 @@ class SignIn extends Component {
                     className={classes.name}
                     variant="body1"
                   >
-                    Login 
+                    Create your account
                   </Typography>
                   <Typography
                     className={classes.bio}
                     variant="body2"
                   >
-                    Lets play!!
+                    And lets play!
                   </Typography>
                 </div>
               </div>
@@ -181,9 +198,9 @@ class SignIn extends Component {
                   target="_blank"
                 >
                   <img
-                    alt="Fantasy Eventer Logo"
+                    alt="Devias logo"
                     className={classes.logoImage}
-                    src="../../../common/logo/logo.jpg"
+                    src="/images/logos/devias-logo.svg"
                   />
                 </a> */}
               </div>
@@ -193,45 +210,50 @@ class SignIn extends Component {
                     className={classes.title}
                     variant="h2"
                   >
-                    Sign in
+                    Create new account
                   </Typography>
                   <Typography
                     className={classes.subtitle}
                     variant="body1"
                   >
-                    Sign in with social media
-                  </Typography>
-                  <FacebookLoginButton 
-                    className={classes.facebookButton}
-                    color="primary"
-                    onClick={this.props.signInWithFacebook} 
-                    size="small"
-                    variant="contained"
-                  >                    
-                    Login with Facebook
-                  </FacebookLoginButton>
-                  <GoogleLoginButton
-                    className={classes.googleButton}
-                    onClick={this.props.signInWithGoogle}
-                    size="large"
-                    variant="contained"
-                  >
-                  </GoogleLoginButton>
-                  <TwitterLoginButton
-                    className={classes.twitterButton}
-                    onClick={this.props.signInWithTwitter}
-                    size="large"
-                    variant="contained"
-                  >
-                    Login with Twitter
-                  </TwitterLoginButton>
-                  <Typography
-                    className={classes.sugestion}
-                    variant="body1"
-                  >
-                    or login with email address
+                    Use your email to create a new account... it's free!
                   </Typography>
                   <div className={classes.fields}>
+                    <TextField
+                      className={classes.textField}
+                      label="First name"
+                      name="firstName"
+                      onChange={event =>
+                        this.handleFieldChange('firstName', event.target.value)
+                      }
+                      value={values.firstName}
+                      variant="outlined"
+                    />
+                    {showFirstNameError && (
+                      <Typography
+                        className={classes.fieldError}
+                        variant="body2"
+                      >
+                        {errors.firstName[0]}
+                      </Typography>
+                    )}
+                    <TextField
+                      className={classes.textField}
+                      label="Last name"
+                      onChange={event =>
+                        this.handleFieldChange('lastName', event.target.value)
+                      }
+                      value={values.lastName}
+                      variant="outlined"
+                    />
+                    {showLastNameError && (
+                      <Typography
+                        className={classes.fieldError}
+                        variant="body2"
+                      >
+                        {errors.lastName[0]}
+                      </Typography>
+                    )}
                     <TextField
                       className={classes.textField}
                       label="Email address"
@@ -239,7 +261,6 @@ class SignIn extends Component {
                       onChange={event =>
                         this.handleFieldChange('email', event.target.value)
                       }
-                      type="text"
                       value={values.email}
                       variant="outlined"
                     />
@@ -254,7 +275,6 @@ class SignIn extends Component {
                     <TextField
                       className={classes.textField}
                       label="Password"
-                      name="password"
                       onChange={event =>
                         this.handleFieldChange('password', event.target.value)
                       }
@@ -270,6 +290,38 @@ class SignIn extends Component {
                         {errors.password[0]}
                       </Typography>
                     )}
+                    <div className={classes.policy}>
+                      <Checkbox
+                        checked={values.policy}
+                        className={classes.policyCheckbox}
+                        color="primary"
+                        name="policy"
+                        onChange={() =>
+                          this.handleFieldChange('policy', !values.policy)
+                        }
+                      />
+                      <Typography
+                        className={classes.policyText}
+                        variant="body1"
+                      >
+                        I have read the &nbsp;
+                        <Link
+                          className={classes.policyUrl}
+                          to="#"
+                        >
+                          Terms and Conditions
+                        </Link>
+                        .
+                      </Typography>
+                    </div>
+                    {showPolicyError && (
+                      <Typography
+                        className={classes.fieldError}
+                        variant="body2"
+                      >
+                        {errors.policy[0]}
+                      </Typography>
+                    )}
                   </div>
                   {submitError && (
                     <Typography
@@ -283,26 +335,26 @@ class SignIn extends Component {
                     <CircularProgress className={classes.progress} />
                   ) : (
                     <Button
-                      className={classes.signInButton}
+                      className={classes.signUpButton}
                       color="primary"
                       disabled={!isValid}
-                      onClick={this.handleSignIn}
+                      onClick={this.handleSignUp}
                       size="large"
                       variant="contained"
                     >
-                      Sign in now
+                      Sign up now
                     </Button>
                   )}
                   <Typography
-                    className={classes.signUp}
+                    className={classes.signIn}
                     variant="body1"
                   >
-                    Don't have an account?{' '}
+                    Have an account?{' '}
                     <Link
-                      className={classes.signUpUrl}
-                      to="/signup"
+                      className={classes.signInUrl}
+                      to="/sign-in"
                     >
-                      Sign up
+                      Sign In
                     </Link>
                   </Typography>
                 </form>
@@ -315,29 +367,13 @@ class SignIn extends Component {
   }
 }
 
-SignIn.propTypes = {
+SignUp.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-  signInWithFacebook: PropTypes.func.isRequired,
-  signInWithGoogle: PropTypes.func.isRequired,
-  signInWithTwitter: PropTypes.func.isRequired,
-  signInWithEmail: PropTypes.func.isRequired,
-};
-
-
-//=====================================
-//  CONNECT
-//-------------------------------------
-
-const mapDispatchToProps = {
-  signInWithEmail: authActions.signInWithEmail,
-  signUpWithEmail: authActions.signUpWithEmail,
-  signInWithFacebook: authActions.signInWithFacebook,
-  signInWithGoogle: authActions.signInWithGoogle,
-  signInWithTwitter: authActions.signInWithTwitter
+  history: PropTypes.object.isRequired
 };
 
 export default compose(
-    withStyles(styles),
-    withRouter)(connect(null,mapDispatchToProps)(SignIn));
+  withRouter,
+  withStyles(styles)
+)(SignUp);

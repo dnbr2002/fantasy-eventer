@@ -15,6 +15,7 @@ import TeamPage from '../pages/team';
 import LeaguePage from '../pages/league';
 import ProfilePage from '../pages/profile';
 import SignIn from '../pages/signIn';
+import SignUp from '../pages/signUp';
 
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import muiTheme from '../components/muiTheme/muiTheme';
@@ -34,7 +35,8 @@ const App = ({ authenticated, signOut }) => (
       <RequireAuthRoute authenticated={authenticated} exact path="/adminpage" component={AdminPage} />
       <RequireAuthRoute authenticated={authenticated} exact path="/taskspage" component={TasksPage} />
       <RequireAuthRoute authenticated={authenticated} exact path="/profile" component={ProfilePage} />
-      <RequireUnauthRoute authenticated={authenticated} path="/signIn" component={SignIn} />
+      <RequireUnauthRoute authenticated={authenticated} path="/signin" component={SignIn} />
+      <RequireUnauthRoute authenticated={authenticated} path="/signup" component={SignUp} />
       <RequireUnauthRoute authenticated={authenticated} path="/sign-in" component={SignInPage} />
       <RequireUnauthRoute authenticated={authenticated} path="/email-sign-in" component={EmailSignInPage} />
       
