@@ -16,17 +16,8 @@ class LeaguePage extends Component {
       constructor(props) {
         super(props)
         this.state = {
-            shouldUpdate: false, 
-            rows: []
         };
     }
-
-    shouldComponentUpdate(nextProps) {
-          if (this.state.rows !== nextProps.league) {
-            this.setState({rows: nextProps.league});
-          }
-          
-      }
 
     componentWillMount() {
         this.props.loadLeague();
@@ -34,7 +25,6 @@ class LeaguePage extends Component {
 
     render() {
         console.log("LEAGUEPROPS::",this.props);
-        console.log("LEAGUESTATE::",this.state.rows);
         return (
             <div className="g-row">
                 <div className="g-col">

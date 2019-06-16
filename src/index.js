@@ -1,5 +1,7 @@
-import './views/styles/styles.css';
+// import './views/styles/styles.css';
 import '../node_modules/toastr/build/toastr.min.css';
+import 'react-perfect-scrollbar/dist/css/styles.css'
+import '../src/assets/index.scss'
 
 
 import React from 'react';
@@ -12,8 +14,8 @@ import configureStore from './store';
 import registerServiceWorker from './utils/register-service-worker';
 import App from './views/app';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { white, black } from '../src/common/colors';
+// import { createMuiTheme } from '@material-ui/core/styles';
+// import { white, black } from '../src/common/colors';
 import theme from '../src/common/theme';
 // const theme = createMuiTheme({
 //   palette: {
