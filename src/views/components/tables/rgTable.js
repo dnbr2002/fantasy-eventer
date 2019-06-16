@@ -59,6 +59,7 @@ const styles = theme => ({
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
+
 const GridDetailContainerBase = ({ row, classes }) => (
     <div className={classes.detailContainer}>
         <div>

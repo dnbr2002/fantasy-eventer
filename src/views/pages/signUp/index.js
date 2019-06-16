@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as signUpActions from '../../../actions/signUpActions';
+import * as authActions from '../../../actions/authActions';
 
 // Externals
 import PropTypes from 'prop-types';
@@ -101,7 +104,7 @@ class SignUp extends Component {
     try {
       const { history } = this.props;
       const { values } = this.state;
-
+        console.log("SU1::",values.email)
       this.setState({ isLoading: true });
 
       this.props.signUpWithEmail(values.name, values.teamName, values.email, values.password)
@@ -347,7 +350,7 @@ class SignUp extends Component {
                     Have an account?{' '}
                     <Link
                       className={classes.signInUrl}
-                      to="/sign-in"
+                      to="/signin"
                     >
                       Sign In
                     </Link>
@@ -365,10 +368,20 @@ class SignUp extends Component {
 SignUp.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  signUpWithEmail: PropTypes.func.isRequired
 };
 
+//=====================================
+//  CONNECT
+//-------------------------------------
+
+const mapDispatchToProps = Object.assign(
+    {},
+    signUpActions,
+    authActions
+);
+
 export default compose(
-  withRouter,
-  withStyles(styles)
-)(SignUp);
+  withStyles(styles),
+  withRouter)(connect(null,mapDispatchToProps)(SignUp));

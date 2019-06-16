@@ -4,6 +4,7 @@ import {
     RowDetailState,
     PagingState,
     IntegratedPaging,
+    SelectionState,
 } from '@devexpress/dx-react-grid';
 import {
     Grid,
@@ -121,16 +122,43 @@ export default class Demo extends React.PureComponent {
                 { name: '', title: 'Rank' }
             ],
             rows: this.props.league,
-            pageSizes: [5, 10, 15]
+            pageSizes: [5, 10, 15],
+
         };
     }
 
-    shouldComponentUpdate(nextProps) {
-        if (this.props != nextProps) {
-            this.setState({ shouldUpdate: true });
-        }
-    }
+    // static getDerivedStateFromProps(nextProps, prevState){
+    //     if(nextProps.league!==prevState.rows){
+    //         console.log("NP::",nextProps.league)
+    //         this.setState({rows: nextProps.league})
+    //       return 
+    //    }
+    //    else return null;
+    //  }
 
+    //  componentDidUpdate(nextProps, prevState) {
+    //     if(nextProps.league!==prevState.rows){
+    //       //Perform some operation here
+    //       console.log("NP2::",this.props.league)
+    //       this.setState({rows: this.props.league});
+    //       this.classMethod();
+    //     }
+    // }
+
+    // componentWillReceiveProps(nextProps) {
+    //     console.log("NP::",nextProps.league+"----"+this.props.league);
+    //     if (nextProps.league !== this.props.league) {
+    //         console.log("NP2::",nextProps.league)
+    //         this.setState({rows: nextProps.league})
+    //     }
+    // }
+
+    componentWillUpdate(nextProps, nextState) {
+        console.log("NP::",nextProps.league+"----"+this.state.rows);
+        if (nextProps.league !== this.state.rows) {
+            this.setState({rows: nextProps.league})
+        }
+      }
 
     render() {
         const { rows, columns, expandedRowIds, pageSizes } = this.state;
@@ -142,6 +170,7 @@ export default class Demo extends React.PureComponent {
                 <Grid
                     rows={rows}
                     columns={columns}
+                    counter={this.state.counter}
                 >
                     <PagingState
                         defaultCurrentPage={0}

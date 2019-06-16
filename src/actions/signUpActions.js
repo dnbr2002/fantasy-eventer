@@ -27,7 +27,7 @@ export function signUpWithEmail(name, teamName,email, pass) {
     var teamKeysTier2 = "ph2";
     var score = 0
     var profilePic = "http://www.sbcs.edu.tt/wp-content/uploads/2016/04/profile-default.png"
-    console.log('EMAILPASSWORD::',email+pass)
+    console.log("SU2::",name)
     return dispatch => {
         const { auth, getState } = getState();
         const uid = auth.id

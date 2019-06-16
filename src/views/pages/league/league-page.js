@@ -17,12 +17,13 @@ class LeaguePage extends Component {
         super(props)
         this.state = {
             shouldUpdate: false, 
+            rows: []
         };
     }
 
     shouldComponentUpdate(nextProps) {
-          if (this.props != nextProps) {
-            this.setState({shouldUpdate: true});
+          if (this.state.rows !== nextProps.league) {
+            this.setState({rows: nextProps.league});
           }
           
       }
@@ -33,6 +34,7 @@ class LeaguePage extends Component {
 
     render() {
         console.log("LEAGUEPROPS::",this.props);
+        console.log("LEAGUESTATE::",this.state.rows);
         return (
             <div className="g-row">
                 <div className="g-col">
@@ -40,7 +42,7 @@ class LeaguePage extends Component {
                 {/* <LeagueTable {...this.props} /> */}
                 <br />
                 <br />
-                <RgDetail {...this.props}  />
+                <RgDetail {...this.props} rows={this.state.rows}  />
                 <br />
                 <br />
                 {/* <RgTable /> */}
