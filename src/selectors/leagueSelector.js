@@ -4,8 +4,8 @@ import _ from 'lodash';
 var data = [];
 
 export function getLeague(state) {
-  if (state.league) {
-    return state.league;
+  if (state) {
+    return state
   }
 }
 
@@ -16,12 +16,15 @@ function transform(UserRecord) {
 }
 
 export function getSortedLeague(state) {
-  if (state.length > 1) {
+  console.log("HERE0::",state);
+  // if (state.length > 1) {
     state.map(x => transform(x));
+    console.log("HERE1::",data);
     return data;
-  }
-  else
-    return data;
+  // }
+  // else
+  // console.log("HERE2::",data);
+  //   return data;
 }
 
 //=====================================
@@ -29,6 +32,6 @@ export function getSortedLeague(state) {
 //-------------------------------------
 
 export const LeagueSelector = createSelector(
-  getLeague,
-  getSortedLeague
+  [getLeague, getSortedLeague],
+
 );

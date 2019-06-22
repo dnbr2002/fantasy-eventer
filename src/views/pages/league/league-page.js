@@ -10,18 +10,18 @@ import * as leagueActions from '../../../actions/leagueActions';
 import { LeagueSelector } from '../../../selectors/leagueSelector';
 
 class LeaguePage extends Component {
-    static propTypes = {
-        loadLeague: PropTypes.func.isRequired,    
-      }
-      constructor(props) {
-        super(props)
-        this.state = {
-        };
-    }
+    // static propTypes = {
+    //     loadLeague: PropTypes.func.isRequired,    
+    //   }
+    //   constructor(props) {
+    //     super(props)
+    //     this.state = {
+    //     };
+    // }
 
-    componentWillMount() {
-        this.props.loadLeague();
-      }
+    // componentWillMount() {
+    //     this.props.loadLeague();
+    //   }
 
     render() {
         console.log("LEAGUEPROPS::",this.props);
@@ -32,7 +32,7 @@ class LeaguePage extends Component {
                 {/* <LeagueTable {...this.props} /> */}
                 <br />
                 <br />
-                <RgDetail {...this.props} rows={this.state.rows}  />
+                <RgDetail />
                 <br />
                 <br />
                 {/* <RgTable /> */}
@@ -45,20 +45,21 @@ class LeaguePage extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    console.log("MYSTATE::",state)
-    return {
-        league: LeagueSelector(state),
-    }
-  }
+// const mapStateToProps = (state, ownProps) => {
+//     console.log("MYSTATE::",state)
+//     return {
+//         league: LeagueSelector(state),
+//     }
+//   }
   
   
-const mapDispatchToProps = Object.assign(
-    {},
-    leagueActions
-  );
+// const mapDispatchToProps = Object.assign(
+//     {},
+//     leagueActions
+//   );
   
-  export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LeaguePage));
+// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LeaguePage));
+export default withRouter(LeaguePage);
 
 
   

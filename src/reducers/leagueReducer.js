@@ -6,7 +6,6 @@ import { mapProps } from 'recompose';
 
 const user = [{
     UID: {
-      Key: {
       profileName: '',
       profilePic: '',
       score: 0,
@@ -15,14 +14,17 @@ const user = [{
       teamName: '',
       uid: ''
     }
-    }
   }];  
 
 export function leagueReducer(state = user, {payload, type}) {
     switch (type) {
         case LOAD_LEAGUE_SUCCESS:
+        payload.map(x => {
+        const outObj = x[Object.keys(x)[0]];
+        state.push(outObj);
+        })
         console.log("REDPAYLOAD::",payload)
-        return payload;
+        return state
                 
         default:
             return state;

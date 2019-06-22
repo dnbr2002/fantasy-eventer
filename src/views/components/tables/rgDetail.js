@@ -1,4 +1,9 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import * as leagueActions from '../../../actions/leagueActions';
+import { LeagueSelector } from '../../../selectors/leagueSelector';
 import Paper from '@material-ui/core/Paper';
 import button from '@material-ui/core/Button';
 import {
@@ -8,9 +13,10 @@ import {
     SelectionState,
 } from '@devexpress/dx-react-grid';
 import {
-    Grid, 
+    Grid,
     Table,
-    TableHeaderRow   
+    TableHeaderRow,
+    PagingPanel
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -103,14 +109,14 @@ const TeamAvatar = ({ value, style, ...restProps }) => (
 
 const Cell = (props) => {
     const { column } = props;
-    console.log("DATA_PROP2::",props)
+    // console.log("DATA_PROP2::", props)
     if (column.name === 'profilePic') {
         return <TeamAvatar {...props} />;
     }
     return <Table.Cell {...props} />;
 };
 
-export default class Demo extends React.Component {
+class Demo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -121,7 +127,7 @@ export default class Demo extends React.Component {
                 { name: 'profileName', title: 'profileName' },
                 { name: '', title: 'Rank' }
             ],
-            rows: [],
+            rows: this.props.league,
             pageSizes: [5, 10, 15],
             currentPage: 0,
             loading: true,
@@ -129,22 +135,26 @@ export default class Demo extends React.Component {
         };
     }
 
-    componentWillMount() {        
-        console.log("DATA_PROP1::",this.props)
-        this.getRows();
-        
-    }
-    componentDidMount() {
-        this.setState({ state: this.state }, console.log("STATE_::",this.state));
-        
-    }
+    componentWillMount() {
+        this.props.loadLeague();
+      }
 
-    getRows = () => {
-        this.setState({
-            rows: this.props.league
-        });
-        
-    };
+    // componentWillMount() {
+    //     console.log("DATA_PROP1::", this.props)
+    //     this.getRows();
+
+    // }
+    // componentDidMount() {
+    //     this.setState({ state: this.state }, console.log("STATE_::", this.state));
+
+    // }
+
+    // getRows = () => {
+    //     this.setState({
+    //         rows: this.props.league
+    //     });
+
+    // };
 
     //   static getDerivedStateFromProps(props, state) {
     //     if (props.league.length !== state.rows.length) {
@@ -208,52 +218,70 @@ export default class Demo extends React.Component {
     //     }
     // }
 
+    componentWillUpdate(nextProps, nextState) {
+        console.log("CWU::", nextProps.league + "----" + this.state.rows);
+        if (nextProps.league.length !== this.state.rows.length) {
+            this.setState({ rows: nextProps.league })
+        }
+    }
+    // forceUpdateHandler = () => {
+    //     this.forceUpdate();
+    //     this.setState({ rows: this.props.league });
+    //     this.setState({ counter: this.counter++ })
 
+    // };
 
-    // componentWillUpdate(nextProps, nextState) {
-    //     console.log("NP::", nextProps.league + "----" + this.state.rows);
-    //     if (nextProps.league !== this.state.rows) {
-    //         this.setState({ rows: nextProps.league })
-    //     }
-    // }
-    forceUpdateHandler = () => {
-        this.forceUpdate();
-        this.setState({ rows: this.props.league });
-        this.setState({ counter: this.counter++ })
-
-      };
-      
 
     render() {
-        const { rows, columns } = this.state;
+        const { columns, rows } = this.state;
+        const { league } = this.props;
         console.log("DATA_STATE::", this.state)
-
-        console.log("DATA_PROP::", this.props)
+        console.log("DATA_PROP::", league)
 
         return (
             <div>
-            <Button onClick={this.forceUpdateHandler} >
-                Update
+                <Button onClick={this.forceUpdateHandler} >
+                    Update
                 </Button>
-            
-            <Paper>
-                <Grid
-                    rows={rows}
-                    columns={columns}
-                    counter={this.counter}
-                >
-                    {/* <RowDetailState /> */}
-                    <Table
-                        cellComponent={Cell}
-                    />
-                    <TableHeaderRow />
-                    {/* <TableRowDetail
+
+                <Paper>
+                    <Grid
+                        rows={rows}
+                        columns={columns}
+                        counter={this.counter}
+                    >
+                        <PagingState
+                            defaultCurrentPage={0}
+                            pageSize={5}
+                        />
+                        {/* <RowDetailState /> */}
+                        <IntegratedPaging />
+                        <Table
+                            cellComponent={Cell}
+                        />
+                        <TableHeaderRow />
+                        {/* <TableRowDetail
                         contentComponent={RowDetail}
                     /> */}
-                </Grid>
-                {/* <PagingPanel /> */}
-            </Paper>
+                    <PagingPanel />
+                    </Grid>
+                    
+                </Paper>
             </div>
         );
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+    console.log("MYSTATE::",state)
+    return {
+        league: state.league,
+    }
+  }
+
+  const mapDispatchToProps = Object.assign(
+    {},
+    leagueActions
+  );
+  
+  export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Demo));
