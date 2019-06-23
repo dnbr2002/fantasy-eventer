@@ -193,22 +193,23 @@ class Demo extends React.Component {
     //    else return null;
     //  }
 
-    //  componentDidUpdate(nextProps, prevState) {
-    //     if(nextProps.league!==prevState.rows){
+    //  componentDidUpdate(nextProps, prevProps) {
+    //     console.log("CDU::", nextProps.league + "----" + prevProps.league);
+    //     if(nextProps.league.length!==prevProps.league.length){
     //       //Perform some operation here
-    //       console.log("NP2::",this.props.league)
-    //       this.setState({rows: this.props.league});
+    //     //   console.log("NP2::",this.props.league)
+    //       this.setState({rows: nextProps.league});
     //       this.classMethod();
     //     }
     // }
 
-    // componentWillReceiveProps(nextProps) {
-    //     console.log("NP::",nextProps.league+"----"+this.props.league);
-    //     if (nextProps.league !== this.props.leage) {
-    //         console.log("NP2::",nextProps.league)
-    //         this.setState({rows: nextProps.league})
-    //     }
-    // }
+    componentWillReceiveProps(nextProps) {
+        console.log("CWP:",nextProps.league+"----"+this.props.league);
+        if (nextProps.league !== this.props.leage) {
+            console.log("CWP2::",nextProps.league)
+            this.setState({rows: nextProps.league})
+        }
+    }
 
     // shouldComponentUpdate(nextProps, nextState) {
     //     console.log("NP::", nextProps.league + "----" + nextState.rows);
@@ -218,12 +219,12 @@ class Demo extends React.Component {
     //     }
     // }
 
-    componentWillUpdate(nextProps, nextState) {
-        console.log("CWU::", nextProps.league + "----" + this.state.rows);
-        if (nextProps.league.length !== this.state.rows.length) {
-            this.setState({ rows: nextProps.league })
-        }
-    }
+    // componentWillUpdate(nextProps, nextState) {
+    //     console.log("CWU::", nextProps.league.length + "----" + prevProps.league.length);
+    //     if (nextProps.league.length !== this.state.rows.length) {
+    //         this.setState({ rows: nextProps.league })
+    //     }
+    // }
     // forceUpdateHandler = () => {
     //     this.forceUpdate();
     //     this.setState({ rows: this.props.league });
@@ -236,6 +237,7 @@ class Demo extends React.Component {
         const { columns, rows } = this.state;
         const { league } = this.props;
         console.log("DATA_STATE::", this.state)
+
         console.log("DATA_PROP::", league)
 
         return (

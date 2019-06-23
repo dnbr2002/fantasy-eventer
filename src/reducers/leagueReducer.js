@@ -5,16 +5,18 @@ import { mapProps } from 'recompose';
 
 
 const user = [{
-    UID: {
-      profileName: '',
-      profilePic: '',
-      score: 0,
+      profileName: 'FEKing',
+      profilePic: 'https://i1.sndcdn.com/avatars-000383656514-x83gqz-t500x500.jpg',
+      score: 100,
       teamKeysTier1: '',
       teamKeysTier2: '',
-      teamName: '',
+      teamName: 'TheCreator',
       uid: ''
-    }
   }];  
+
+export const LeagueState = new Record({
+  list: new List()
+}); 
 
 export function leagueReducer(state = user, {payload, type}) {
     switch (type) {
@@ -23,8 +25,8 @@ export function leagueReducer(state = user, {payload, type}) {
         const outObj = x[Object.keys(x)[0]];
         state.push(outObj);
         })
-        console.log("REDPAYLOAD::",payload)
-        return state
+        console.log("user::",state)
+        return Object.assign([], state);
                 
         default:
             return state;
