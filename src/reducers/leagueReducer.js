@@ -1,22 +1,15 @@
-import { Record, List, fromJS, Immutable } from 'immutable';  //fromJS, toJS, List, Map
 import { LOAD_LEAGUE_SUCCESS } from '../actions/actionTypes';
-import { from } from 'rxjs';
-import { mapProps } from 'recompose';
-
 
 const user = [{
       profileName: 'FEKing',
-      profilePic: 'https://i1.sndcdn.com/avatars-000383656514-x83gqz-t500x500.jpg',
+      profilePic: '',
       score: 100,
       teamKeysTier1: '',
       teamKeysTier2: '',
       teamName: 'TheCreator',
-      uid: ''
+      uid: '', 
+      rank: ''
   }];  
-
-export const LeagueState = new Record({
-  list: new List()
-}); 
 
 export function leagueReducer(state = user, {payload, type}) {
     switch (type) {

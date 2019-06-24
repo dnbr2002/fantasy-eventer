@@ -8,6 +8,8 @@ import Paper from '@material-ui/core/Paper';
 import button from '@material-ui/core/Button';
 import {
     RowDetailState,
+    SortingState,
+    IntegratedSorting,
     PagingState,
     IntegratedPaging,
     SelectionState,
@@ -125,8 +127,9 @@ class Demo extends React.Component {
                 { name: 'profilePic', title: 'Avatar' },
                 { name: 'score', title: 'Score' },
                 { name: 'profileName', title: 'profileName' },
-                { name: '', title: 'Rank' }
+                { name: 'rank', title: 'Rank', getCellValue: row => console.log("ROW::",row) }
             ],
+
             rows: this.props.league,
             pageSizes: [5, 10, 15],
             currentPage: 0,
@@ -137,101 +140,16 @@ class Demo extends React.Component {
 
     componentWillMount() {
         this.props.loadLeague();
-      }
-
-    // componentWillMount() {
-    //     console.log("DATA_PROP1::", this.props)
-    //     this.getRows();
-
-    // }
-    // componentDidMount() {
-    //     this.setState({ state: this.state }, console.log("STATE_::", this.state));
-
-    // }
-
-    // getRows = () => {
-    //     this.setState({
-    //         rows: this.props.league
-    //     });
-
-    // };
-
-    //   static getDerivedStateFromProps(props, state) {
-    //     if (props.league.length !== state.rows.length) {
-    //       return {
-    //         rows: props.league
-    //       };
-    //     }
-    //     return null;
-    //   }
-
-
-    // componentDidMount() {
-    //     console.log("NP1::",this.props.league)
-    //     this.setState({rows: this.props.league})
-    //   }
-
-    //   componentDidUpdate(nextProps, prevState) {
-    //     if(nextProps.league!==prevState.rows){
-    //       //Perform some operation here
-    //       console.log("NP2::",this.props.league)
-    //       this.setState({rows: this.props.league});
-    //       this.classMethod();
-    //   }
-    // }
-
-
-    // static getDerivedStateFromProps(nextProps, prevState){
-    //     if(nextProps.league!==prevState.rows){
-    //         console.log("NP::",nextProps.league)
-    //         return{
-    //             rows: nextProps.league
-    //         }
-
-    //       return 
-    //    }
-    //    else return null;
-    //  }
-
-    //  componentDidUpdate(nextProps, prevProps) {
-    //     console.log("CDU::", nextProps.league + "----" + prevProps.league);
-    //     if(nextProps.league.length!==prevProps.league.length){
-    //       //Perform some operation here
-    //     //   console.log("NP2::",this.props.league)
-    //       this.setState({rows: nextProps.league});
-    //       this.classMethod();
-    //     }
-    // }
-
-    componentWillReceiveProps(nextProps) {
-        console.log("CWP:",nextProps.league+"----"+this.props.league);
-        if (nextProps.league !== this.props.leage) {
-            console.log("CWP2::",nextProps.league)
-            this.setState({rows: nextProps.league})
-        }
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     console.log("NP::", nextProps.league + "----" + nextState.rows);
-    //     if (nextProps.league !== nextState.rows) {
-    //         console.log("NP2::", nextProps.league)
-    //         this.setState({ rows: nextProps.league })
-    //     }
-    // }
 
-    // componentWillUpdate(nextProps, nextState) {
-    //     console.log("CWU::", nextProps.league.length + "----" + prevProps.league.length);
-    //     if (nextProps.league.length !== this.state.rows.length) {
-    //         this.setState({ rows: nextProps.league })
-    //     }
-    // }
-    // forceUpdateHandler = () => {
-    //     this.forceUpdate();
-    //     this.setState({ rows: this.props.league });
-    //     this.setState({ counter: this.counter++ })
-
-    // };
-
+    componentWillReceiveProps(nextProps) {
+        console.log("CWP:", nextProps.league + "----" + this.props.league);
+        if (nextProps.league !== this.props.leage) {
+            console.log("CWP2::", nextProps.league)
+            this.setState({ rows: nextProps.league })
+        }
+    }
 
     render() {
         const { columns, rows } = this.state;
@@ -242,16 +160,16 @@ class Demo extends React.Component {
 
         return (
             <div>
-                <Button onClick={this.forceUpdateHandler} >
-                    Update
-                </Button>
-
                 <Paper>
                     <Grid
                         rows={rows}
                         columns={columns}
                         counter={this.counter}
                     >
+                        <SortingState
+                            defaultSorting={[{ columnName: 'score', direction: 'asc' }]}
+                        />
+                        <IntegratedSorting />
                         <PagingState
                             defaultCurrentPage={0}
                             pageSize={5}
@@ -265,9 +183,9 @@ class Demo extends React.Component {
                         {/* <TableRowDetail
                         contentComponent={RowDetail}
                     /> */}
-                    <PagingPanel />
+                        <PagingPanel />
                     </Grid>
-                    
+
                 </Paper>
             </div>
         );
@@ -275,15 +193,15 @@ class Demo extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log("MYSTATE::",state)
+    console.log("MYSTATE::", state)
     return {
         league: state.league,
     }
-  }
+}
 
-  const mapDispatchToProps = Object.assign(
+const mapDispatchToProps = Object.assign(
     {},
     leagueActions
-  );
-  
-  export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Demo));
+);
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Demo));
