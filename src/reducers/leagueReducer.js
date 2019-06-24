@@ -18,7 +18,6 @@ export function leagueReducer(state = user, {payload, type}) {
         const outObj = x[Object.keys(x)[0]];
         state.push(outObj);
         })
-        console.log("user::",state)
         return Object.assign([], state);
                 
         default:

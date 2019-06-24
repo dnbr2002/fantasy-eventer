@@ -25,6 +25,7 @@ import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import { promised } from 'q';
 
 
 const styles = theme => ({
@@ -122,34 +123,61 @@ class Demo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            counter: 1,
             columns: [
                 { name: 'teamName', title: 'Team' },
                 { name: 'profilePic', title: 'Avatar' },
                 { name: 'score', title: 'Score' },
                 { name: 'profileName', title: 'profileName' },
-                { name: 'rank', title: 'Rank', getCellValue: row => console.log("ROW::",row) }
+                { name: 'id', title: 'ID', getCellValue: this.getCount() }
             ],
 
             rows: this.props.league,
             pageSizes: [5, 10, 15],
             currentPage: 0,
             loading: true,
-            counter: 0
         };
+        this.getCount = this.getCount.bind(this)
     }
 
+    getCount () {
+        console.log("COUNTER::", this.state.counter)
+        if(this.state.counter)
+        this.setState({counter: this.state.counter++}, console.log("COUNTER1::", this.state.counter))
+    }
     componentWillMount() {
         this.props.loadLeague();
     }
 
+    // componentWillReceiveProps(nextProps) {
+    //     console.log("CWP:", nextProps.league + "----" + this.props.league);
+    //     var promise = new Promise((resolve, reject) => {
+    //     if (nextProps.league !== this.props.leage) {
+    //         resolve(nextProps.league)            
+    //     }
+    //     else reject()
+    // });
+    // let counter = 0;
+    // promise.then(result => {
+    //     console.log("XX::",result)
+    //    return result.sort((a,b) => a.score > b.score ? 1 : -1)
+    // }).then(result => {
+    //         console.log("XX1::",result)
+    //         result.map(x => 
+    //             this.setState({rows: })
+    //             console.log("XX2::",x))
+    //     })
+    
+    // }
+    // this.setState({ rows: nextProps.league })
 
     componentWillReceiveProps(nextProps) {
         console.log("CWP:", nextProps.league + "----" + this.props.league);
         if (nextProps.league !== this.props.leage) {
-            console.log("CWP2::", nextProps.league)
             this.setState({ rows: nextProps.league })
-        }
+    
     }
+}
 
     render() {
         const { columns, rows } = this.state;
