@@ -119,32 +119,35 @@ const Cell = (props) => {
     return <Table.Cell {...props} />;
 };
 
+const getRowId = row => row.rank;
+
 class Demo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            counter: 1,
             columns: [
                 { name: 'teamName', title: 'Team' },
                 { name: 'profilePic', title: 'Avatar' },
                 { name: 'score', title: 'Score' },
                 { name: 'profileName', title: 'profileName' },
-                { name: 'id', title: 'ID', getCellValue: this.getCount() }
+                { name: 'rank', title: 'Rankings', getCellValue: row => (this.updateRank.bind(this)(row)) }
             ],
-
-            rows: this.props.league,
+            count: 0,
+            rows: this.props.league.list,
             pageSizes: [5, 10, 15],
             currentPage: 0,
             loading: true,
         };
-        this.getCount = this.getCount.bind(this)
     }
 
-    getCount () {
-        console.log("COUNTER::", this.state.counter)
-        if(this.state.counter)
-        this.setState({counter: this.state.counter++}, console.log("COUNTER1::", this.state.counter))
+    updateRank(row) {
+        // console.log("ROW::",row);
+        // this.setState((state) => ({
+        //     rank: state.count + 1
+        //  }))
+        // row.rank === this.state.count + 1
     }
+
     componentWillMount() {
         this.props.loadLeague();
     }
@@ -173,18 +176,18 @@ class Demo extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         console.log("CWP:", nextProps.league + "----" + this.props.league);
-        if (nextProps.league !== this.props.leage) {
-            this.setState({ rows: nextProps.league })
+        if (nextProps.league.list > 1) {
+            this.setState({ rows: nextProps.league.list })
     
+        }
     }
-}
 
     render() {
         const { columns, rows } = this.state;
         const { league } = this.props;
         console.log("DATA_STATE::", this.state)
 
-        console.log("DATA_PROP::", league)
+        console.log("DATA_PROP::", this.props)
 
         return (
             <div>
@@ -192,7 +195,7 @@ class Demo extends React.Component {
                     <Grid
                         rows={rows}
                         columns={columns}
-                        counter={this.counter}
+                        getRowId={getRowId}
                     >
                         <SortingState
                             defaultSorting={[{ columnName: 'score', direction: 'asc' }]}
