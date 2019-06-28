@@ -8,6 +8,7 @@ export const Profile = Record({
   profilePic: '',
   teamName: '', 
   score: 0,
+  rank: 0,
   teamKeysTier1: '',
   teamKeysTier2: ''
 });
@@ -27,11 +28,12 @@ export function createProfile(data) {
     var teamKeysTier1 = "teamkeysplaceholder"
     var teamKeysTier2 = "teamkeysplaceholder"
     var score = 0
+    var rank = ''
     return (dispatch, getState) => {
         const { auth } = getState();
         const uid = auth.id
             console.log("AUTHID::",uid);
-            profileFireDB.set(uid,{ profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, uid })
+            profileFireDB.set(uid,{ profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, uid, rank })
             .catch(error => dispatch(createProfileError(error)));
     };
 }

@@ -80,34 +80,8 @@ export default theme => ({
       color: theme.palette.common.muted,
       marginTop: theme.spacing.unit * 0.5
     },
-    facebookButton: {
-      marginTop: theme.spacing.unit * 3,
-      width: '100%'
-    },
-    facebookIcon: {
-      marginRight: theme.spacing.unit
-    },
-    googleButton: {
-      marginTop: theme.spacing.unit * 2,
-      width: '100%'
-    },
-    googleIcon: {
-      marginRight: theme.spacing.unit
-    },
-    twitterButton: {
-      marginTop: theme.spacing.unit * 1,
-      width: '100%'
-    },
-    twitterIcon: {
-      marginRight: theme.spacing.unit
-    },
-    sugestion: {
-      color: theme.palette.common.muted,
-      marginTop: theme.spacing.unit * 2,
-      textAlign: 'center'
-    },
     fields: {
-      marginTop: theme.spacing.unit * 2
+      marginTop: theme.spacing.unit * 5
     },
     textField: {
       width: '100%',
@@ -139,15 +113,15 @@ export default theme => ({
       marginLeft: 'auto',
       marginRight: 'auto'
     },
-    signInButton: {
+    signUpButton: {
       marginTop: theme.spacing.unit * 2,
       width: '100%'
     },
-    signUp: {
+    signIn: {
       marginTop: theme.spacing.unit * 2,
       color: theme.palette.common.muted
     },
-    signUpUrl: {
+    signInUrl: {
       color: theme.palette.primary.main,
       fontWeight: 'bold',
       '&:hover': {
