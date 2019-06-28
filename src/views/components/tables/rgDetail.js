@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as leagueActions from '../../../actions/leagueActions';
-import { LeagueSelector } from '../../../selectors/leagueSelector';
+import * as teamActions from '../../../actions/teamActions';
+import * as adminActions from '../../../actions/adminActions';
+import * as profileActions from '../../../actions/profileActions';
+import { TeamSelector } from '../../../selectors/teamSelector';
+import { LeagueTeamSelector } from '../../../selectors/leagueSelector';
 import Paper from '@material-ui/core/Paper';
 import button from '@material-ui/core/Button';
 import {
@@ -18,6 +22,7 @@ import {
     Grid,
     Table,
     TableHeaderRow,
+    TableRowDetail,
     PagingPanel
 } from '@devexpress/dx-react-grid-material-ui';
 
@@ -78,7 +83,8 @@ const data = [{
 //     },
 //   });
 
-let RowDetailBase = ({ row, classes }) => (
+let RowDetailBase = ({ row, dataProp, classes }) => (
+    console.log("ROWS::",dataProp),
     <div className={classes.detailContainer}>
         <div>
             <h5 className={classes.title}>
@@ -135,6 +141,8 @@ class Demo extends React.Component {
             count: 0,
             rows: this.props.league,
             pageSizes: [5, 10, 15],
+            expandedRowIds: [],
+            defaultExpandedRowIds: [],
             currentPage: 0,
             loading: true,
         };
@@ -142,21 +150,34 @@ class Demo extends React.Component {
 
     componentWillMount() {
         this.props.loadLeague();
+        this.props.loadCompetitors();
     }
-
 
     componentWillReceiveProps(nextProps) {
         console.log("CWP:", nextProps.league + "----" + this.props.league);
         if (nextProps.league.length > 1) {
             this.setState({ rows: nextProps.league })
-    
+
         }
     }
 
+    changeExpandedDetails = (expandedRowIds) => {
+        console.log("ERI::", expandedRowIds)
+        // if(this.state.rows[index].uid) {
+        if (expandedRowIds.length > 0) {
+            var index = expandedRowIds - 1
+        const uid = this.state.rows[index].uid
+        this.props.loadTeamLeague(uid);
+        console.log("UID::",uid);
+        }
+
+      }
+
     render() {
-        const { columns, rows } = this.state;
+        const { columns, rows, expandedRowIds, defaultExpandedRowIds, pageSizes } = this.state;
         const { league } = this.props;
         console.log("DATA_STATE::", this.state)
+
         console.log("DATA_PROP::", this.props)
         return (
             <div>
@@ -174,15 +195,19 @@ class Demo extends React.Component {
                             defaultCurrentPage={0}
                             pageSize={5}
                         />
-                        {/* <RowDetailState /> */}
+                        <RowDetailState
+                            onExpandedRowIdsChange={this.changeExpandedDetails}
+                            defaultExpandedRowIds={defaultExpandedRowIds}
+                        />
                         <IntegratedPaging />
                         <Table
                             cellComponent={Cell}
                         />
                         <TableHeaderRow />
-                        {/* <TableRowDetail
+                        <TableRowDetail
                         contentComponent={RowDetail}
-                    /> */}
+                        dataProp={this.props.team}
+                    />
                         <PagingPanel />
                     </Grid>
 
@@ -196,12 +221,16 @@ const mapStateToProps = (state, ownProps) => {
     console.log("MYSTATE::", state)
     return {
         league: state.league,
+        team: LeagueTeamSelector(state),
+        competitors: state.competitors
     }
 }
 
 const mapDispatchToProps = Object.assign(
     {},
-    leagueActions
+    leagueActions,
+    teamActions,
+    adminActions,
 );
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Demo));

@@ -154,7 +154,6 @@ export class FirebaseList {
 
   unwrapSnapshot(snapshot) {
     if (snapshot.exists()) {
-      console.log("SP::",snapshot);
       let attrs = snapshot.val();
       attrs.key = snapshot.key;
       return new this._modelClass(attrs);
