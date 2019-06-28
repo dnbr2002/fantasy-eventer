@@ -130,54 +130,25 @@ class Demo extends React.Component {
                 { name: 'profilePic', title: 'Avatar' },
                 { name: 'score', title: 'Score' },
                 { name: 'profileName', title: 'profileName' },
-                { name: 'rank', title: 'Rankings', getCellValue: row => (this.updateRank.bind(this)(row)) }
+                { name: 'rank', title: 'Rankings' }
             ],
             count: 0,
-            rows: this.props.league.list,
+            rows: this.props.league,
             pageSizes: [5, 10, 15],
             currentPage: 0,
             loading: true,
         };
     }
 
-    updateRank(row) {
-        // console.log("ROW::",row);
-        // this.setState((state) => ({
-        //     rank: state.count + 1
-        //  }))
-        // row.rank === this.state.count + 1
-    }
-
     componentWillMount() {
         this.props.loadLeague();
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     console.log("CWP:", nextProps.league + "----" + this.props.league);
-    //     var promise = new Promise((resolve, reject) => {
-    //     if (nextProps.league !== this.props.leage) {
-    //         resolve(nextProps.league)            
-    //     }
-    //     else reject()
-    // });
-    // let counter = 0;
-    // promise.then(result => {
-    //     console.log("XX::",result)
-    //    return result.sort((a,b) => a.score > b.score ? 1 : -1)
-    // }).then(result => {
-    //         console.log("XX1::",result)
-    //         result.map(x => 
-    //             this.setState({rows: })
-    //             console.log("XX2::",x))
-    //     })
-    
-    // }
-    // this.setState({ rows: nextProps.league })
 
     componentWillReceiveProps(nextProps) {
         console.log("CWP:", nextProps.league + "----" + this.props.league);
-        if (nextProps.league.list > 1) {
-            this.setState({ rows: nextProps.league.list })
+        if (nextProps.league.length > 1) {
+            this.setState({ rows: nextProps.league })
     
         }
     }
@@ -186,9 +157,7 @@ class Demo extends React.Component {
         const { columns, rows } = this.state;
         const { league } = this.props;
         console.log("DATA_STATE::", this.state)
-
         console.log("DATA_PROP::", this.props)
-
         return (
             <div>
                 <Paper>

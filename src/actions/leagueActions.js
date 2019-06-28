@@ -1,28 +1,6 @@
 import * as types from './actionTypes';
-import { Record, List, Map, fromJS } from 'immutable'; //, Map, List 
-import { FirebaseList } from 'src/firebase';
 import { firebaseDb } from '../firebase';
 import _ from 'lodash';
-
-// export const League = new Record({
-//   Users: new Map()
-// })
-
-// export const leagueFireDB = new FirebaseList({
-//   onLoad: loadLeagueSuccess,
-// }, League);
-
-// export function loadLeague() {
-//   console.log("LOADLEAGUE::");
-//   return dispatch => {
-//     leagueFireDB.path = `users/`;
-//     leagueFireDB.subscribe(dispatch);
-//   };
-// }
-
-var league = []
-
-
 
 export function loadLeague() {
   const ref = firebaseDb.ref('users');

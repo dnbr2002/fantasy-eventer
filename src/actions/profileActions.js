@@ -8,6 +8,7 @@ export const Profile = Record({
   profilePic: '',
   teamName: '', 
   score: 0,
+  rank: 0,
   teamKeysTier1: '',
   teamKeysTier2: ''
 });
