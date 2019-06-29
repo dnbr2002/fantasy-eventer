@@ -8,6 +8,7 @@ import * as adminActions from '../../../actions/adminActions';
 import * as profileActions from '../../../actions/profileActions';
 import { TeamSelector } from '../../../selectors/teamSelector';
 import { LeagueTeamSelector } from '../../../selectors/leagueSelector';
+import RowDetailBase from './RowDetailBase';
 import Paper from '@material-ui/core/Paper';
 import button from '@material-ui/core/Button';
 import {
@@ -83,33 +84,83 @@ const data = [{
 //     },
 //   });
 
-let RowDetailBase = ({ row, dataProp, classes }) => (
-    console.log("ROWS::",dataProp),
-    <div className={classes.detailContainer}>
-        <div>
-            <h5 className={classes.title}>
-                {row.name}
-                {' '}
-                Team
-    </h5>
-        </div>
-        <Paper>
-            <Grid
-                rows={data}
-                columns={detailColumns}
-            >
-                <Table
-                    columnExtensions={tableDetailColumnExtensions}
-                />
-                <TableHeaderRow />
-            </Grid>
-        </Paper>
-    </div>
-);
+// let RowDetailBase = ({ row, classes }) => (
+//     console.log("ROWS::"),
+//     <div className={classes.detailContainer}>
+//         <div>
+//             <h5 className={classes.title}>
+//                 {row.name}
+//                 {' '}
+//                 Team
+//     </h5>
+//         </div>
+//         <Paper>
+//             <Grid
+//                 rows={data}
+//                 columns={detailColumns}
+//             >
+//                 <Table
+//                     columnExtensions={tableDetailColumnExtensions}
+//                 />
+//                 <TableHeaderRow />
+//             </Grid>
+//         </Paper>
+//     </div>
+// );
 
-const RowDetail = withStyles(styles)(RowDetailBase);
+// const RowDetail = withStyles(styles)(RowDetailBase);
 
-const TeamAvatar = ({ value, style, ...restProps }) => (
+// class RowDetailBase extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//         }
+//     }
+//     componentWillMount() {
+//         this.props.loadCompetitors();
+//     }
+
+//     componentWillReceiveProps(nextProps) {
+//         console.log("CWP:", nextProps.row + "----" + this.props.row);
+//         console.log("UID::",nextProps.row.uid)
+//             this.props.loadTeamLeague(nextProps.row.uid);          
+//     }
+
+
+//     render() {
+//         const { classes, row } = this.props;
+//         console.log("RDB::",this.props)
+//         return (
+//             <div>
+//                 <div className={classes.detailContainer}>
+//                     <div>
+//                         <h5 className={classes.title}>
+//                             {row.name}
+//                             {' '}                Team
+//                 </h5>
+//                     </div>
+//                     <Paper>
+//                         <Grid
+//                             rows={data}
+//                             columns={detailColumns}
+//                         >
+//                             <Table
+//                                 columnExtensions={tableDetailColumnExtensions}
+//                             />
+//                             <TableHeaderRow />
+//                         </Grid>
+//                     </Paper>
+//                 </div>
+//             </div>
+//         )
+//     }
+// }
+
+// const RowDetail = withStyles(styles)(connect(null, mapDispatchToProps)(RowDetailBase));
+
+
+
+const TeamAvatar = ({ value, style }) => (
     <Table.Cell>
         <Avatar alt="Remy Sharp" src={value} />
     </Table.Cell>
@@ -118,7 +169,7 @@ const TeamAvatar = ({ value, style, ...restProps }) => (
 
 const Cell = (props) => {
     const { column } = props;
-    // console.log("DATA_PROP2::", props)
+    console.log("DATA_PROP2::", props)
     if (column.name === 'profilePic') {
         return <TeamAvatar {...props} />;
     }
@@ -157,7 +208,6 @@ class Demo extends React.Component {
         console.log("CWP:", nextProps.league + "----" + this.props.league);
         if (nextProps.league.length > 1) {
             this.setState({ rows: nextProps.league })
-
         }
     }
 
@@ -166,12 +216,12 @@ class Demo extends React.Component {
         // if(this.state.rows[index].uid) {
         if (expandedRowIds.length > 0) {
             var index = expandedRowIds - 1
-        const uid = this.state.rows[index].uid
-        this.props.loadTeamLeague(uid);
-        console.log("UID::",uid);
+            const uid = this.state.rows[index].uid
+            this.props.loadTeamLeague(uid);
+            console.log("UID::", uid);
         }
 
-      }
+    }
 
     render() {
         const { columns, rows, expandedRowIds, defaultExpandedRowIds, pageSizes } = this.state;
@@ -205,9 +255,10 @@ class Demo extends React.Component {
                         />
                         <TableHeaderRow />
                         <TableRowDetail
-                        contentComponent={RowDetail}
-                        dataProp={this.props.team}
-                    />
+                            contentComponent={RowDetailBase}
+                            dataProp={this.props.team}
+                        />
+                        
                         <PagingPanel />
                     </Grid>
 
