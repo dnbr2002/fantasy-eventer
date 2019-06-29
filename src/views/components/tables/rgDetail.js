@@ -7,7 +7,7 @@ import * as teamActions from '../../../actions/teamActions';
 import * as adminActions from '../../../actions/adminActions';
 import * as profileActions from '../../../actions/profileActions';
 import { TeamSelector } from '../../../selectors/teamSelector';
-import { LeagueTeamSelector } from '../../../selectors/leagueSelector';
+import { LeagueTeamSelector } from '../../../selectors/leagueTeamSelector';
 import RowDetailBase from './RowDetailBase';
 import Paper from '@material-ui/core/Paper';
 import button from '@material-ui/core/Button';
@@ -220,7 +220,6 @@ class Demo extends React.Component {
             this.props.loadTeamLeague(uid);
             console.log("UID::", uid);
         }
-
     }
 
     render() {

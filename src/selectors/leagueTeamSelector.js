@@ -19,14 +19,13 @@ export function getTeamRecord(state) {
 }
 
 export function getTeamList(state) {
-  console.log("STATE2::",state.team.list);
-  
+  console.log("STATE2::",state.team.list);  
   var teamKeysArray
-  if(state.team.list.size > 0) {
-  var teamArray1 = getTeamRecord(state).teamKeysTier1.split(',');
-  var teamArray2 = getTeamRecord(state).teamKeysTier2.split(',');
-  teamKeysArray = teamArray1.concat(teamArray2);
-  }
+    if(state.team.list.size > 0) {
+    var teamArray1 = getTeamRecord(state).teamKeysTier1.split(',');
+    var teamArray2 = getTeamRecord(state).teamKeysTier2.split(',');
+    teamKeysArray = teamArray1.concat(teamArray2);
+    }
   return teamKeysArray
 }
 

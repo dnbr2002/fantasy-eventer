@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as leagueActions from '../../../actions/leagueActions';
 import * as teamActions from '../../../actions/teamActions';
 import * as adminActions from '../../../actions/adminActions';
-import { LeagueTeamSelector } from '../../../selectors/leagueSelector';
+import { LeagueTeamSelector } from '../../../selectors/leagueTeamSelector';
 import Paper from '@material-ui/core/Paper';
 import {
     Grid,
@@ -12,6 +12,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import Flag from 'react-world-flags'
 
 const styles = theme => ({
     detailContainer: {
@@ -33,8 +34,11 @@ const TeamAvatar = ({ value, style }) => (
 const Cell = (props) => {
     const { column } = props;
     console.log("DATA_PROP2::", props)
-    if (column.name === 'profilePic') {
+    if (column.name === 'pic') {
         return <TeamAvatar {...props} />;
+    }
+    if (column.name === 'country') {
+        return <Table.Cell> <img src="https://www.countryflags.io/us/shiny/64.png" width="50" height="30" /> </Table.Cell>
     }
     return <Table.Cell {...props} />;
 };
@@ -44,11 +48,12 @@ class RowDetailBase extends React.Component {
         super(props);
         this.state = {
             columns: [
-                { name: 'teamName', title: 'Team' },
-                { name: 'profilePic', title: 'Avatar' },
-                { name: 'score', title: 'Score' },
-                { name: 'profileName', title: 'profileName' },
-                { name: 'rank', title: 'Rankings' }
+                { name: 'country', title: 'Country' },
+                { name: 'horse', title: 'Horse' },
+                { name: 'rider', title: 'Rider' },
+                { name: 'tier', title: 'Tier' },
+                { name: 'pic', title: 'Avatar' },
+                { name: 'score', title: 'Score' }
             ],
             data: []
         }
@@ -57,22 +62,35 @@ class RowDetailBase extends React.Component {
     }
     componentWillMount() {
         this.props.loadCompetitors();
+        
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     // console.log("UID::",nextProps.row.uid)
-    //         if(nextProps.row.uid)
-    //         {
-    //             this.props.loadTeamLeague(nextProps.row.uid);
-    //         }
+    componentWillUnmount() {
+        this.setState({data: []})
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.team){
+            if(nextProps.team.size != this.state.data.length)
+            {
+                console.log("RDB2::",nextProps.team);
+                var arr = []
+                nextProps.team.map(x => {
+                    arr.push(x)
+                })
+                console.log("RDB3::",arr);
+                this.setState({data: arr})
+            }
+        }
                       
-    // }
+    }
 
 
     render() {
         const { data, columns } = this.state;
         const { classes, row } = this.props;
         console.log("RDB::",this.props)
+        console.log("RDB1::",this.state)
         return (
             <div>
                 <div className={classes.detailContainer}>
