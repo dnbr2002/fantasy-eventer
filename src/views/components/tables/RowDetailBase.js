@@ -12,7 +12,6 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import Flag from 'react-world-flags'
 
 const styles = theme => ({
     detailContainer: {
@@ -32,13 +31,14 @@ const TeamAvatar = ({ value, style }) => (
 
 
 const Cell = (props) => {
-    const { column } = props;
+    const { column, row } = props;
     console.log("DATA_PROP2::", props)
     if (column.name === 'pic') {
         return <TeamAvatar {...props} />;
     }
     if (column.name === 'country') {
-        return <Table.Cell> <img src="https://www.countryflags.io/us/shiny/64.png" width="50" height="30" /> </Table.Cell>
+        var imgSrc = "https://www.countryflags.io/"+ row.country +"/shiny/64.png"
+        return <Table.Cell> <img src={imgSrc} width="40" height="30" /> </Table.Cell>
     }
     return <Table.Cell {...props} />;
 };
@@ -65,9 +65,9 @@ class RowDetailBase extends React.Component {
         
     }
 
-    componentWillUnmount() {
-        this.setState({data: []})
-    }
+    // componentWillUnmount() {
+    //     this.setState({data: []})
+    // }
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.team){

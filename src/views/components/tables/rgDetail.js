@@ -26,139 +26,8 @@ import {
     TableRowDetail,
     PagingPanel
 } from '@devexpress/dx-react-grid-material-ui';
-
-import { withStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import { promised } from 'q';
-
-
-const styles = theme => ({
-    detailContainer: {
-        margin: '20px',
-    },
-    title: {
-        color: theme.palette.text.primary,
-        fontSize: theme.typography.fontSize,
-    },
-});
-
-const detailColumns = [
-    { name: 'subject', title: 'Subject' },
-    { name: 'startDate', title: 'Start Date' },
-    { name: 'dueDate', title: 'Due Date' },
-    { name: 'priority', title: 'Priority' },
-    { name: 'status', title: 'Status' },
-];
-const tableDetailColumnExtensions = [
-    { columnName: 'startDate', width: 115 },
-    { columnName: 'dueDate', width: 115 },
-    { columnName: 'priority', width: 100 },
-    { columnName: 'status', width: 125 },
-];
-
-const data = [{
-    subject: 'mark',
-    startDate: 'now',
-    dueDate: 'later',
-    priority: 'high',
-    status: 'incomplete'
-},
-{
-    subject: 'mark',
-    startDate: 'now',
-    dueDate: 'later',
-    priority: 'high',
-    status: 'incomplete'
-}]
-
-// const useStyles = makeStyles({
-//     avatar: {
-//       margin: 10,
-//     },
-//     bigAvatar: {
-//       margin: 10,
-//       width: 60,
-//       height: 60,
-//     },
-//   });
-
-// let RowDetailBase = ({ row, classes }) => (
-//     console.log("ROWS::"),
-//     <div className={classes.detailContainer}>
-//         <div>
-//             <h5 className={classes.title}>
-//                 {row.name}
-//                 {' '}
-//                 Team
-//     </h5>
-//         </div>
-//         <Paper>
-//             <Grid
-//                 rows={data}
-//                 columns={detailColumns}
-//             >
-//                 <Table
-//                     columnExtensions={tableDetailColumnExtensions}
-//                 />
-//                 <TableHeaderRow />
-//             </Grid>
-//         </Paper>
-//     </div>
-// );
-
-// const RowDetail = withStyles(styles)(RowDetailBase);
-
-// class RowDetailBase extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//         }
-//     }
-//     componentWillMount() {
-//         this.props.loadCompetitors();
-//     }
-
-//     componentWillReceiveProps(nextProps) {
-//         console.log("CWP:", nextProps.row + "----" + this.props.row);
-//         console.log("UID::",nextProps.row.uid)
-//             this.props.loadTeamLeague(nextProps.row.uid);          
-//     }
-
-
-//     render() {
-//         const { classes, row } = this.props;
-//         console.log("RDB::",this.props)
-//         return (
-//             <div>
-//                 <div className={classes.detailContainer}>
-//                     <div>
-//                         <h5 className={classes.title}>
-//                             {row.name}
-//                             {' '}                Team
-//                 </h5>
-//                     </div>
-//                     <Paper>
-//                         <Grid
-//                             rows={data}
-//                             columns={detailColumns}
-//                         >
-//                             <Table
-//                                 columnExtensions={tableDetailColumnExtensions}
-//                             />
-//                             <TableHeaderRow />
-//                         </Grid>
-//                     </Paper>
-//                 </div>
-//             </div>
-//         )
-//     }
-// }
-
-// const RowDetail = withStyles(styles)(connect(null, mapDispatchToProps)(RowDetailBase));
-
-
 
 const TeamAvatar = ({ value, style }) => (
     <Table.Cell>
@@ -169,7 +38,7 @@ const TeamAvatar = ({ value, style }) => (
 
 const Cell = (props) => {
     const { column } = props;
-    console.log("DATA_PROP2::", props)
+    // console.log("DATA_PROP2::", props)
     if (column.name === 'profilePic') {
         return <TeamAvatar {...props} />;
     }
@@ -211,23 +80,25 @@ class Demo extends React.Component {
         }
     }
 
-    changeExpandedDetails = (expandedRowIds) => {
+    handleExpandedRowIdsChange = (expandedRowIds) => {
         console.log("ERI::", expandedRowIds)
         // if(this.state.rows[index].uid) {
         if (expandedRowIds.length > 0) {
-            var index = expandedRowIds - 1
-            const uid = this.state.rows[index].uid
-            this.props.loadTeamLeague(uid);
-            console.log("UID::", uid);
+            // var indexes = expandedRowIds - 1
+            expandedRowIds.map(index => {
+                const uid = this.state.rows[index -1].uid
+                console.log("UID::",uid);
+                this.props.loadTeamLeague(uid);
+            })
         }
     }
 
     render() {
         const { columns, rows, expandedRowIds, defaultExpandedRowIds, pageSizes } = this.state;
         const { league } = this.props;
-        console.log("DATA_STATE::", this.state)
+        // console.log("DATA_STATE::", this.state)
 
-        console.log("DATA_PROP::", this.props)
+        // console.log("DATA_PROP::", this.props)
         return (
             <div>
                 <Paper>
@@ -245,8 +116,7 @@ class Demo extends React.Component {
                             pageSize={5}
                         />
                         <RowDetailState
-                            onExpandedRowIdsChange={this.changeExpandedDetails}
-                            defaultExpandedRowIds={defaultExpandedRowIds}
+                            onExpandedRowIdsChange={this.handleExpandedRowIdsChange}
                         />
                         <IntegratedPaging />
                         <Table

@@ -81,7 +81,9 @@ export class FirebaseList {
     });
 
     ref.on('child_added', snapshot => {
+      
       if (initialized) {
+        debugger;
         emit(this._actions.onAdd(this.unwrapSnapshot(snapshot)));
       }
       else {
