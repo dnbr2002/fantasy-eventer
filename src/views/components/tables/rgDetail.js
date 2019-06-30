@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -29,6 +29,8 @@ import {
 import _ from 'lodash';
 import Avatar from '@material-ui/core/Avatar';
 
+import { firebaseDb } from '../../../firebase';
+
 const TeamAvatar = ({ value, style }) => (
     <Table.Cell>
         <Avatar alt="Remy Sharp" src={value} />
@@ -44,6 +46,70 @@ const Cell = (props) => {
     }
     return <Table.Cell {...props} />;
 };
+
+function RowDetail(props) {
+    console.log("RDB10::", props)
+    const [row, setRow] = useState(props.row);
+    const [team, setTeam] = useState([])
+    const [keys1, setKeys1] = useState(props.row.teamKeysTier1.split(','))
+    const [keys2, setKeys2] = useState(props.row.teamKeysTier2.split(','))
+
+    useEffect(
+        () => {
+            // keys1.concat(keys2).forEach(key => {
+                firebaseDb.ref(`competitors`).once('value').then(function (snapshot) {
+                    console.log("RDB11", snapshotToArray(snapshot));
+                    const team = setTeam(() => snapshotToArray(snapshot))
+                })
+            // })
+            
+        })
+
+        function snapshotToArray(snapshot) {
+            var returnArr = [];
+        
+            snapshot.forEach(function(childSnapshot) {
+                var item = childSnapshot.val();
+                item.key = childSnapshot.key;
+        
+                returnArr.push(item);
+            });
+        
+            return returnArr;
+        };
+
+    // function getCompetitors() {
+    //     var tempTeam = []
+    //     var tk1 = row.teamKeysTier1.split(',');
+    //     var tk2 = row.teamKeysTier2.split(',');
+    //     var teamKeysArray = tk1.concat(tk2);
+    //     teamKeysArray.forEach((compKey, index) => {
+    //         firebaseDb.ref(`competitors/${compKey}`).once('value').then(function (snapshot) { 
+    //             console.log("RDB11",snapshot.val())
+    //             tempTeam.push(snapshot.val());
+    //             console.log("RDB12", tempTeam);
+
+    //         })
+    //         console.log("RDB13", tempTeam);
+    //         return tempTeam 
+    //     })
+
+
+    // }
+
+
+    return (
+        <div>
+            <div>{`Details for ${row.teamName}`}</div>
+            {team.map((value, key) => {
+                return (
+                    <div>{`Competitor  ${value.horse}`}</div>
+                )
+            })}
+        </div>
+    );
+}
+
 
 const getRowId = row => row.rank;
 
@@ -82,15 +148,16 @@ class Demo extends React.Component {
 
     handleExpandedRowIdsChange = (expandedRowIds) => {
         console.log("ERI::", expandedRowIds)
+        this.setState({ expandedRowIds });
         // if(this.state.rows[index].uid) {
-        if (expandedRowIds.length > 0) {
-            // var indexes = expandedRowIds - 1
-            expandedRowIds.map(index => {
-                const uid = this.state.rows[index -1].uid
-                console.log("UID::",uid);
-                this.props.loadTeamLeague(uid);
-            })
-        }
+        // if (expandedRowIds.length > 0) {
+        //     // var indexes = expandedRowIds - 1
+        //     expandedRowIds.map(index => {
+        //         const uid = this.state.rows[index -1].uid
+        //         console.log("UID::",uid);
+        //         this.props.loadTeamLeague(uid);
+        //     })
+        // }
     }
 
     render() {
@@ -116,6 +183,7 @@ class Demo extends React.Component {
                             pageSize={5}
                         />
                         <RowDetailState
+                            expandedRowIds={expandedRowIds}
                             onExpandedRowIdsChange={this.handleExpandedRowIdsChange}
                         />
                         <IntegratedPaging />
@@ -124,10 +192,9 @@ class Demo extends React.Component {
                         />
                         <TableHeaderRow />
                         <TableRowDetail
-                            contentComponent={RowDetailBase}
-                            dataProp={this.props.team}
+                            contentComponent={RowDetail}
                         />
-                        
+
                         <PagingPanel />
                     </Grid>
 

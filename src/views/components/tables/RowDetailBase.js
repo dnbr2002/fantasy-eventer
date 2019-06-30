@@ -62,11 +62,19 @@ class RowDetailBase extends React.Component {
     }
     componentWillMount() {
         this.props.loadCompetitors();
+        this.props.loadTeamLeague(this.props.row.uid);      
+    }
+
+    componentDidMount() {
         
     }
 
     // componentWillUnmount() {
     //     this.setState({data: []})
+    // }
+
+    // componentWillUpdate() {
+    //     this.props.loadTeamLeague(this.props.row.uid); 
     // }
 
     componentWillReceiveProps(nextProps) {
@@ -81,14 +89,13 @@ class RowDetailBase extends React.Component {
                 console.log("RDB3::",arr);
                 this.setState({data: arr})
             }
-        }
-                      
+        }                      
     }
 
 
     render() {
         const { data, columns } = this.state;
-        const { classes, row } = this.props;
+        const { classes, row, team } = this.props;
         console.log("RDB::",this.props)
         console.log("RDB1::",this.state)
         return (
@@ -97,7 +104,7 @@ class RowDetailBase extends React.Component {
                     <div>
                         <h5 className={classes.title}>
 
-                            {' '}                Team
+                            {row.teamName} {' '}                Team
                 </h5>
                     </div>
                     <Paper>
