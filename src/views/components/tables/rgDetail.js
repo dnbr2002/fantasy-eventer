@@ -50,20 +50,36 @@ const Cell = (props) => {
 function RowDetail(props) {
     console.log("RDB10::", props)
     const [row, setRow] = useState(props.row);
-    const [team, setTeam] = useState([])
+    const [competitors, setCompetitors] = useState(firebaseDb.ref(`competitors`).once('value').then(function (snapshot) { setCompetitors(snapshotToArray(snapshot)) }, []));
+    const [team, setTeam] = useState([]);
     const [keys1, setKeys1] = useState(props.row.teamKeysTier1.split(','))
     const [keys2, setKeys2] = useState(props.row.teamKeysTier2.split(','))
 
     useEffect(
         () => {
-            // keys1.concat(keys2).forEach(key => {
-                firebaseDb.ref(`competitors`).once('value').then(function (snapshot) {
-                    console.log("RDB11", snapshotToArray(snapshot));
-                    const team = setTeam(() => snapshotToArray(snapshot))
-                })
-            // })
-            
+                // firebaseDb.ref(`competitors`).once('value').then(function (snapshot) {
+                //     console.log("RDB11", snapshotToArray(snapshot));
+                //     setCompetitors(snapshotToArray(snapshot));
+                //     console.log("RDB12", competitors);
+                // })
+                // getTeam(competitors)   
+                console.log("RDB::",competitors);           
+        }, [])
+    
+    function getTeam(competitors) {
+        var teamArr = []
+        console.log("RDB12.5", competitors);
+        competitors.forEach((value, index) => {
+            console.log("RDB12", value);
+            if (keys1.concat(keys2).some(key => key === value.key))
+                console.log("RDB13", value);
+            teamArr.push(value);
         })
+        console.log("RDB14", teamArr);
+        setTeam(teamArr);
+    }
+
+
 
         function snapshotToArray(snapshot) {
             var returnArr = [];
@@ -78,34 +94,16 @@ function RowDetail(props) {
             return returnArr;
         };
 
-    // function getCompetitors() {
-    //     var tempTeam = []
-    //     var tk1 = row.teamKeysTier1.split(',');
-    //     var tk2 = row.teamKeysTier2.split(',');
-    //     var teamKeysArray = tk1.concat(tk2);
-    //     teamKeysArray.forEach((compKey, index) => {
-    //         firebaseDb.ref(`competitors/${compKey}`).once('value').then(function (snapshot) { 
-    //             console.log("RDB11",snapshot.val())
-    //             tempTeam.push(snapshot.val());
-    //             console.log("RDB12", tempTeam);
-
-    //         })
-    //         console.log("RDB13", tempTeam);
-    //         return tempTeam 
-    //     })
-
-
-    // }
-
-
     return (
         <div>
             <div>{`Details for ${row.teamName}`}</div>
-            {team.map((value, key) => {
+            {/* {competitors.map((value, index) => {
+                console.log("KEY::", value.key);
+                if(keys1.concat(keys2).some(key => key === value.key))
                 return (
                     <div>{`Competitor  ${value.horse}`}</div>
                 )
-            })}
+            })} */}
         </div>
     );
 }
