@@ -75,7 +75,11 @@ class TeamCard extends Component {
             <Grid item xs container direction="column" spacing={16}>
               <Grid item xs>
                 <Typography gutterBottom variant="display1">Team: {this.state.teamName}</Typography>
+                <br />
+                <br />
                 <Typography gutterBottom variant="headline">Player: {this.state.profileName}</Typography>
+                <br />
+                <br />
                 <Typography color="textSecondary" variant="subheading">Leagues: </Typography>
               </Grid>
               <Grid item>

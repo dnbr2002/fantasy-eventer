@@ -7,10 +7,13 @@ export function leagueReducer(state = user, { payload, type }) {
   switch (type) {
     case LOAD_LEAGUE_SUCCESS:
       var array = _.values(payload)
-      array.forEach(x => state.push(x[Object.keys(x)[0]]));
-      state.sort((a, b) => a.score > b.score ? 1 : -1)
-      state.map((x, index) => x.rank = index + 1)
-      return Object.assign([], state)
+      const mapArray = array.map(x => { return x[Object.keys(x)[0]] });
+      console.log("SORT1::", mapArray)
+      const sorted = mapArray.slice().sort((a, b) => a.score > b.score ? -1 : 1); 
+      console.log("SORT2::", sorted);
+      const sortedMap = sorted.map((x, index) => x.rank = index + 1)
+      console.log("SORT3::", sortedMap);
+      return Object.assign([], sorted)
 
     default:
       return state;

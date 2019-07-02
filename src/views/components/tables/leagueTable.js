@@ -88,7 +88,7 @@ class LeagueTable extends React.Component {
                         getRowId={getRowId}
                     >
                         <SortingState
-                            defaultSorting={[{ columnName: 'score', direction: 'asc' }]}
+                            // defaultSorting={[{ columnName: 'score', direction: 'desc' }]}
                         />
                         <IntegratedSorting />
                         <PagingState
