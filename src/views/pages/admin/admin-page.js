@@ -12,7 +12,7 @@ import * as competitionActions from '../../../actions/competitionActions'
 import AdminTable from '../../components/tables/adminTable';
 import AddCompetition from '../../components/competition/addCompetition';
 import RemoveTeams from '../../components/team/removeTeams';
-import UpdateScores from '../../components/profile/updateTeamScores';
+import UpdateScores from '../../components/team/updateTeamScores';
 import Typography from '@material-ui/core/Typography';
 
 
@@ -33,20 +33,17 @@ export class AdminPage extends Component {
         console.log("ADMINPROPS::",this.props)
         return (
             <div className="g-row">
-                <div className="g-col">
-                    <Typography variant="display3" gutterBottom>
-                        Fantasy Eventer
-                    <br />
-                        Admin Center
-                    </Typography>
-                    <br />
-                    <AddCompetitor {...this.props} />
-                    <br />
-                    <AddCompetition {...this.props} />
+                <div className="g-col">                    
+                   <h1> Fantasy Eventer </h1>
+                      <h2>  Admin Center </h2>
                     <br />
                     <RemoveTeams {...this.props} />
                     <br />
                     <UpdateScores {...this.props} />
+                    <br />
+                    <AddCompetitor {...this.props} />
+                    <br />
+                    <AddCompetition {...this.props} />
                     <br />
                     <AdminTable {...this.props} />
                 </div>

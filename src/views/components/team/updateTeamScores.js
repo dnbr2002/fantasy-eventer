@@ -27,7 +27,6 @@ class UpdateScores extends Component {
                         variant="raised" 
                         size="medium" 
                         color="primary" 
-                        style={{color: '#ffffff'}} 
                         id="updateScoresBtn" 
                         onClick={() => this.handleUpdate(this.props.competitors)}>
                         <Update /> &nbsp;

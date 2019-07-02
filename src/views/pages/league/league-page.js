@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
-import RgDetail from '../../components/tables/rgDetail';
+import LeagueTable from '../../components/tables/leagueTable';
 
 
 class LeaguePage extends Component {
@@ -17,13 +17,11 @@ class LeaguePage extends Component {
             <div className="g-row">
                 <div className="g-col">
                 <h1>League Rankings</h1>
-                {/* <LeagueTable {...this.props} /> */}
                 <br />
                 <br />
-                <RgDetail />
+                <LeagueTable />
                 <br />
                 <br />
-                {/* <RgTable /> */}
                 <br />
                 <br />
                 <br />

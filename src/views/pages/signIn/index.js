@@ -23,9 +23,6 @@ import Typography from '@material-ui/core/Typography/index';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 // Shared components
-import FacebookIcon from '../../components/icon/facebook';
-import GoogleIcon from '../../components/icon/google';
-import TwitterIcon from '../../components/icon/twitter';
 import { FacebookLoginButton, GoogleLoginButton, TwitterLoginButton } from "react-social-login-buttons";
 
 

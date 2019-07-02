@@ -35,6 +35,14 @@ export function loadTeam() {
   };
 }
 
+export function loadTeamLeague(authId) {
+  return (dispatch) => {
+    teamFireDB.path = `users/${authId}`;
+    teamFireDB.subscribe(dispatch);
+  };
+}
+
+
 
 export function loadTeamSuccess(team) {
   // console.log("TEAM::",team);

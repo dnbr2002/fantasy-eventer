@@ -25,8 +25,7 @@ class RemoveTeam extends Component {
                         <Button 
                         variant="raised" 
                         size="medium" 
-                        color="secondary" 
-                        style={{color: '#ffffff'}} 
+                        color="primary" 
                         id="removeCompetitorBtn" 
                         onClick={this.handleRemove}>
                         <PeopleOutline />

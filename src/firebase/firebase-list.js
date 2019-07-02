@@ -81,7 +81,9 @@ export class FirebaseList {
     });
 
     ref.on('child_added', snapshot => {
+      
       if (initialized) {
+        // debugger;
         emit(this._actions.onAdd(this.unwrapSnapshot(snapshot)));
       }
       else {
@@ -154,7 +156,6 @@ export class FirebaseList {
 
   unwrapSnapshot(snapshot) {
     if (snapshot.exists()) {
-      console.log("SP::",snapshot);
       let attrs = snapshot.val();
       attrs.key = snapshot.key;
       return new this._modelClass(attrs);

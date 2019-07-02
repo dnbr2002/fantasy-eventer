@@ -63,14 +63,6 @@ class TeamPage extends Component {
       open: false,
       score: null
     };
-    this.handleToggle = this.handleToggle.bind(this)
-    this.renderTeamName = this.renderTeamName.bind(this)
-    this.renderDefaultTitle = this.renderDefaultTitle.bind(this)
-    this.renderAddTeamName = this.renderAddTeamName.bind(this)
-    this.renderEventName = this.renderEventName.bind(this)
-    this.handleClickOpen = this.handleClickOpen.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
 
@@ -95,7 +87,7 @@ class TeamPage extends Component {
     }
   }
 
-  handleToggle(event) {
+  handleToggle = (event) => {
     this.setState({ toggle: event.target.checked });
   };
 
@@ -107,7 +99,7 @@ class TeamPage extends Component {
     this.setState({ open: false });
   };
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ open: false });
     // debugger;
@@ -121,7 +113,7 @@ class TeamPage extends Component {
   }
 
 
-  renderTeamName() {
+  renderTeamName = () => {
     return (
       <div>
 
@@ -129,7 +121,7 @@ class TeamPage extends Component {
     )
   }
 
-  renderEventName() {
+  renderEventName = () => {
     const { competition } = this.props
     console.log("competion::", competition.list)
     if (competition.size > 0) {
@@ -141,19 +133,19 @@ class TeamPage extends Component {
   }
 
 
-  renderDefaultTitle() {
+  renderDefaultTitle = () => {
     return <Typography variant="display2" gutterBottom>
       Fantasy Eventer Team
       </Typography>
   }
 
-  renderAddTeamName() {
+  renderAddTeamName = () => {
     toastr.info("WAIT!!! You need a Team Name. Sending you to your profile to set that up now.");
     this.props.history.push('/profile');
   }
 
 
-  renderAddTeam() {
+  renderAddTeam = () => {
     return (
       <div>
         <div>

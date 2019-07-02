@@ -28,7 +28,7 @@ export function createProfile(data) {
     var teamKeysTier1 = "teamkeysplaceholder"
     var teamKeysTier2 = "teamkeysplaceholder"
     var score = 0
-    var rank = ''
+    var rank = 0
     return (dispatch, getState) => {
         const { auth } = getState();
         const uid = auth.id

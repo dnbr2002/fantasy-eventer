@@ -19,14 +19,14 @@ export function getTeamRecord(state) {
 }
 
 export function getTeamList(state) {
-  console.log("STATE2::",state);
+  console.log("STATE2::",state.team.list);  
   var teamKeysArray
-  if (getTeamState(state).profile.list.size > 0) {
+    if(state.team.list.size > 0) {
     var teamArray1 = getTeamRecord(state).teamKeysTier1.split(',');
     var teamArray2 = getTeamRecord(state).teamKeysTier2.split(',');
     teamKeysArray = teamArray1.concat(teamArray2);
-    return teamKeysArray
-  }
+    }
+  return teamKeysArray
 }
 
 export function getTeamFilter(state) {
@@ -34,7 +34,7 @@ export function getTeamFilter(state) {
   if (state.team.list.size > 0) {
     const selectedTeam = state.competitors.list.filter(
       competitor => getTeamList(state).some(teammate => teammate === competitor.key));
-      console.log("STATE1::",selectedTeam);
+      console.log("STATE4::",selectedTeam);
     return selectedTeam
   }
 }
@@ -43,7 +43,7 @@ export function getTeamFilter(state) {
 //  MEMOIZED SELECTORS
 //-------------------------------------
 
-export const TeamSelector = createSelector(
+export const LeagueTeamSelector = createSelector(
   getTeamState,
   getTeamRecord,
   getTeamList,

@@ -11,11 +11,15 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
-import PersonAdd from '@material-ui/icons/PersonAdd'
+import PersonAdd from '@material-ui/icons/PersonAdd';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import { Countries } from '../countries/countryName';
 
 const styles = {
     card: {
-        minWidth: 275,
+        minWidth: 500,
     },
     bullet: {
         display: 'inline-block',
@@ -39,6 +43,7 @@ class AddCompetitor extends Component {
     state = {
         value: '2',
         open: false,
+        country: '',
     };
 
     constructor() {
@@ -58,6 +63,11 @@ class AddCompetitor extends Component {
     handleChange = event => {
         this.setState({ value: event.target.value });
     };
+
+    handleSelectCange = event => {
+        console.log("EVENT::", event);
+           this.setState({[event.target.name]: event.target.value})
+    }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -84,6 +94,9 @@ class AddCompetitor extends Component {
     }
 
     render() {
+        console.log("COMPPROPS::", this.props);
+        console.log("COMPPROPS2::", { Countries });
+
         return (
             <div>
                 <Button
@@ -92,8 +105,8 @@ class AddCompetitor extends Component {
                     color="primary"
                     onClick={this.handleClickOpen}
                 >
-                <PersonAdd />
-                &nbsp; Add Competitor
+                    <PersonAdd />
+                    &nbsp; Add Competitor
                 </Button>
                 <Dialog
                     open={this.state.open}
@@ -116,17 +129,12 @@ class AddCompetitor extends Component {
                             </div>
                             <br />
                             <div className="g-row">
-                                <TextField autoFocus margin="dense" label="Country" id="country" type="text" name="country" />
-                            </div>
-                            <br />
-                            <div className="g-row">
                                 <TextField autoFocus margin="dense" label="Score" id="score" type="text" name="score" />
                             </div>
                             <br />
                             <div className="g-row">
                                 <TextField autoFocus margin="dense" multiline rows="4" label="Description" id="description" type="text" name="description" />
                             </div>
-                            <br />
                             <br />
                             <div className="g-row">
                                 <FormControl component="fieldset" required>
@@ -136,6 +144,24 @@ class AddCompetitor extends Component {
                                         <FormControlLabel value="2" control={<Radio color="primary" />} label="2" />
                                     </RadioGroup>
                                 </FormControl>
+                                <br />
+                                <br />
+                                <div className="g-row">
+                                    <InputLabel>Country</InputLabel>
+                                    <Select autoFocus
+                                        margin="dense"
+                                        id="country"
+                                        name="country"
+                                        value={this.state.country}
+                                        onChange={this.handleSelectCange}
+                                    >
+                                        {Countries.map((x, i) => (
+                                            <MenuItem value={x.abbreviation}>{x.country}</MenuItem>
+                                        ))}
+                                        })
+     
+                                </Select>
+                                </div>
                             </div>
                             <Button variant="raised" size="large" color="primary" id="addCompetitorBtn" type="submit">Submit</Button>
                         </form>
