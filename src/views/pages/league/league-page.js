@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
-import RgDetail from '../../components/tables/rgDetail';
+import LeagueTable from '../../components/tables/LeagueTable';
 
 
 class LeaguePage extends Component {
@@ -20,7 +20,7 @@ class LeaguePage extends Component {
                 {/* <LeagueTable {...this.props} /> */}
                 <br />
                 <br />
-                <RgDetail />
+                <LeagueTable />
                 <br />
                 <br />
                 {/* <RgTable /> */}

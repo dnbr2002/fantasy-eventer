@@ -35,8 +35,6 @@ const styles = {
     },
 };
 
-const Country = Countries;
-
 
 class AddCompetitor extends Component {
     static propTypes = {
@@ -98,7 +96,6 @@ class AddCompetitor extends Component {
     render() {
         console.log("COMPPROPS::", this.props);
         console.log("COMPPROPS2::", { Countries });
-        const country = { Countries };
 
         return (
             <div>
