@@ -42,6 +42,7 @@ const signIn = () => {
 };
 
 class SignIn extends Component {
+  _isMounted = false;
   state = {
     values: {
       email: '',
@@ -60,6 +61,14 @@ class SignIn extends Component {
     submitError: null
   };
 
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   handleBack = () => {
     const { history } = this.props;
 
@@ -74,7 +83,7 @@ class SignIn extends Component {
 
     newState.errors = errors || {};
     newState.isValid = errors ? false : true;
-
+    if(this._isMounted)
     this.setState(newState);
   }, 300);
 
@@ -84,7 +93,7 @@ class SignIn extends Component {
     newState.submitError = null;
     newState.touched[field] = true;
     newState.values[field] = value;
-
+    if(this._isMounted)
     this.setState(newState, this.validateForm);
   };
 
@@ -92,7 +101,7 @@ class SignIn extends Component {
     try {
       const { history } = this.props;
       const { values } = this.state;
-
+      if(this._isMounted)
       this.setState({ isLoading: true });
 
       this.props.signInWithEmail(values.email, values.password);
@@ -101,10 +110,12 @@ class SignIn extends Component {
 
       history.push('/sign-up');
     } catch (error) {
+      if(this._isMounted){
       this.setState({
         isLoading: false,
         serviceError: error
       });
+    }
     }
   };
 

@@ -11,7 +11,7 @@ export default (initialState = {}) => {
   let middleware = applyMiddleware(thunk, routerMiddleware(history), logger);
 
   if (process.env.NODE_ENV !== 'production') {
-    const devToolsExtension = window.devToolsExtension;
+    const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
     if (typeof devToolsExtension === 'function') {
       middleware = compose(middleware, devToolsExtension());
     }

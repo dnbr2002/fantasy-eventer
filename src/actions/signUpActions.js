@@ -13,6 +13,7 @@ export const Profile = Record({
   profilePic: '',
   teamName: '', 
   score: 0,
+  rank: 0,
   teamKeysTier1: '',
   teamKeysTier2: ''
 });
@@ -26,6 +27,7 @@ export function signUpWithEmail(name, teamName,email, pass) {
     var teamKeysTier1 = "ph1";
     var teamKeysTier2 = "ph2";
     var score = 0
+    var rank = 0
     var profilePic = "http://www.sbcs.edu.tt/wp-content/uploads/2016/04/profile-default.png"
     console.log("SU2::",name)
     return dispatch => {
@@ -33,7 +35,7 @@ export function signUpWithEmail(name, teamName,email, pass) {
         const uid = auth.id
         firebaseAuth.createUserWithEmailAndPassword(email, pass)
             .then(result => dispatch(signUpWithEmailSuccess(result)))
-            .then(() => profileFireDB.set(uid,{ profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, uid }))
+            // .then(() => profileFireDB.set(uid,{ profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, rank, uid }))
             .catch(error => dispatch(signUpWithEmailError(error)));
     };
 }

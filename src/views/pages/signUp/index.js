@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as signUpActions from '../../../actions/signUpActions';
 import * as authActions from '../../../actions/authActions';
+import * as profileActions from '../../../actions/profileActions';
 
 // Externals
 import PropTypes from 'prop-types';
@@ -36,15 +37,26 @@ import schema from './schema';
 validate.validators.checked = validators.checked;
 
 // Service methods
-const signUp = () => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(true);
-    }, 1500);
-  });
-};
+const signUp = ({ ...props }) => {
+  console.log("PROPS::", props);
+  const { signUp, createProfile, name, teamName, email, password } = this.props;
+  const profileData = {
+    profileName: name,
+    teamName: teamName,
+    profilePic: "http://www.sbcs.edu.tt/wp-content/uploads/2016/04/profile-default.png",
+}
+  Promise.resolve(signUp(email, password)) // dispatch
+    .then(response => {
+      createProfile(profileData); //dispatch
+      console.log("RESPONSE::", profileData)
+      return response;
+    })
+    .then(function(response){console.log("@RESPONSE",response);})
+  }
+
 
 class SignUp extends Component {
+  _isMounted = false;
   state = {
     values: {
       name: '',
@@ -72,6 +84,14 @@ class SignUp extends Component {
     submitError: null
   };
 
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   handleBack = () => {
     const { history } = this.props;
 
@@ -86,7 +106,7 @@ class SignUp extends Component {
 
     newState.errors = errors || {};
     newState.isValid = errors ? false : true;
-
+    if(this._isMounted)
     this.setState(newState);
   }, 300);
 
@@ -96,25 +116,51 @@ class SignUp extends Component {
     newState.submitError = null;
     newState.touched[field] = true;
     newState.values[field] = value;
-
+    if(this._isMounted)
     this.setState(newState, this.validateForm);
   };
 
-  handleSignUp = () => {
+  handleSignUp = async () => {
     try {
       const { history } = this.props;
       const { values } = this.state;
-        console.log("SU1::",values.email)
+      console.log("SU1::",values.email)
+      if(this._isMounted)
       this.setState({ isLoading: true });
 
-      this.props.signUpWithEmail(values.name, values.teamName, values.email, values.password)
+      // await signUp({
+      //   signUp: this.props.signUpWithEmail,
+      //   createProfile: this.props.createProfile,
+      //   name: values.name,
+      //   teamName: values.teamName,
+      //   email: values.email,
+      //   password: values.password
+      // });
+
+      const profileData = {
+        profileName: values.name,
+        teamName: values.teamName,
+        profilePic: "http://www.sbcs.edu.tt/wp-content/uploads/2016/04/profile-default.png",
+    }
+
+      Promise.resolve(this.props.signUp(values.email, values.password)) // dispatch
+      .then(response => {
+        this.props.createProfile(profileData); //dispatch
+        console.log("RESPONSE::", profileData)
+        return response;
+      })
+      .then(function(response){console.log("@RESPONSE",response);})
+
+      // this.props.signUpWithEmail(values.email, values.password, values.name, values.teamName)
 
       history.push('/signin');
     } catch (error) {
+      if(this._isMounted) {
       this.setState({
         isLoading: false,
         serviceError: error
       });
+    }
     }
   };
 
@@ -238,6 +284,7 @@ class SignUp extends Component {
                     <TextField
                       className={classes.textField}
                       label="Team name"
+                      name="teamName"
                       onChange={event =>
                         this.handleFieldChange('teamName', event.target.value)
                       }
@@ -379,7 +426,8 @@ SignUp.propTypes = {
 const mapDispatchToProps = Object.assign(
     {},
     signUpActions,
-    authActions
+    authActions, 
+    profileActions
 );
 
 export default compose(

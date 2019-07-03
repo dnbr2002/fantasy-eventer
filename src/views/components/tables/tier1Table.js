@@ -19,7 +19,7 @@ import toastr from 'toastr';
 
 const toolbarStyles = theme => ({
     root: {
-        paddingRight: theme.spacing.unit,
+        paddingRight: theme.spacing(1),
     },
     highlight:
         theme.palette.type === 'light'
@@ -80,7 +80,7 @@ Tier1TableToolbar = withStyles(toolbarStyles)(Tier1TableToolbar);
 const styles = theme => ({
     root: {
         width: '100%',
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing(3),
         overflowX: 'auto',
     },
     table: {
