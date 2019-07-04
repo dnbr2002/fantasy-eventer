@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { firebaseAuth } from 'src/firebase';
+import { createProfileFromSignUp, createProfileFromSocialLogin } from './profileActions.js';
 import {
   INIT_AUTH,
   SIGN_IN_ERROR,
@@ -15,8 +16,16 @@ import toastr from 'toastr';
 function authenticate(provider) {
   return dispatch => {
     firebaseAuth.signInWithPopup(provider)
-      .then(result => dispatch(signInSuccess(result)))
-      .catch(error => dispatch(signInError(error)));
+      .then(result => {
+        console.log("HERE::")
+        dispatch(signInSuccess(result))
+        return createProfileFromSocialLogin(result)
+      })
+      .catch(error => {
+        console.log("ERROR::",error);
+        dispatch(signInError(error))
+      }
+        );
   };
 }
 
@@ -46,6 +55,7 @@ export function signInError(error) {
 
 export function signInSuccess(result) {
   console.log('SISUCCESS::', result);
+  // return createProfileFromSocialLogin(result)
   return {
     type: SIGN_IN_SUCCESS,
     payload: result.user
@@ -68,7 +78,9 @@ export function signInEmailError(error) {
   };
 }
 
-export function signUpSuccess(result) {
+export function signUpSuccess(result, profileData) {
+  console.log("RESULT::",result.user.uid);
+  return createProfileFromSignUp(profileData, result.user.uid)
   return {
     type: SIGN_UP_SUCCESS,
     payload: result.user,
@@ -84,11 +96,16 @@ export function signUpError(error) {
     };
 }
 
-export function signUpWithEmail(email, pass) {
+export function signUpWithEmail(email, pass, name, team) {
+  const profileData = {
+    profileName: name,
+    teamName: team,
+    profilePic: "http://www.sbcs.edu.tt/wp-content/uploads/2016/04/profile-default.png",
+}
   return dispatch => {
       firebaseAuth.createUserWithEmailAndPassword(email, pass)
-          .then(result => dispatch(signUpSuccess(result)))
-          .catch(error => dispatch(signUpError(error)));
+          .then(result => dispatch(signUpSuccess(result, profileData)))      
+          .catch(error => dispatch(signUpError(console.log(error))));
   };
 }
 
