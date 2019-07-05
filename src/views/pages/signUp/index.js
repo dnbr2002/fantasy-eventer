@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as signUpActions from '../../../actions/signUpActions';
+// import * as signUpActions from '../../../actions/signUpActions';
 import * as authActions from '../../../actions/authActions';
+import * as profileActions from '../../../actions/profileActions';
 
 // Externals
 import PropTypes from 'prop-types';
@@ -35,16 +36,8 @@ import schema from './schema';
 
 validate.validators.checked = validators.checked;
 
-// Service methods
-const signUp = () => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(true);
-    }, 1500);
-  });
-};
-
 class SignUp extends Component {
+  _isMounted = false;
   state = {
     values: {
       name: '',
@@ -72,6 +65,14 @@ class SignUp extends Component {
     submitError: null
   };
 
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   handleBack = () => {
     const { history } = this.props;
 
@@ -86,8 +87,8 @@ class SignUp extends Component {
 
     newState.errors = errors || {};
     newState.isValid = errors ? false : true;
-
-    this.setState(newState);
+    if (this._isMounted)
+      this.setState(newState);
   }, 300);
 
   handleFieldChange = (field, value) => {
@@ -96,25 +97,28 @@ class SignUp extends Component {
     newState.submitError = null;
     newState.touched[field] = true;
     newState.values[field] = value;
-
-    this.setState(newState, this.validateForm);
+    if (this._isMounted)
+      this.setState(newState, this.validateForm);
   };
 
   handleSignUp = () => {
     try {
       const { history } = this.props;
       const { values } = this.state;
-        console.log("SU1::",values.email)
-      this.setState({ isLoading: true });
+      console.log("SU1::", values.email)
+      if (this._isMounted)
+        this.setState({ isLoading: true });
 
-      this.props.signUpWithEmail(values.name, values.teamName, values.email, values.password)
+      this.props.signUpWithEmail(values.email, values.password, values.name, values.teamName)
 
       history.push('/signin');
     } catch (error) {
-      this.setState({
-        isLoading: false,
-        serviceError: error
-      });
+      if (this._isMounted) {
+        this.setState({
+          isLoading: false,
+          serviceError: error
+        });
+      }
     }
   };
 
@@ -139,7 +143,6 @@ class SignUp extends Component {
       touched.password && errors.password ? errors.password[0] : false;
     const showPolicyError =
       touched.policy && errors.policy ? errors.policy[0] : false;
-
     return (
       <div className={classes.root}>
         <Grid
@@ -238,6 +241,7 @@ class SignUp extends Component {
                     <TextField
                       className={classes.textField}
                       label="Team name"
+                      name="teamName"
                       onChange={event =>
                         this.handleFieldChange('teamName', event.target.value)
                       }
@@ -332,17 +336,17 @@ class SignUp extends Component {
                   {isLoading ? (
                     <CircularProgress className={classes.progress} />
                   ) : (
-                    <Button
-                      className={classes.signUpButton}
-                      color="primary"
-                      disabled={!isValid}
-                      onClick={this.handleSignUp}
-                      size="large"
-                      variant="contained"
-                    >
-                      Sign up now
+                      <Button
+                        className={classes.signUpButton}
+                        color="primary"
+                        disabled={!isValid}
+                        onClick={this.handleSignUp}
+                        size="large"
+                        variant="contained"
+                      >
+                        Sign up now
                     </Button>
-                  )}
+                    )}
                   <Typography
                     className={classes.signIn}
                     variant="body1"
@@ -377,11 +381,11 @@ SignUp.propTypes = {
 //-------------------------------------
 
 const mapDispatchToProps = Object.assign(
-    {},
-    signUpActions,
-    authActions
+  {},
+  authActions,
+  profileActions
 );
 
 export default compose(
   withStyles(styles),
-  withRouter)(connect(null,mapDispatchToProps)(SignUp));
+  withRouter)(connect(null, mapDispatchToProps)(SignUp));

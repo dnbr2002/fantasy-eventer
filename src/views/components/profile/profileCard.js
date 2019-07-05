@@ -56,7 +56,7 @@ class ProfileCard extends Component {
             this.props.createProfile(profileData); 
         }
         else {
-            this.props.updateProfile(this.props.profile, profileData)
+            this.props.updateProfile(this.props.profile.key, profileData)
         }        
     }
 

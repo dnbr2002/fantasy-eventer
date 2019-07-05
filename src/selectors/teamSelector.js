@@ -1,14 +1,12 @@
 import { createSelector } from 'reselect';
 
 export function getTeamState(state) {
-  console.log("STATE::",state);
   if (state) {
     return state;
   }
 }
 
 export function getTeamRecord(state) {
-  console.log("STATE1::",state);
   var profileRecord
   if (state.team) {
     state.team.list.slice(0, 1).forEach(t => {
@@ -19,7 +17,6 @@ export function getTeamRecord(state) {
 }
 
 export function getTeamList(state) {
-  console.log("STATE2::",state);
   var teamKeysArray
   if (getTeamState(state).profile.list.size > 0) {
     var teamArray1 = getTeamRecord(state).teamKeysTier1.split(',');
@@ -30,11 +27,9 @@ export function getTeamList(state) {
 }
 
 export function getTeamFilter(state) {
-  console.log("STATE3::",state);
   if (state.team.list.size > 0) {
     const selectedTeam = state.competitors.list.filter(
       competitor => getTeamList(state).some(teammate => teammate === competitor.key));
-      console.log("STATE1::",selectedTeam);
     return selectedTeam
   }
 }
