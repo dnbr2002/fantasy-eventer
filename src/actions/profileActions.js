@@ -60,28 +60,34 @@ export function createProfileFromSignUp(data, uid) {
 export function createProfileFromSocialLogin(metaData) {
   console.log('CREATEPROFILE::', metaData)
   var profileName = metaData.user.displayName
-  var teamName = metaData.additionalUserInfo.profile.first_name + "'s team"
+  var teamName;
+  if(metaData.credential.providerId === "google.com") {
+    teamName = metaData.additionalUserInfo.profile.given_name + "'s team"
+  } else if (metaData.credential.providerId === "facebook.com") {
+    teamName = metaData.additionalUserInfo.profile.first_name + "'s team"
+  } else {
+    teamName = metaData.additionalUserInfo.profile.screen_name
+  }    
   var profilePic = metaData.user.photoURL
   var uid = metaData.user.uid
   var teamKeysTier1 = "teamkeysplaceholder"
   var teamKeysTier2 = "teamkeysplaceholder"
   var score = 0
   var rank = 0
-  firebaseDb.ref(`users/${uid}/${uid}`).once('value').then(function (snapshot) {
-    console.log("SNAPSHOT::", snapshot.val());
-    if (!snapshot.exists()) {
-      return dispatch => {
-        console.log("HERE1::")
-        console.log("AUTHID::", uid);
+  return dispatch => {
+    console.log("CREATEPROFILE1::", uid);
+    firebaseDb.ref(`users`).child(`${uid}`).once('value').then(snapshot => {
+      if (!snapshot.exists()) {
+        console.log('CREATEPROFILE2::', uid)
         profileFireDB.path = `users/${uid}`;
         profileFireDB.set(uid, { profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, uid, rank })
           .then(result => dispatch(createProfileSuccess(result)))
           .catch(error => dispatch(createProfileError(error)));
-      };
-    }
-    console.log("HERE2::")
-  })
+      }
+    })
+  }
 }
+
 
 export function createProfileSuccess(data) {
   console.log('CREATEPROFILESUSUCCESS::', data)
@@ -124,7 +130,8 @@ export function loadProfileError(error) {
 }
 
 export function updateProfile(key, changes) {
-  // console.log("PROFILECHANGES1::",changes);
+  console.log("PROFILECHANGES0::",changes + key);
+  console.log("PROFILECHANGES1::",key);
   return (dispatch, getState) => {
     const { auth } = getState();
     console.log("PROFILECHANGES2::", auth.id);
@@ -134,7 +141,7 @@ export function updateProfile(key, changes) {
 }
 
 export function updateProfileSuccess(profile) {
-  // console.log("PROFILECHANGESSUCCESS::",profile);
+  console.log("PROFILECHANGESSUCCESS::",profile);
   return {
     type: types.UPDATE_PROFILE_SUCCESS,
     payload: profile
@@ -142,7 +149,7 @@ export function updateProfileSuccess(profile) {
 }
 
 export function updateProfileError(error) {
-  // console.log("PROFILECHANGESERROR::",error);
+  console.log("PROFILECHANGESERROR::",error);
   return {
     type: types.UPDATE_PROFILE_ERROR,
     payload: error

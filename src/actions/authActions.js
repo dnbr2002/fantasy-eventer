@@ -17,9 +17,9 @@ function authenticate(provider) {
   return dispatch => {
     firebaseAuth.signInWithPopup(provider)
       .then(result => {
-        console.log("HERE::")
+        console.log("HERE::", result)
         dispatch(signInSuccess(result))
-        return createProfileFromSocialLogin(result)
+        return dispatch(createProfileFromSocialLogin(result))
       })
       .catch(error => {
         console.log("ERROR::",error);
