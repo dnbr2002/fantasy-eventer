@@ -6,13 +6,23 @@ import { connect } from 'react-redux';
 import * as profileActions from '../../../actions/profileActions';
 import ProfileCard from '../../components/profile/profileCard';
 import { ProfileSelector } from '../../../selectors/profileSelector';
+// Custom components
+import AccountProfile from '../../components/profile/AccountProfile';
+import AccountDetails from '../../components/profile/AccountDetails';
+
+// Component styles
+const styles = theme => ({
+    root: {
+        padding: theme.spacing.unit * 4
+    }
+});
 
 class ProfilePage extends Component {
     static propTypes = {
         createProfile: PropTypes.func.isRequired,
         loadProfile: PropTypes.func.isRequired
     }
-    
+
     componentWillMount() {
         this.props.loadProfile();
     }
@@ -20,10 +30,18 @@ class ProfilePage extends Component {
     render() {
         console.log("PROFILEPROPS::", this.props)
         return (
-            <div className="g-row">
-                <div className="g-col">
-                    <ProfileCard {...this.props} 
-                    />
+            <div>
+                <div className="g-row">
+                    <div className="g-col">
+                        <AccountProfile {...this.props} />
+
+                    </div>
+                </div>
+                <div className="g-row">
+                    <div className="g-col">
+                        <ProfileCard {...this.props}
+                        />
+                    </div>
                 </div>
             </div>
         )

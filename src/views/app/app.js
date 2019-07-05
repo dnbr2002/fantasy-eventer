@@ -20,12 +20,13 @@ import SignUp from '../pages/signUp';
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import muiTheme from '../components/muiTheme/muiTheme';
 
-const App = ({ authenticated, signOut }) => (
+const App = ({ authenticated, signOut, ...props }) => (
   <div>
 
     <Header
       authenticated={authenticated}
       signOut={signOut}
+      {...props}
     />
 
     <main>

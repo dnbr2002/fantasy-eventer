@@ -108,7 +108,7 @@ class SignIn extends Component {
 
       localStorage.setItem('isAuthenticated', true);
 
-      history.push('/sign-up');
+      history.push('/');
     } catch (error) {
       if(this._isMounted){
       this.setState({

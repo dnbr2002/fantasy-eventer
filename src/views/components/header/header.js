@@ -9,28 +9,48 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import { mailFolderListItems, otherMailFolderListItems } from './headerData';
+import { TopHeaderDataItem, MailFolderListItems, OtherMailFolderListItems } from './headerData';
 
 import './header.css';
-
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-  flex: {
-    flex: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: 'auto',
-  },
-};
+import styles from './styles';
+// const styles = {
+//   root: {
+//     flexGrow: 1,
+//   },
+//   logoWrapper: {
+//     display: 'flex',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     height: '63px',
+//     flexShrink: 0
+//   },
+//   logoLink: {
+//     fontSize: 0
+//   },
+//   logoImage: {
+//     cursor: 'pointer'
+//   },
+//   logoDivider: {
+//     marginBottom: spacing(2)
+//   },
+//   flex: {
+//     flex: 1,
+//   },
+//   menuButton: {
+//     marginLeft: -12,
+//     marginRight: 20,
+//   },
+//   list: {
+//     width: 150,
+//   },
+//   fullList: {
+//     width: 'auto',
+//   },
+//   TopHeaderDataItem: {
+//     marginLeft: -12,
+//     marginRight: 20
+//   },
+// };
 
 class Header extends Component {
   state = {
@@ -48,12 +68,13 @@ class Header extends Component {
 
   render() {
     const { classes } = this.props;
-
+    console.log("THISPROPSHEADER::", this.props)
     const sideList = (
       <div className={classes.list}>
-        <List>{mailFolderListItems}</List>
+        <TopHeaderDataItem {...this.props} className={classes.TopHeaderDataItem} />
+        <List>{MailFolderListItems}</List>
         <Divider />
-        <List>{otherMailFolderListItems}</List>
+        <List>{OtherMailFolderListItems}</List>
       </div>
     );
 
@@ -92,40 +113,4 @@ Header.propTypes = {
 export default withStyles(styles)(Header);
 
 
-// const Header = ({authenticated, signOut}) => (
 
-
-//   <header className="header">
-//     <div className="g-row">
-//       <div className="g-col">      
-//         <h1 className="header__title">Fantasy Eventer</h1>
-//         <ul className="header__actions">
-//         {authenticated ? <li><a href="./" className="Button">Home /</a></li> : null} 
-//         {authenticated ? <li><a href="./teampage" className="Button">/ TeamPage /</a></li> : null} 
-//         {authenticated ? <li><a href="./leaguepage" className="Button">/ LeaguePage /</a></li> : null} 
-//         {authenticated ? <li><a href="./adminpage" className="Button">/ AdminPage /</a></li> : null} 
-//         {authenticated ? <li><a href="./taskspage" className="Button">/ TasksPage /</a></li> : null} 
-//         {authenticated ? <li><a className="Button" onClick={signOut}>/ SignOut</a></li> : null} 
-//           {/* {authenticated ? <li><Button onClick={signOut}>/ Sign out</Button></li> : null} */}
-
-//           <li>
-//             <a className="link link--github" href="./">
-//               <FELogo />
-//             </a>
-//           </li>
-//         </ul>
-//       </div>
-//     </div>
-//   </header>
-
-// );
-
-
-
-// Header.propTypes = {
-//   authenticated: PropTypes.bool.isRequired,
-//   signOut: PropTypes.func.isRequired
-// };
-
-
-//export default Header;
