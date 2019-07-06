@@ -46,13 +46,12 @@ export function TopHeaderDataItem(props) {
   useEffect(
     () => {
       firebaseDb.ref(`users`).child(`${id}`).child(`${id}`).once('value').then(snapshot => {
-        if(snapshot.val().profileName)
-        setName(snapshot.val().profileName);
-        if(snapshot.val().profilePic)
-        setPic(snapshot.val().profilePic);
-        if(snapshot.val().teamName)
-        setTeam(snapshot.val().teamName);
-
+        console.log("PROFILENAME::",snapshot.exists());
+        if(snapshot.exists()){
+          setName(snapshot.val().profileName);
+          setPic(snapshot.val().profilePic);
+          setTeam(snapshot.val().teamName);
+        }       
       })
     }, [])
 
