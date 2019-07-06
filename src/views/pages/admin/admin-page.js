@@ -14,6 +14,17 @@ import AddCompetition from '../../components/competition/addCompetition';
 import RemoveTeams from '../../components/team/removeTeams';
 import UpdateScores from '../../components/team/updateTeamScores';
 import Typography from '@material-ui/core/Typography';
+import classNames from 'classnames';
+import compose from 'recompose/compose';
+// Material helpers
+import { withStyles } from '@material-ui/core';
+
+// Component styles
+const styles = theme => ({
+    root: {
+      padding: theme.spacing(4)
+    }
+  });
 
 
 export class AdminPage extends Component {
@@ -31,7 +42,10 @@ export class AdminPage extends Component {
 
     render() {
         console.log("ADMINPROPS::",this.props)
+        const { classes, className } = this.props;
+        const rootClassName = classNames(classes.root, className);
         return (
+            <div className={rootClassName}>
             <div className="g-row">
                 <div className="g-col">                    
                    <h1> Fantasy Eventer </h1>
@@ -47,6 +61,7 @@ export class AdminPage extends Component {
                     <br />
                     <AdminTable {...this.props} />
                 </div>
+            </div>
             </div>
         );
     }
@@ -71,4 +86,5 @@ const mapDispatchToProps = Object.assign(
     competitionActions,
 );
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AdminPage));
+export default compose(
+    withStyles(styles),connect(mapStateToProps, mapDispatchToProps))(withRouter(AdminPage));

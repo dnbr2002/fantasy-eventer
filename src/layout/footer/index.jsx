@@ -23,12 +23,15 @@ const styles = theme => ({
 
 class Footer extends Component {
   render() {
-    const { classes, className } = this.props;
+    const { classes, className, authenticated } = this.props;
 
     const rootClassName = classNames(classes.root, className);
 
     return (
+      <div>
+        {authenticated ?
       <div className={rootClassName}>
+        
         <Divider />
         <Typography
           className={classes.company}
@@ -38,7 +41,8 @@ class Footer extends Component {
         </Typography>
         <Typography variant="caption">
           Created with love for all fans of Eventing.  By the geeky husband of a pretty serious eventer!
-        </Typography>
+        </Typography> 
+      </div> : null}
       </div>
     );
   }

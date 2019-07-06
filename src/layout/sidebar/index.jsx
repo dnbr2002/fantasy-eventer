@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 // Externals
@@ -30,7 +30,7 @@ import {
     ImageOutlined as ImageIcon,
     InfoOutlined as InfoIcon,
     AccountBoxOutlined as AccountBoxIcon,
-    SettingsOutlined as SettingsIcon
+    BuildOutlined as BuildIcon
 } from '@material-ui/icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -55,22 +55,27 @@ function Sidebar(props) {
         color: 'black'
     }
     let loader = <Loader type="ball-scale" style={loaderStyle} active />
-    const { classes, className, id, authenticated } = props;
-    const [pic, setPic] = useState(loader)
+    const { classes, className, id, authenticated, open } = props;
+    const [auth] = useState(authenticated);
+    const [pic, setPic] = useState("https://www.sackettwaconia.com/wp-content/uploads/default-profile.png")
     const [name, setName] = useState("");
     const [team, setTeam] = useState("");
 
-    useEffect(
+    useLayoutEffect(
         () => {
-            firebaseDb.ref(`users`).child(`${id}`).child(`${id}`).once('value').then(snapshot => {
+            firebaseDb.ref(`users`).child(`${id}`).child(`${id}`).on('value', snapshot => {
                 console.log("PROFILENAME::", snapshot.exists());
                 if (snapshot.exists()) {
                     setName(snapshot.val().profileName);
                     setPic(snapshot.val().profilePic);
                     setTeam(snapshot.val().teamName);
+                } else
+                {   
+                    
+
                 }
             })
-        }, [])
+        }, [authenticated])
 
     const rootClassName = classNames(classes.root, className);
 
@@ -202,6 +207,21 @@ function Sidebar(props) {
                                 primary="Customer support"
                             />
                         </ListItem>
+                        {/* <a href="./adminpage"> */}
+                        <ListItem
+                            className={classes.listItem}
+                            component="a"
+                            href="./adminpage"
+                        >
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <BuildIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                classes={{ primary: classes.listItemText }}
+                                primary="Admin"
+                            />
+                        </ListItem>
+                        {/* </a> */}
                     </List>
                 </nav> : null}
         </div>

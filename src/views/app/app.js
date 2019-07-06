@@ -7,8 +7,6 @@ import { authActions, getAuth } from 'src/auth';
 import Header from '../components/header';
 import RequireAuthRoute from '../components/require-auth-route';
 import RequireUnauthRoute from '../components/require-unauth-route';
-import SignInPage from '../pages/sign-in';
-import EmailSignInPage from '../pages/sign-in/email-sign-in-page'
 import AdminPage from '../pages/admin';
 import TasksPage from '../pages/tasks';
 import HomePage from '../pages/home';
@@ -33,9 +31,19 @@ class App extends Component {
     const isMobile = ['xs', 'sm', 'md'].includes(props.width);
 
     this.state = {
-      isOpen: false
+      isOpen: !isMobile
     };
   }
+
+
+componentWillReceiveProps(nextProps) {
+  console.log("NEXTPROPS::", nextProps)
+  if(nextProps.authenticated === false) {
+    this.setState({isOpen: false});
+  }
+}
+
+
 
   handleClose = () => {
     this.setState({ isOpen: false });
@@ -57,6 +65,7 @@ class App extends Component {
     console.log("APPPROPS::",this.props)
     return (
       <div>
+        {authenticated ? 
         <Topbar
           className={classNames(classes.topbar, {
             [classes.topbarShift]: shiftTopbar
@@ -66,7 +75,7 @@ class App extends Component {
           signOut={signOut}
           authenticated={authenticated}
           title="Fantasy Eventer"
-        />
+        /> : null}
 
         <Drawer
           anchor="left"
@@ -77,8 +86,7 @@ class App extends Component {
         >
           <Sidebar
             className={classes.sidebar}
-            authenticated={authenticated}
-            
+            authenticated={authenticated}            
             id={id}
           />
         </Drawer>
@@ -99,9 +107,7 @@ class App extends Component {
           <RequireAuthRoute authenticated={authenticated} exact path="/profile" component={ProfilePage} />
           <RequireUnauthRoute authenticated={authenticated} path="/signin" component={SignIn} />
           <RequireUnauthRoute authenticated={authenticated} path="/signup" component={SignUp} />
-          <RequireUnauthRoute authenticated={authenticated} path="/sign-in" component={SignInPage} />
-          <RequireUnauthRoute authenticated={authenticated} path="/email-sign-in" component={EmailSignInPage} />
-          <Footer />
+          <Footer authenticated={authenticated} />
         </main>
       </div>
 
@@ -125,7 +131,4 @@ const mapDispatchToProps = {
   signOut: authActions.signOut
 };
 
-export default compose(
-  withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps)
-)(withRouter(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App)));

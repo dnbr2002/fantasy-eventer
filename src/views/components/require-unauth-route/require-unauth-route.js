@@ -6,6 +6,7 @@ const RequireUnauthRoute = ({component: Component, authenticated, ...rest}) => (
   <Route
     {...rest}
     render={props => {
+      console.log("UNAUTH::", props)
       return authenticated ? (
         <Redirect to={{
           pathname: '/',
