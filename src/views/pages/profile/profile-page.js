@@ -9,13 +9,20 @@ import { ProfileSelector } from '../../../selectors/profileSelector';
 // Custom components
 import AccountProfile from '../../components/profile/AccountProfile';
 import AccountDetails from '../../components/profile/AccountDetails';
+import compose from 'recompose/compose';
+
+import classNames from 'classnames';
+// Material helpers
+import { withStyles } from '@material-ui/core';
+//import PropTypes from 'prop-types'
 
 // Component styles
 const styles = theme => ({
     root: {
-        padding: theme.spacing.unit * 4
+      padding: theme.spacing(4)
     }
-});
+  });
+
 
 class ProfilePage extends Component {
     static propTypes = {
@@ -29,14 +36,16 @@ class ProfilePage extends Component {
 
     render() {
         console.log("PROFILEPROPS::", this.props)
+        const { classes, className } = this.props;
+        const rootClassName = classNames(classes.root, className);
         return (
-            <div>
-                <div className="g-row">
+            <div className={rootClassName}>
+                {/* <div className="g-row">
                     <div className="g-col">
                         <AccountProfile {...this.props} />
 
                     </div>
-                </div>
+                </div> */}
                 <div className="g-row">
                     <div className="g-col">
                         <ProfileCard {...this.props}
@@ -59,4 +68,7 @@ const mapDispatchToProps = Object.assign(
     profileActions
 );
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfilePage));
+export default compose(
+    withStyles(styles),
+    connect(mapStateToProps, mapDispatchToProps)
+    )(withRouter(ProfilePage));

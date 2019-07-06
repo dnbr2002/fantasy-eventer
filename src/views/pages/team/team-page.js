@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import compose from 'recompose/compose';
 import { TeamSelector } from '../../../selectors/teamSelector';
 // import { ProfileSelector } from '../../../selectors/profileSelector';
 import { Tier1Selector } from '../../../selectors/tier1Selector';
 import { Tier2Selector } from '../../../selectors/tier2Selector';
 import { CompetitionStatusSelector } from '../../../selectors/competitionStatusSelector';
+import classNames from 'classnames';
 import * as teamActions from '../../../actions/teamActions';
 import * as teamNameActions from '../../../actions/teamNameActions';
 import * as adminActions from '../../../actions/adminActions';
@@ -29,16 +31,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import toastr from 'toastr';
 import { Record } from 'immutable';
 
-export const TeamRecord = new Record({
-  key: null,
-  profileName: null,
-  profilePic: null,
-  teamName: null, 
-  score: 0,
-  teamKeysTier1: null,
-  teamKeysTier2: null
-});
+// Material helpers
+import { withStyles } from '@material-ui/core';
 
+// Component styles
+const styles = theme => ({
+  root: {
+    padding: theme.spacing(4)
+  }
+});
 
 
 class TeamPage extends Component {
@@ -159,8 +160,11 @@ class TeamPage extends Component {
   }
 
   render() {
-    // console.log("TEAMPROPS::",this.props)
+    console.log("TEAMPROPS::",this.props)
+    const { classes, className } = this.props;
+    const rootClassName = classNames(classes.root, className);
     return (
+      <div className={rootClassName}>
       <div className="g-row">
         <div className="g-col">
           <Grid container justify="center">
@@ -184,6 +188,7 @@ class TeamPage extends Component {
             {this.state.toggle ? null : this.renderAddTeam()}
           </div>
         </div>
+      </div>
       </div>
     );
   }
@@ -214,4 +219,7 @@ const mapDispatchToProps = Object.assign(
   profileActions
 );
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TeamPage));
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+  )(withRouter(TeamPage));

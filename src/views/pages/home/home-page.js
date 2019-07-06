@@ -1,10 +1,22 @@
-/* @flow */
 import React, { Component } from 'react'
+import classNames from 'classnames';
+// Material helpers
+import { withStyles } from '@material-ui/core';
 //import PropTypes from 'prop-types'
 
-export default class HomePage extends Component {
+// Component styles
+const styles = theme => ({
+    root: {
+      padding: theme.spacing(4)
+    }
+  });
+
+ class HomePage extends Component {
     render() {
+        const { classes, className } = this.props;
+        const rootClassName = classNames(classes.root, className);
         return (
+            <div className={rootClassName}>
             <div className="g-row">
                 <div className="g-col">
                 <div className="bootstrap">
@@ -14,6 +26,9 @@ export default class HomePage extends Component {
                     </div>
                 </div>
             </div>
+            </div>
         )
     }
 }
+
+export default withStyles(styles)(HomePage);
