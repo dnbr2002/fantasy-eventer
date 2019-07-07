@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useLayoutEffect }  from 'react';
 
 // Externals
 import PropTypes from 'prop-types';
@@ -15,6 +15,9 @@ import Portlet from '../../components/Portlet';
 import PortletContent from '../../components/PortletContent';
 import PortletFooter from '../../components/PortletFooter';
 
+//Data
+import { firebaseDb } from '../../../firebase';
+
 // Component styles
 // import styles from './styles';
 
@@ -28,7 +31,7 @@ const styles = theme => ({
       marginTop: theme.spacing.unit,
       color: theme.palette.text.secondary
     },
-    dateText: {
+    teamText: {
       color: theme.palette.text.secondary
     },
     avatar: {
@@ -47,21 +50,37 @@ const styles = theme => ({
   });
 
 
-class AccountProfile extends Component {
-    constructor() {
-        super();
-        var today = new Date(),
-            date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear()
+function AccountProfile(props) {
+  console.log("ACCTPROFPROPS::",props);
+  const { classes, className, profile, ...rest } = props;
+  var today = new Date()
+  // date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear()
+  const [date] = useState((today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear())
+  const [name, setName] = useState("");
+  const [team, setTeam] = useState("");
+  const [pic, setPic] = useState("");
+  const [countryFlag, setCountryFlag] = useState("");
+  const [countryName, setCountryName] = useState("");
+  const [eventScore, setEventScore] = useState(0)
+  const [eventRank, setEventRank] = useState(0);
 
-        this.state = {
-            date: date
-        };
-    }
-  render() {
-    const { classes, className, profile, ...rest } = this.props;
+
+  useEffect(() => {
+      if(profile){
+        setName(profile.profileName);
+        setTeam(profile.teamName);
+        setPic(profile.profilePic);
+        setCountryName(profile.country);
+        setCountryFlag("https://www.countryflags.io/" + profile.country + "/shiny/64.png");
+        setEventScore(profile.score);
+        setEventRank(profile.rank);
+      }
+  }, [profile])
+
+
 
     const rootClassName = classNames(classes.root, className);
-    console.log("APPROPS::",this.props);
+    console.log("APPROPS::",countryFlag);
     return (
       <Portlet
         {...rest}
@@ -70,46 +89,37 @@ class AccountProfile extends Component {
         <PortletContent>
           <div className={classes.details}>
             <div className={classes.info}>
-              <Typography variant="h2">{profile.profileName}</Typography>
-              <Typography
-                className={classes.locationText}
-                variant="body1"
-              >
-                {profile.teamName}
-              </Typography>
-              <Typography
-                className={classes.dateText}
-                variant="body1"
-              >
-               {this.state.date}
-              </Typography>
+              <Typography variant="h3">Name: {name}</Typography>
+              <img src={countryFlag} width="70" height="60" alt={countryName} />
             </div>
             <Avatar
               className={classes.avatar}
-              src={profile.profilePic}
-            />
-          </div>
-          <div className={classes.progressWrapper}>
-            <Typography variant="body1">Profile Completeness: 70%</Typography>
-            <LinearProgress
-              value={70}
-              variant="determinate"
+              src={pic}
             />
           </div>
         </PortletContent>
         <PortletFooter>
-          <Button
-            className={classes.uploadButton}
-            color="primary"
-            variant="text"
-          >
-            Upload picture
-          </Button>
-          <Button variant="text">Remove picture</Button>
+        <Typography
+                className={classes.teamText}
+                variant="h3"
+              >
+               Team: {team}
+              </Typography>
+              <Typography
+                className={classes.teamText}
+                variant="h4"
+              >
+               Event Score: {eventScore}
+              </Typography>
+              <Typography
+                className={classes.teamText}
+                variant="h4"
+              >
+               Event Rank: {eventRank}
+              </Typography>
         </PortletFooter>
       </Portlet>
     );
-  }
 }
 
 AccountProfile.propTypes = {

@@ -4,13 +4,16 @@ import { FirebaseList, firebaseDb } from 'src/firebase';
 
 export const Profile = Record({
   key: '',
-  profileName: '',
-  profilePic: '',
-  teamName: '',
+  profileName: null,
+  profilePic: null,
+  teamName: null,
+  email: null,
+  country: "United States",
+  uid: null,
   score: 0,
   rank: 0,
-  teamKeysTier1: '',
-  teamKeysTier2: ''
+  teamKeysTier1: 'teamkeysplaceholder',
+  teamKeysTier2: 'teamkeysplaceholder'
 });
 
 export const profileFireDB = new FirebaseList({
@@ -22,18 +25,16 @@ export const profileFireDB = new FirebaseList({
 
 export function createProfile(data) {
   console.log('CREATEPROFILE::', data)
-  var profileName = data.profileName
-  var teamName = data.teamName
-  var profilePic = data.profilePic
-  var teamKeysTier1 = "teamkeysplaceholder"
-  var teamKeysTier2 = "teamkeysplaceholder"
-  var score = 0
-  var rank = 0
+  var profileName = data.profileName;
+  var teamName = data.teamName;
+  var profilePic = data.profilePic;
+  var email = data.email;
+  var country = data.country
   return (dispatch, getState) => {
     const { auth } = getState();
     const uid = auth.id
     console.log("AUTHID::", uid);
-    profileFireDB.set(uid, { profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, uid, rank })
+    profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid })
       .then(result => dispatch(createProfileSuccess(result)))
       .catch(error => dispatch(createProfileError(error)));
   };
@@ -41,17 +42,15 @@ export function createProfile(data) {
 
 export function createProfileFromSignUp(data, uid) {
   console.log('CREATEPROFILE::', data)
-  var profileName = data.profileName
-  var teamName = data.teamName
-  var profilePic = data.profilePic
-  var teamKeysTier1 = "teamkeysplaceholder"
-  var teamKeysTier2 = "teamkeysplaceholder"
-  var score = 0
-  var rank = 0
+  var profileName = data.profileName;
+  var teamName = data.teamName;
+  var profilePic = data.profilePic;
+  var email = data.email;
+  var country = data.country;
   return dispatch => {
     console.log("AUTHID::", uid);
     profileFireDB.path = `users/${uid}`;
-    profileFireDB.set(uid, { profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, uid, rank })
+    profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid })
       .then(result => dispatch(createProfileSuccess(result)))
       .catch(error => dispatch(createProfileError(error)));
   };
@@ -59,28 +58,27 @@ export function createProfileFromSignUp(data, uid) {
 
 export function createProfileFromSocialLogin(metaData) {
   console.log('CREATEPROFILE::', metaData)
-  var profileName = metaData.user.displayName
+  var profileName = metaData.user.displayName;
   var teamName;
   if(metaData.credential.providerId === "google.com") {
-    teamName = metaData.additionalUserInfo.profile.given_name + "'s team"
+    teamName = metaData.additionalUserInfo.profile.given_name + "'s team";
   } else if (metaData.credential.providerId === "facebook.com") {
-    teamName = metaData.additionalUserInfo.profile.first_name + "'s team"
+    teamName = metaData.additionalUserInfo.profile.first_name + "'s team";
   } else {
-    teamName = metaData.additionalUserInfo.profile.screen_name
+    teamName = metaData.additionalUserInfo.profile.screen_name;
   }    
-  var profilePic = metaData.user.photoURL
-  var uid = metaData.user.uid
-  var teamKeysTier1 = "teamkeysplaceholder"
-  var teamKeysTier2 = "teamkeysplaceholder"
-  var score = 0
-  var rank = 0
+  var profilePic = metaData.user.photoURL;
+  var email = metaData.user.email;
+  var country = "United States";
+  var uid = metaData.user.uid;
+
   return dispatch => {
     console.log("CREATEPROFILE1::", uid);
     firebaseDb.ref(`users`).child(`${uid}`).once('value').then(snapshot => {
       if (!snapshot.exists()) {
         console.log('CREATEPROFILE2::', uid)
         profileFireDB.path = `users/${uid}`;
-        profileFireDB.set(uid, { profileName, teamName, profilePic, teamKeysTier1, teamKeysTier2, score, uid, rank })
+        profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid })
           .then(result => dispatch(createProfileSuccess(result)))
           .catch(error => dispatch(createProfileError(error)));
       }

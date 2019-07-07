@@ -13,10 +13,6 @@ export function leagueReducer(state = user, { payload, type }) {
         }
         return reduceArray
       }, []);
-      // const mapArray = filterArray.map(x => {
-      //   return x[Object.keys(x)[0]]
-      // })
-
       console.log("mapArray::", reduceArray);
       const sorted = reduceArray.slice().sort((a, b) => a.score > b.score ? 1 : -1);
       const sortedMap = sorted.map((x, index) => x.rank = index + 1)

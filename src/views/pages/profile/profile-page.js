@@ -1,4 +1,3 @@
-/* @flow */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -14,7 +13,10 @@ import compose from 'recompose/compose';
 import classNames from 'classnames';
 // Material helpers
 import { withStyles } from '@material-ui/core';
-//import PropTypes from 'prop-types'
+
+// Material components
+import { Grid } from '@material-ui/core';
+
 
 // Component styles
 const styles = theme => ({
@@ -40,18 +42,37 @@ class ProfilePage extends Component {
         const rootClassName = classNames(classes.root, className);
         return (
             <div className={rootClassName}>
-                {/* <div className="g-row">
-                    <div className="g-col">
-                        <AccountProfile {...this.props} />
+                          <Grid
+            container
+            spacing={4}
+          >
+            <Grid
+              item
+              lg={4}
+              md={6}
+              xl={4}
+              xs={12}
+            >
+                <AccountProfile {...this.props} />
+            </Grid>
 
-                    </div>
-                </div> */}
-                <div className="g-row">
+            <Grid
+              item
+              lg={8}
+              md={6}
+              xl={8}
+              xs={12}
+            >
+              <AccountDetails {...this.props} />
+            </Grid>
+          </Grid>                        
+
+                {/* <div className="g-row">
                     <div className="g-col">
                         <ProfileCard {...this.props}
                         />
                     </div>
-                </div>
+                </div> */}
             </div>
         )
     }
