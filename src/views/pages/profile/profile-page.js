@@ -80,7 +80,7 @@ class ProfilePage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        profile: ProfileSelector(state)
+        profileDetail: ProfileSelector(state)
     }
 }
 

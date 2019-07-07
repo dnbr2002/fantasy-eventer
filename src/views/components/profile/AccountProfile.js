@@ -46,13 +46,20 @@ const styles = theme => ({
     },
     uploadButton: {
       marginRight: theme.spacing.unit * 2
+    },
+    linearProgress: {
+      height: 10
+    },
+    name: {
+      marginLeft: 'auto',
+      // marginRight: -1,
     }
   });
 
 
 function AccountProfile(props) {
   console.log("ACCTPROFPROPS::",props);
-  const { classes, className, profile, ...rest } = props;
+  const { classes, className, profileDetail, ...rest } = props;
   var today = new Date()
   // date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear()
   const [date] = useState((today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear())
@@ -63,24 +70,32 @@ function AccountProfile(props) {
   const [countryName, setCountryName] = useState("");
   const [eventScore, setEventScore] = useState(0)
   const [eventRank, setEventRank] = useState(0);
+  const [tier1Count, setTier1Count] = useState(0);
+  const [tier2Count, setTier2Count] = useState(0);
+  const [completeness, setCompleteness] = useState(0)
 
 
   useEffect(() => {
-      if(profile){
-        setName(profile.profileName);
-        setTeam(profile.teamName);
-        setPic(profile.profilePic);
-        setCountryName(profile.country);
-        setCountryFlag("https://www.countryflags.io/" + profile.country + "/shiny/64.png");
-        setEventScore(profile.score);
-        setEventRank(profile.rank);
+      if(profileDetail){
+        setName(profileDetail.profileName);
+        setTeam(profileDetail.teamName);
+        setPic(profileDetail.profilePic);
+        setCountryName(profileDetail.country);
+        setCountryFlag("https://www.countryflags.io/" + profileDetail.country + "/shiny/64.png");
+        setEventScore(profileDetail.score);
+        setEventRank(profileDetail.rank);
+        setTier1Count(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length != 0}).length)
+        setTier2Count(profileDetail.teamKeysTier2.split(",").filter(x => {return x.length != 0}).length)
+        setCompleteness(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length != 0}).length + profileDetail.teamKeysTier2.split(",").filter(x => {return x.length != 0}).length)
       }
-  }, [profile])
+  }, [profileDetail])
 
 
 
     const rootClassName = classNames(classes.root, className);
-    console.log("APPROPS::",countryFlag);
+    console.log("KEYS1::",tier1Count);
+    console.log("KEYS2::",tier2Count);
+    console.log("KEYS3::",completeness);
     return (
       <Portlet
         {...rest}
@@ -89,7 +104,12 @@ function AccountProfile(props) {
         <PortletContent>
           <div className={classes.details}>
             <div className={classes.info}>
-              <Typography variant="h3">Name: {name}</Typography>
+            <Typography
+                className={classes.teamText}
+                variant="h3"
+              >
+               Team: {team}
+              </Typography>
               <img src={countryFlag} width="70" height="60" alt={countryName} />
             </div>
             <Avatar
@@ -99,24 +119,44 @@ function AccountProfile(props) {
           </div>
         </PortletContent>
         <PortletFooter>
-        <Typography
-                className={classes.teamText}
-                variant="h3"
-              >
-               Team: {team}
-              </Typography>
+          <div className={classes.details}>
               <Typography
                 className={classes.teamText}
                 variant="h4"
-              >
+              >                
                Event Score: {eventScore}
               </Typography>
+              <Typography
+                className={classes.name}
+                variant="h4"
+              >                
+               Name: {name}
+              </Typography>
+              </div>
               <Typography
                 className={classes.teamText}
                 variant="h4"
               >
                Event Rank: {eventRank}
               </Typography>
+              
+              {completeness > 8 ?
+              <div className={classes.progressWrapper}>
+             <Typography variant="body1">Team Selection Completeness: {completeness * 10 + 10}%</Typography>
+            <LinearProgress
+              className={classes.linearProgress}
+              value={completeness * 10 + 10}
+              variant="determinate"
+            /> </div> : 
+            <div className={classes.progressWrapper}>
+            <Typography variant="body1">Team Selection Completeness: {completeness * 10}%</Typography>
+            <LinearProgress
+              className={classes.linearProgress}
+              value={completeness * 10}
+              variant="determinate"
+            />
+
+          </div>}
         </PortletFooter>
       </Portlet>
     );

@@ -1,11 +1,10 @@
-/* @flow */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import compose from 'recompose/compose';
 import { TeamSelector } from '../../../selectors/teamSelector';
-// import { ProfileSelector } from '../../../selectors/profileSelector';
+import { ProfileSelector } from '../../../selectors/profileSelector';
 import { Tier1Selector } from '../../../selectors/tier1Selector';
 import { Tier2Selector } from '../../../selectors/tier2Selector';
 import { CompetitionStatusSelector } from '../../../selectors/competitionStatusSelector';
@@ -30,6 +29,9 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import toastr from 'toastr';
 import { Record } from 'immutable';
+
+// Custom components
+import AccountProfile from '../../components/profile/AccountProfile';
 
 // Material helpers
 import { withStyles } from '@material-ui/core';
@@ -57,12 +59,12 @@ class TeamPage extends Component {
   constructor() {
     super()
     this.state = {
-      // active: true,
+      active: true,
       toggle: true,
       spacing: '8',
       eventName: '',
       open: false,
-      score: null
+      score: null,
     };
   }
 
@@ -86,6 +88,12 @@ class TeamPage extends Component {
     if (prevProps.compStatus !== this.props.compStatus) {
       this.setState({toggle: JSON.parse(this.props.compStatus)})
     }
+
+    // if (prevProps.profile.teamKeysTier1 != this.props.profile.teamKeysTier1 || prevProps.profile.teamKeysTier2 != this.props.profile.teamKeysTier2)
+    // {
+    //   var completeness = this.props.profile.teamKeysTier1.split(",").length + this.props.profile.teamKeysTier2.split(",").length
+    //   this.setState({completeness: completeness})
+    // }
   }
 
   handleToggle = (event) => {
@@ -113,15 +121,6 @@ class TeamPage extends Component {
     this.props.updateTeamName(teamName.key, teamName.name);
   }
 
-
-  renderTeamName = () => {
-    return (
-      <div>
-
-      </div>
-    )
-  }
-
   renderEventName = () => {
     const { competition } = this.props
     console.log("competion::", competition.list)
@@ -134,17 +133,11 @@ class TeamPage extends Component {
   }
 
 
-  renderDefaultTitle = () => {
-    return <Typography variant="display2" gutterBottom>
-      Fantasy Eventer Team
-      </Typography>
-  }
-
-  renderAddTeamName = () => {
-    toastr.info("WAIT!!! You need a Team Name. Sending you to your profile to set that up now.");
-    this.props.history.push('/profile');
-  }
-
+  // renderDefaultTitle = () => {
+  //   return <Typography variant="display2" gutterBottom>
+  //     Fantasy Eventer Team
+  //     </Typography>
+  // }
 
   renderAddTeam = () => {
     return (
@@ -162,6 +155,7 @@ class TeamPage extends Component {
   render() {
     console.log("TEAMPROPS::",this.props)
     const { classes, className } = this.props;
+    const { completeness } = this.state;
     const rootClassName = classNames(classes.root, className);
     return (
       <div className={rootClassName}>
@@ -172,11 +166,10 @@ class TeamPage extends Component {
           </Grid>
           <br />
           <br />
-          <Grid container justify="center">
-            <TeamCard {...this.props} renderAddTeamName={this.renderAddTeamName} />              
-            </Grid>
+            <AccountProfile {...this.props} />
           <br />            
             <Team team={this.props.team} />
+           
           <br />
           <div>
             {
@@ -196,7 +189,7 @@ class TeamPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    // profile: ProfileSelector(state),
+    profileDetail: ProfileSelector(state),
     profile: (state.profile),
     tier1: Tier1Selector(state),
     tier2: Tier2Selector(state),

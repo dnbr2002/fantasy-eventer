@@ -51,30 +51,68 @@ class Account extends Component {
     };
   }
 
-componentWillReceiveProps(nextProps) {
-  if(nextProps.profile != this.props.profile) {
-    this.setState({
-      name: nextProps.profile.profileName,
-      team: nextProps.profile.teamName,
-      pic: nextProps.profile.profilePic,
-      email: nextProps.profile.email,
-      country: nextProps.profile.country
-    })
-  }
-}
+  // componentWillReceiveProps(nextProps) {
+  //   if(nextProps.profileDetail != this.props.profileDetail) {
+  //     this.setState({
+  //       name: nextProps.profileDetail.profileName,
+  //       team: nextProps.profileDetail.teamName,
+  //       pic: nextProps.profileDetail.profilePic,
+  //       email: nextProps.profileDetail.email,
+  //       country: nextProps.profileDetail.country
+  //     })
+  //   }
+  // }
 
-  handleChange = e => {
-    e.persist()
-    console.log("here::", e)
-    this.setState({
-      state: e.target.value
-    });
-  };
+  componentWillReceiveProps(nextProps) {
+    // console.log("NEXTPROPS::",nextProps.profile.profileName+"---"+this.props.profile.profileName)
+    if (nextProps.profileDetail !== this.props.profileDetail) {
+      this.setState({ name: nextProps.profileDetail.profileName })
+    }
+    if (nextProps.profileDetail !== this.props.profileDetail) {
+      this.setState({ team: nextProps.profileDetail.teamName })
+    }
+    if (nextProps.profileDetail !== this.props.profileDetail) {
+      this.setState({ pic: nextProps.profileDetail.profilePic })
+    }
+    if (nextProps.profileDetail !== this.props.profileDetail) {
+      this.setState({ email: nextProps.profileDetail.email })
+    }
+    if (nextProps.profileDetail !== this.props.profileDetail) {
+      this.setState({ country: nextProps.profileDetail.country })
+    }
+  }
+
+  // handleChange = e => {
+  //   e.persist()
+  //   console.log("here::", e)
+  //   this.setState({
+  //     state: e.target.value
+  //   });
+  // };
+
+  handleChange = event => {
+    console.log("here", event.target.value, "----", event.target.name)
+    if (event.target.name === 'name') {
+      this.setState({ name: event.target.value });
+    }
+    if (event.target.name === 'team') {
+      this.setState({ team: event.target.value });
+    }
+    if (event.target.name === 'pic') {
+      this.setState({ pic: event.target.value });
+    }
+    if (event.target.name === 'email') {
+      this.setState({ email: event.target.value });
+    }
+    if (event.target.name === 'country') {
+      this.setState({ country: event.target.value });
+    }
+  }
 
   handleSubmit = event => {
     event.preventDefault();
     const profileName = event.target.elements.name.value;
-    const teamName = event.target.elements.teamName.value;
+    const teamName = event.target.elements.team.value;
     const profilePic = event.target.elements.pic.value;
     const email = event.target.elements.email.value;
     const country = event.target.elements.country.value;
@@ -87,11 +125,11 @@ componentWillReceiveProps(nextProps) {
       country: country
     }
 
-    if (!this.props.profile) {
+    if (!this.props.profileDetail) {
       this.props.createProfile(profileData);
     }
     else {
-      this.props.updateProfile(this.props.profile.key, profileData)
+      this.props.updateProfile(this.props.profileDetail.key, profileData)
     }
   }
 
@@ -126,21 +164,23 @@ componentWillReceiveProps(nextProps) {
                 helperText="Please specify your name"
                 label="Name"
                 id="name"
+                name="name"
                 margin="dense"
                 onChange={this.handleChange}
                 required
-                // value={name}
+                value={name}
                 variant="outlined"
               />
               <TextField
                 className={classes.textField}
                 helperText="Please specify your team name"
                 label="Team Name"
-                id="teamName"
+                id="team"
+                name="team"
                 margin="dense"
                 required
                 onChange={this.handleChange}
-                // value={team}
+                value={team}
                 variant="outlined"
               />
             </div>
@@ -150,10 +190,11 @@ componentWillReceiveProps(nextProps) {
                 helperText="Please specify image link for your team. Example: 'http://www.pichost.com/mypic.jpg'"
                 label="Picture"
                 id="pic"
+                name="pic"
                 margin="dense"
                 onChange={this.handleChange}
                 required
-                // value={pic}
+                value={pic}
                 variant="outlined"
               />
             </div>
@@ -167,7 +208,7 @@ componentWillReceiveProps(nextProps) {
                 margin="dense"
                 onChange={this.handleChange}
                 required
-                // value={email}
+                value={email}
                 variant="outlined"
               />
             </div>
@@ -176,12 +217,13 @@ componentWillReceiveProps(nextProps) {
                 className={classes.textField}
                 label="Select Country"
                 id="country"
+                name="country"
                 margin="dense"
                 onChange={this.handleChange}
                 required
                 select
                 SelectProps={{ native: true }}
-                // value={country}
+                value={country}
                 variant="outlined">
                 {Countries.map((option, index) => (
                   <option
