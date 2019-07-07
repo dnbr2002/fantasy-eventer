@@ -7,9 +7,20 @@ export function leagueReducer(state = user, { payload, type }) {
   switch (type) {
     case LOAD_LEAGUE_SUCCESS:
       var array = _.values(payload)
-      const mapArray = array.map(x => { return x[Object.keys(x)[0]] });
-      const sorted = mapArray.slice().sort((a, b) => a.score > b.score ? 1 : -1); 
+      const reduceArray = array.reduce((reduceArray, obj) => {
+        if (obj[Object.keys(obj)[0]].teamKeysTier1.split(",").length === 3 && obj[Object.keys(obj)[0]].teamKeysTier2.split(",").length === 6) {
+          reduceArray.push(obj[Object.keys(obj)[0]]);
+        }
+        return reduceArray
+      }, []);
+      // const mapArray = filterArray.map(x => {
+      //   return x[Object.keys(x)[0]]
+      // })
+
+      console.log("mapArray::", reduceArray);
+      const sorted = reduceArray.slice().sort((a, b) => a.score > b.score ? 1 : -1);
       const sortedMap = sorted.map((x, index) => x.rank = index + 1)
+      console.log("mapArray3::",sortedMap)
       return Object.assign([], sorted)
 
     default:

@@ -35,6 +35,19 @@ class App extends Component {
     };
   }
 
+componentDidMount() {
+  if(this.props.authenticated === false) {
+    this.setState({isOpen: false});
+  }
+}
+
+componentWillMount() {
+  if(this.props.authenticated === false) {
+    this.setState({isOpen: false});
+  }
+}
+
+
 
 componentWillReceiveProps(nextProps) {
   console.log("NEXTPROPS::", nextProps)

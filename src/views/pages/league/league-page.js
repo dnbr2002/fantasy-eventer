@@ -18,6 +18,7 @@ class LeaguePage extends Component {
     render() {
         console.log("LEAGUEPROPS::",this.props);
         const { classes, className } = this.props;
+        
         const rootClassName = classNames(classes.root, className);
         return (
           <div className={rootClassName}>
