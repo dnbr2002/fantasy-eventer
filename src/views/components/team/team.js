@@ -40,8 +40,9 @@ console.log("TEAM::", profileDetail);
                 variant="body1"
                 color="textSecondary"
               >
-               Pick your team
+               Pick your team.  When the team selection completeness reaches 100% your team will be ready for leagues leagues once selection locking commences about 1 hour before first ride on day of competition.  You can adjust your team as much as you like before this time.  Good luck!  
               </Typography>
+              <br />
                 <Divider className={classes.profileDivider} />
                 <Grid container className={classes.root} spacing={16}>
                     <Grid item xs={12}>

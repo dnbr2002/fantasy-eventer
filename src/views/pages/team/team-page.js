@@ -165,11 +165,6 @@ class TeamPage extends Component {
       <div className={rootClassName}>
         <div className="g-row">
           <div className="g-col">
-            <Grid container justify="center">
-              <TeamSummary />
-            </Grid>
-            <br />
-            <br />
             <AccountProfile {...this.props} />
             <br />
             <Portlet

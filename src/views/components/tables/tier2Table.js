@@ -55,6 +55,28 @@ const styles = theme => ({
   table: {
     minWidth: 100,
   },
+  image: {
+    height: 60,
+    width: 60,
+  },
+  select: {
+    width: 12
+  },
+  horse: {
+    width: 100
+  },
+  rider: {
+    width: 100
+  },
+  avatar: {
+    width: 25
+  },
+  description: {
+    width: 200
+  },
+  country: {
+    width: 25
+  }
 });
 
 class Tier2Table extends React.Component {
@@ -106,26 +128,26 @@ class Tier2Table extends React.Component {
       score: this.props.profile.list.get(0).score,
       teamKeysTier1: this.props.profile.list.get(0).teamKeysTier1,
       teamKeysTier2: competitorKeys.toString()
-  }
-  console.log("CHANGES::", changes)
-  console.log("KEY::", this.props.profile.key)
-  this.props.updateProfile(this.props.profile.list.get(0).key, changes);
+    }
+    console.log("CHANGES::", changes)
+    console.log("KEY::", this.props.profile.key)
+    this.props.updateProfile(this.props.profile.list.get(0).key, changes);
   }
 
   renderChecks(team) {
     const { selected } = this.state;
     let newSelected = [];
     if (team) {
-    team.forEach(competitor => {
-      if (competitor.tier === '2') {
-        var selectedIndex = selected.indexOf(competitor.key);
-        if (selectedIndex === -1) {
-          newSelected = newSelected.concat(selected, competitor.key)
-          this.setState({ selected: newSelected });
+      team.forEach(competitor => {
+        if (competitor.tier === '2') {
+          var selectedIndex = selected.indexOf(competitor.key);
+          if (selectedIndex === -1) {
+            newSelected = newSelected.concat(selected, competitor.key)
+            this.setState({ selected: newSelected });
+          }
         }
-      }
-    })
-  }
+      })
+    }
   }
 
   handleClick = (event, competitor) => {
@@ -170,6 +192,7 @@ class Tier2Table extends React.Component {
     const { classes } = this.props;
     // console.log("T1SELECTed2::", this.state.selected);
     // console.log("T1PROPS::", this.props);
+
     return (
       <div>
         <Paper className={classes.root}>
@@ -181,12 +204,12 @@ class Tier2Table extends React.Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <CustomHeaderCell>Select</CustomHeaderCell>
-                <CustomHeaderCell>Horse</CustomHeaderCell>
-                <CustomHeaderCell>Rider</CustomHeaderCell>
-                <CustomHeaderCell>Avatar</CustomHeaderCell>
-                <CustomHeaderCell>Description</CustomHeaderCell>
-                <CustomHeaderCell>Country</CustomHeaderCell>
+                <CustomHeaderCell className={classes.select}>Select</CustomHeaderCell>
+                <CustomHeaderCell className={classes.horse}>Horse</CustomHeaderCell>
+                <CustomHeaderCell className={classes.rider}>Rider</CustomHeaderCell>
+                <CustomHeaderCell className={classes.avatar}>Avatar</CustomHeaderCell>
+                <CustomHeaderCell className={classes.description}>Description</CustomHeaderCell>
+                <CustomHeaderCell className={classes.country}>Country</CustomHeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -209,14 +232,15 @@ class Tier2Table extends React.Component {
                     </TableCell>
                     <TableCell>{competitor.value.rider}</TableCell>
                     <TableCell>
-                      <CustomAvatar
+                      <img
+                        className={classes.image}
                         src={competitor.value.pic}
                         alt="competitor pic"
-                        bigAvatar="BigAvatar"
                       />
                     </TableCell>
                     <TableCell>{competitor.value.description}</TableCell>
-                    <TableCell>{competitor.value.country}</TableCell>
+                    <TableCell><img src={"https://www.countryflags.io/"+competitor.value.country+"/shiny/64.png"} width="40" height="30" alt={competitor.value.country} /> </TableCell>
+                    
                   </TableRow>
                 );
               })}

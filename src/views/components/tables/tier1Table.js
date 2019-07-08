@@ -87,8 +87,26 @@ const styles = theme => ({
         minWidth: 100,
     },
     image: {
-        height: 60, 
+        height: 60,
         width: 60,
+    },
+    select: {
+        width: 12
+    },
+    horse: {
+        width: 100
+    },
+    rider: {
+        width: 100
+    },
+    avatar: {
+        width: 25
+    },
+    description: {
+        width: 200
+    },
+    country: {
+        width: 25
     }
 });
 
@@ -230,12 +248,12 @@ class Tier1Table extends React.Component {
                         <Table className={classes.table}>
                             <TableHead>
                                 <TableRow>
-                                    <CustomHeaderCell>Select</CustomHeaderCell>
-                                    <CustomHeaderCell>Horse</CustomHeaderCell>
-                                    <CustomHeaderCell>Rider</CustomHeaderCell>
-                                    <CustomHeaderCell>Avatar</CustomHeaderCell>
-                                    <CustomHeaderCell>Description</CustomHeaderCell>
-                                    <CustomHeaderCell>Country</CustomHeaderCell>
+                                    <CustomHeaderCell className={classes.select}>Select</CustomHeaderCell>
+                                    <CustomHeaderCell className={classes.horse}>Horse</CustomHeaderCell>
+                                    <CustomHeaderCell className={classes.rider}>Rider</CustomHeaderCell>
+                                    <CustomHeaderCell className={classes.avatar}>Avatar</CustomHeaderCell>
+                                    <CustomHeaderCell className={classes.description}>Description</CustomHeaderCell>
+                                    <CustomHeaderCell className={classes.country}>Country</CustomHeaderCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -266,7 +284,7 @@ class Tier1Table extends React.Component {
                                                 />
                                             </TableCell>
                                             <TableCell>{competitor.value.description}</TableCell>
-                                            <TableCell>{competitor.value.country}</TableCell>
+                                            <TableCell><img src={"https://www.countryflags.io/"+competitor.value.country+"/shiny/64.png"} width="40" height="30" alt={competitor.value.country} /></TableCell>
                                         </TableRow>
                                     );
                                 })}
