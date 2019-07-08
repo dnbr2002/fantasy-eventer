@@ -190,7 +190,7 @@ function Sidebar(props) {
                         subheader={
                             <ListSubheader className={classes.listSubheader}>
                                 Support
-            </ListSubheader>
+                    </ListSubheader>
                         }
                     >
                         <ListItem

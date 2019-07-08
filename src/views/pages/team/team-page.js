@@ -32,6 +32,10 @@ import { Record } from 'immutable';
 
 // Custom components
 import AccountProfile from '../../components/profile/AccountProfile';
+import Portlet from '../../components/Portlet';
+import PortletContent from '../../components/PortletContent';
+import PortletHeader from '../../components/Portlet';
+import PortletLabel from '../../components/Portlet';
 
 // Material helpers
 import { withStyles } from '@material-ui/core';
@@ -50,8 +54,8 @@ class TeamPage extends Component {
     loadCompetition: PropTypes.func.isRequired,
     loadTeam: PropTypes.func.isRequired,
     loadTeamName: PropTypes.func.isRequired,
-    loadProfile: PropTypes.func.isRequired, 
-    updateProfile: PropTypes.func.isRequired,  
+    loadProfile: PropTypes.func.isRequired,
+    updateProfile: PropTypes.func.isRequired,
     updateTeamName: PropTypes.func.isRequired,
     updateTeam: PropTypes.func.isRequired
   }
@@ -75,8 +79,8 @@ class TeamPage extends Component {
     this.props.loadTeam();
     this.props.loadTeamName();
     this.props.loadCompetition();
-    if(this.props.compStatus === true) {
-      this.setState({toggle: false})
+    if (this.props.compStatus === true) {
+      this.setState({ toggle: false })
     }
   }
 
@@ -86,7 +90,7 @@ class TeamPage extends Component {
     }
 
     if (prevProps.compStatus !== this.props.compStatus) {
-      this.setState({toggle: JSON.parse(this.props.compStatus)})
+      this.setState({ toggle: JSON.parse(this.props.compStatus) })
     }
 
     // if (prevProps.profile.teamKeysTier1 != this.props.profile.teamKeysTier1 || prevProps.profile.teamKeysTier2 != this.props.profile.teamKeysTier2)
@@ -146,42 +150,47 @@ class TeamPage extends Component {
           <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
         </div>
         <div>
-           <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
+          <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
         </div>
       </div>
     )
   }
 
   render() {
-    console.log("TEAMPROPS::",this.props)
-    const { classes, className } = this.props;
+    console.log("TEAMPROPS::", this.props)
+    const { classes, className, profileDetail } = this.props;
     const { completeness } = this.state;
     const rootClassName = classNames(classes.root, className);
     return (
       <div className={rootClassName}>
-      <div className="g-row">
-        <div className="g-col">
-          <Grid container justify="center">
-            <TeamSummary />
-          </Grid>
-          <br />
-          <br />
+        <div className="g-row">
+          <div className="g-col">
+            <Grid container justify="center">
+              <TeamSummary />
+            </Grid>
+            <br />
+            <br />
             <AccountProfile {...this.props} />
-          <br />            
-            <Team team={this.props.team} />
-           
-          <br />
-          <div>
-            {
-              this.props.compStatus === "true" ? <FormControlLabel disabled control={<Switch value="true" />} label="Disabled - Teams are locked until event is completed" /> :
-               <Toggle label="Pick or Update Team" handleToggle={this.handleToggle} togglePosition={this.state.toggle} />        
-            }
-          </div>
-          <div>
-            {this.state.toggle ? null : this.renderAddTeam()}
+            <br />
+            <Portlet
+              className={rootClassName}
+            >
+              <PortletContent>
+                <Team team={this.props.team} profileDetail={profileDetail} />
+              </PortletContent>
+            </Portlet>
+            <br />
+            <div>
+              {
+                this.props.compStatus === "true" ? <FormControlLabel disabled control={<Switch value="true" />} label="Disabled - Teams are locked until event is completed" /> :
+                  <Toggle label="Pick or Update Team" handleToggle={this.handleToggle} togglePosition={this.state.toggle} />
+              }
+            </div>
+            <div>
+              {this.state.toggle ? null : this.renderAddTeam()}
+            </div>
           </div>
         </div>
-      </div>
       </div>
     );
   }
@@ -215,4 +224,4 @@ const mapDispatchToProps = Object.assign(
 export default compose(
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
-  )(withRouter(TeamPage));
+)(withRouter(TeamPage));

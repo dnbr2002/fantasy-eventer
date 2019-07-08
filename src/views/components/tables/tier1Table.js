@@ -86,6 +86,10 @@ const styles = theme => ({
     table: {
         minWidth: 100,
     },
+    image: {
+        height: 60, 
+        width: 60,
+    }
 });
 
 const CustomHeaderCell = withStyles(theme => ({
@@ -255,10 +259,10 @@ class Tier1Table extends React.Component {
                                             </TableCell>
                                             <TableCell>{competitor.value.rider}</TableCell>
                                             <TableCell>
-                                                <CustomAvatar
+                                                <img
+                                                    className={classes.image}
                                                     src={competitor.value.pic}
                                                     alt="competitor pic"
-                                                    bigAvatar="BigAvatar"
                                                 />
                                             </TableCell>
                                             <TableCell>{competitor.value.description}</TableCell>
