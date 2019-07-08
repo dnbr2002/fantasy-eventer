@@ -8,11 +8,11 @@ export const Profile = Record({
   profilePic: null,
   teamName: null,
   email: null,
-  country: "United States",
+  country: null,
   uid: null,
   score: 0,
   rank: 0,
-  teamKeysTier1: 'teamkeysplaceholder',
+  teamKeysTier1: '',
   teamKeysTier2: 'teamkeysplaceholder'
 });
 
@@ -30,11 +30,15 @@ export function createProfile(data) {
   var profilePic = data.profilePic;
   var email = data.email;
   var country = data.country
+  var score = 0;
+  var rank = 0;
+  var teamKeysTier1 ='';
+  var teamKeysTier2 = '';
   return (dispatch, getState) => {
     const { auth } = getState();
     const uid = auth.id
     console.log("AUTHID::", uid);
-    profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid })
+    profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid, score, rank, teamKeysTier1, teamKeysTier2 })
       .then(result => dispatch(createProfileSuccess(result)))
       .catch(error => dispatch(createProfileError(error)));
   };
@@ -47,10 +51,14 @@ export function createProfileFromSignUp(data, uid) {
   var profilePic = data.profilePic;
   var email = data.email;
   var country = data.country;
+  var score = 0;
+  var rank = 0;
+  var teamKeysTier1 ='';
+  var teamKeysTier2 = '';
   return dispatch => {
     console.log("AUTHID::", uid);
     profileFireDB.path = `users/${uid}`;
-    profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid })
+    profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid, score, rank, teamKeysTier1, teamKeysTier2 })
       .then(result => dispatch(createProfileSuccess(result)))
       .catch(error => dispatch(createProfileError(error)));
   };
@@ -69,16 +77,19 @@ export function createProfileFromSocialLogin(metaData) {
   }    
   var profilePic = metaData.user.photoURL;
   var email = metaData.user.email;
-  var country = "United States";
+  var country = "US";
+  var score = 0;
+  var rank = 0;
+  var teamKeysTier1 ='';
+  var teamKeysTier2 = '';
   var uid = metaData.user.uid;
-
   return dispatch => {
     console.log("CREATEPROFILE1::", uid);
     firebaseDb.ref(`users`).child(`${uid}`).once('value').then(snapshot => {
       if (!snapshot.exists()) {
         console.log('CREATEPROFILE2::', uid)
         profileFireDB.path = `users/${uid}`;
-        profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid })
+        profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid, score, rank, teamKeysTier1, teamKeysTier2 })
           .then(result => dispatch(createProfileSuccess(result)))
           .catch(error => dispatch(createProfileError(error)));
       }

@@ -16,12 +16,15 @@ const styles = theme => ({
     },
     paper: {
         height: 200,
-        width: 125,
+        width: 100,
         margin: theme.spacing(3)
     },
     image: {
-        height: 125,
-        width: 125,
+        height: 100,
+        width: 100,
+    },
+    paperDivider: {
+        width: '100%'
     }
 });
 
@@ -40,13 +43,13 @@ console.log("TEAM::", profileDetail);
                 variant="body1"
                 color="textSecondary"
               >
-               Pick your team.  When the team selection completeness reaches 100% your team will be ready for leagues leagues once selection locking commences about 1 hour before first ride on day of competition.  You can adjust your team as much as you like before this time.  Good luck!  
+               Pick your team.  When the team selection completeness reaches 100% your team will be ready for leagues once selection locking commences about 1 hour before first ride on day one of competition.  You can adjust your team as much as you like before this time.  Good luck!  
               </Typography>
               <br />
                 <Divider className={classes.profileDivider} />
-                <Grid container className={classes.root} spacing={16}>
+                <Grid container className={classes.root} spacing={12}>
                     <Grid item xs={12}>
-                        <Grid container className={classes.demo} justify="center" spacing={Number(8)}>
+                        <Grid container className={classes.demo} justify="center" spacing={Number(1)}>
                             {team.map(competitor => (
                                 <Grid key={competitor.key} item>
                                     <Paper className={classes.paper} >
@@ -56,25 +59,27 @@ console.log("TEAM::", profileDetail);
                                                 src={competitor.pic}
                                                 alt="competitor pic"
                                             />
-                                            <br />
                                             <Grid container justify="center">
                                                 <Typography variant="caption">
-                                                    R: <b>{competitor.rider}</b>
+                                                    Tier: <b>{competitor.tier}</b>
                                                 </Typography>
                                             </Grid>
+                                            <Divider className={classes.paperDivider} />
+                                            <Grid container justify="center">
+                                                <Typography variant="caption">
+                                                    Score: <b>{competitor.score}</b>
+                                                </Typography>                                                
+                                            </Grid>
+                                            <Divider className={classes.paperDivider} />
                                             <Grid container justify="center">
                                                 <Typography variant="caption">
                                                     H: <b>{competitor.horse}</b>
                                                 </Typography>
                                             </Grid>
+
                                             <Grid container justify="center">
                                                 <Typography variant="caption">
-                                                    Score: <b>{competitor.score}</b>
-                                                </Typography>
-                                            </Grid>
-                                            <Grid container justify="center">
-                                                <Typography variant="caption">
-                                                    Tier: <b>{competitor.tier}</b>
+                                                    R: <b>{competitor.rider}</b>
                                                 </Typography>
                                             </Grid>
                                         </Grid>
