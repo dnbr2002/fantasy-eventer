@@ -30,12 +30,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import toastr from 'toastr';
 import { Record } from 'immutable';
 
+import { StickyContainer, Sticky } from 'react-sticky';
+
 // Custom components
 import AccountProfile from '../../components/profile/AccountProfile';
 import Portlet from '../../components/Portlet';
 import PortletContent from '../../components/PortletContent';
 import PortletHeader from '../../components/Portlet';
 import PortletLabel from '../../components/Portlet';
+import ProgressBar from '../../components/progressBar/progressBar.js';
 
 // Material helpers
 import { withStyles } from '@material-ui/core';
@@ -44,6 +47,10 @@ import { withStyles } from '@material-ui/core';
 const styles = theme => ({
   root: {
     padding: theme.spacing(4)
+  }, 
+  progressBar: {
+    position: "-webkit-sticky",
+    top: 0
   }
 });
 
@@ -162,6 +169,7 @@ class TeamPage extends Component {
     const { completeness } = this.state;
     const rootClassName = classNames(classes.root, className);
     return (
+
       <div className={rootClassName}>
         <div className="g-row">
           <div className="g-col">
@@ -175,6 +183,9 @@ class TeamPage extends Component {
               </PortletContent>
             </Portlet>
             <br />
+            <div className={classes.progessBar}>
+            <ProgressBar {...this.props} />
+            </div>
             <div>
               {
                 this.props.compStatus === "true" ? <FormControlLabel disabled control={<Switch value="true" />} label="Disabled - Teams are locked until event is completed" /> :
@@ -187,6 +198,7 @@ class TeamPage extends Component {
           </div>
         </div>
       </div>
+
     );
   }
 }

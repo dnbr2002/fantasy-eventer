@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import LeagueTable from '../../components/tables/leagueTable';
+import RankTable from '../../components/tables/ranktTable.js';
 import classNames from 'classnames';
 // Material helpers
 import { withStyles } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 // Component styles
 const styles = theme => ({
@@ -24,13 +26,15 @@ class LeaguePage extends Component {
           <div className={rootClassName}>
           <div className="g-row">
                 <div className="g-col">
-                  <h1>Your Rank</h1>
+                  <Typography variant="h2" color="textSecondary">Your Rank</Typography>
+                  <br />
+                  <RankTable />
                   </div>
                   </div>
-
+              <br />
             <div className="g-row">
                 <div className="g-col">
-                <h1>League Rankings</h1>
+                <Typography variant="h2" color="textSecondary">Global League Rankings</Typography>
                 <br />
                 <br />
                 <LeagueTable />

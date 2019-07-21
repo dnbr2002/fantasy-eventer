@@ -14,6 +14,7 @@ import { Avatar, Typography, Button, LinearProgress } from '@material-ui/core';
 import Portlet from '../../components/Portlet';
 import PortletContent from '../../components/PortletContent';
 import PortletFooter from '../../components/PortletFooter';
+import ProgressBar from '../progressBar/progressBar.js';
 
 //Data
 import { firebaseDb } from '../../../firebase';
@@ -140,23 +141,6 @@ function AccountProfile(props) {
                Event Rank: {eventRank}
               </Typography>
               
-              {completeness > 8 ?
-              <div className={classes.progressWrapper}>
-             <Typography variant="body1">Team Selection Completeness: {completeness * 10 + 10}%</Typography>
-            <LinearProgress
-              className={classes.linearProgress}
-              value={completeness * 10 + 10}
-              variant="determinate"
-            /> </div> : 
-            <div className={classes.progressWrapper}>
-            <Typography variant="body1">Team Selection Completeness: {completeness * 10}%</Typography>
-            <LinearProgress
-              className={classes.linearProgress}
-              value={completeness * 10}
-              variant="determinate"
-            />
-
-          </div>}
         </PortletFooter>
       </Portlet>
     );

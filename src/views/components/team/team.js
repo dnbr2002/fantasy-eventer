@@ -28,7 +28,7 @@ const styles = theme => ({
     }
 });
 
-const Team = ({ team, classes, profileDetail }) => {
+const Team = ({ team, classes, profileDetail }, props) => {
 console.log("TEAM::", profileDetail);
     if (team) {
         return (

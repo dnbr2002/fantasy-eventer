@@ -8,6 +8,7 @@ import { ProfileSelector } from '../../../selectors/profileSelector';
 // Custom components
 import AccountProfile from '../../components/profile/AccountProfile';
 import AccountDetails from '../../components/profile/AccountDetails';
+import ProgressBar from '../../components/progressBar/progressBar.js';
 import compose from 'recompose/compose';
 
 import classNames from 'classnames';
@@ -54,6 +55,8 @@ class ProfilePage extends Component {
               xs={12}
             >
                 <AccountProfile {...this.props} />
+                <br />
+                <ProgressBar {...this.props} />
             </Grid>
 
             <Grid

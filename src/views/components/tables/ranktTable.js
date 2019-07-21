@@ -64,7 +64,7 @@ const Cell = (props) => {
 
 const getRowId = row => row.rank;
 
-class LeagueTable extends React.Component {
+class RankTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -76,7 +76,7 @@ class LeagueTable extends React.Component {
                 { name: 'rank', title: 'Rankings' }
             ],
             count: 0,
-            rows: this.props.league,
+            rows: this.props.league.filter(x => x.uid === this.props.auth.id),
             pageSizes: [5, 10, 15],
             expandedRowIds: [],
             currentPage: 0,
@@ -91,7 +91,7 @@ class LeagueTable extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.league.length > 1) {
-            this.setState({ rows: nextProps.league })
+            this.setState({ rows: nextProps.league.filter(x => x.uid === this.props.auth.id) })
             this.setState({ loading: false })
         }
     }
@@ -104,6 +104,8 @@ class LeagueTable extends React.Component {
     render() {
         const { classes } = this.props;
         const { columns, rows, expandedRowIds, pageSizes, loading } = this.state;
+        console.log("RANKPROPS::",this.props)
+        console.log("RANK::",this.props.league.filter(x => x.uid === this.props.auth.id))
         if (loading) {
             return (
               <div className={classes.progressWrapper}>
@@ -119,19 +121,10 @@ class LeagueTable extends React.Component {
                         columns={columns}
                         getRowId={getRowId}
                     >
-                        <SortingState
-                            // defaultSorting={[{ columnName: 'score', direction: 'desc' }]}
-                        />
-                        <IntegratedSorting />
-                        <PagingState
-                            defaultCurrentPage={0}
-                            pageSize={5}
-                        />
                         <RowDetailState
                             expandedRowIds={expandedRowIds}
                             onExpandedRowIdsChange={this.handleExpandedRowIdsChange}
                         />
-                        <IntegratedPaging />
                         <Table
                             cellComponent={Cell}
                         />
@@ -139,8 +132,6 @@ class LeagueTable extends React.Component {
                         <TableRowDetail
                             contentComponent={LeagueRowDetail}
                         />
-
-                        <PagingPanel />
                     </Grid>
 
                 </Paper>
@@ -153,7 +144,8 @@ const mapStateToProps = (state, ownProps) => {
     console.log("MYSTATE::", state)
     return {
         league: state.league,
-        competitors: state.competitors
+        competitors: state.competitors,
+        auth: state.auth
     }
 }
 
@@ -167,4 +159,4 @@ const mapDispatchToProps = Object.assign(
 export default compose(
     withStyles(styles),
     connect(mapStateToProps, mapDispatchToProps)
-    )(withRouter(LeagueTable));
+    )(withRouter(RankTable));
