@@ -20,12 +20,8 @@ const styles = theme => ({
         marginTop: theme.spacing(2)
     },
     linearProgress: {
-        height: 30
+        height: 20
     },
-    portlet: {
-        postion: '-webkit-sticky',
-        top: 0
-    }
 });
 
 
@@ -40,8 +36,8 @@ export function ProgressBar(props) {
     }, [profileDetail])
 
     return (
-        <Portlet className={classes.portlet}>
-            <PortletContent>
+        <Portlet className={classes.portlet} classes={{background: 'white'}}>
+            <PortletContent classes={{background: 'white'}}>
                 {completeness > 8 ?
                     <div className={classes.progressWrapper}>
                         <Typography variant="h3" color="textSecondary">Team Selection Completeness: {completeness * 10 + 10}%</Typography>

@@ -43,6 +43,8 @@ import ProgressBar from '../../components/progressBar/progressBar.js';
 // Material helpers
 import { withStyles } from '@material-ui/core';
 
+import './team-page.css';
+
 // Component styles
 const styles = theme => ({
   root: {
@@ -53,6 +55,12 @@ const styles = theme => ({
     top: 0
   }
 });
+
+const stickIt = {
+  position: '-webkit-sticky',
+  position: 'sticky',
+  top: 0,
+}
 
 
 class TeamPage extends Component {
@@ -183,8 +191,8 @@ class TeamPage extends Component {
               </PortletContent>
             </Portlet>
             <br />
-            <div className={classes.progessBar}>
-            <ProgressBar {...this.props} />
+            <div className="sticky">
+            <ProgressBar {...this.props} style="sticky" />
             </div>
             <div>
               {
