@@ -12,7 +12,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { List } from 'immutable';
 import CustomAvatar from '../../components/avatars/avatars';
-import { lighten } from "@material-ui/core/styles/colorManipulator";
 import Grid from '@material-ui/core/Grid';
 import toastr from 'toastr';
 
@@ -20,17 +19,9 @@ import toastr from 'toastr';
 const toolbarStyles = theme => ({
     root: {
         paddingRight: theme.spacing(1),
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
     },
-    highlight:
-        theme.palette.type === 'light'
-            ? {
-                color: theme.palette.secondary.main,
-                backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-            }
-            : {
-                color: theme.palette.text.primary,
-                backgroundColor: theme.palette.secondary.dark,
-            },
     spacer: {
         flex: '1 1 100%',
     },
@@ -39,29 +30,29 @@ const toolbarStyles = theme => ({
     },
     title: {
         flex: '0 0 auto',
-    },
+    }
 });
 
 
 let Tier1TableToolbar = props => {
-    const { numSelected, numComps, eventName } = props;
+    const { numSelected, numComps, eventName, classes } = props;
     return (
-        <Toolbar>
+        <Toolbar className={classes.root}>
             {numSelected > 0 ? (
                 <Grid container spacing={24}>
                     <Grid item xs={12} sm={6}>
-                        <Typography color="inherit" variant="subheading">
+                        <Typography color="inherit" variant="h4">
                             {numSelected} selected
           </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Typography color="inherit" variant="subheading">
+                        <Typography color="inherit" variant="h4">
                             {eventName}
                         </Typography>
                     </Grid>
                 </Grid>
             ) : (
-                    <Typography variant="title" id="tableTitle">
+                    <Typography variant="h4" id="tableTitle">
                         Pick {numComps + 1}
                     </Typography>
                 )}
@@ -107,13 +98,16 @@ const styles = theme => ({
     },
     country: {
         width: 25
+    },
+    tablerow: {
+        backgroundColor: theme.palette.primary.main
     }
 });
 
 const CustomHeaderCell = withStyles(theme => ({
     head: {
-        backgroundColor: theme.palette.common.white,
-        color: theme.palette.common.black,
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
     },
     body: {
         fontSize: 14,
@@ -246,8 +240,8 @@ class Tier1Table extends React.Component {
                     />
                     <div>
                         <Table className={classes.table}>
-                            <TableHead>
-                                <TableRow>
+                            <TableHead className={classes.tablehead}>
+                                <TableRow className={classes.tablerow}>
                                     <CustomHeaderCell className={classes.select}>Select</CustomHeaderCell>
                                     <CustomHeaderCell className={classes.horse}>Horse</CustomHeaderCell>
                                     <CustomHeaderCell className={classes.rider}>Rider</CustomHeaderCell>

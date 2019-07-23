@@ -48,7 +48,7 @@ import './team-page.css';
 // Component styles
 const styles = theme => ({
   root: {
-    padding: theme.spacing(4)
+    padding: theme.spacing(4),
   }, 
   progressBar: {
     position: "-webkit-sticky",
@@ -191,9 +191,9 @@ class TeamPage extends Component {
               </PortletContent>
             </Portlet>
             <br />
-            <div className="sticky">
-            <ProgressBar {...this.props} style="sticky" />
-            </div>
+            {/* <div className="sticky"> */}
+            <ProgressBar {...this.props} />
+            {/* </div> */}
             <div>
               {
                 this.props.compStatus === "true" ? <FormControlLabel disabled control={<Switch value="true" />} label="Disabled - Teams are locked until event is completed" /> :

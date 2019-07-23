@@ -12,7 +12,16 @@ import PortletContent from '../../components/PortletContent';
 import PortletFooter from '../../components/PortletFooter';
 
 const styles = theme => ({
-    root: {},
+    root: {
+        background: 'white',
+        position: '-webkit-sticky',
+        position: 'sticky',
+        top: 20,
+        bottom: 0, 
+        paddingTop: '40px',
+        paddingBottom: '40px',
+        zIndex: 5,
+    },
     details: {
         display: 'flex'
     },
@@ -36,8 +45,8 @@ export function ProgressBar(props) {
     }, [profileDetail])
 
     return (
-        <Portlet className={classes.portlet} classes={{background: 'white'}}>
-            <PortletContent classes={{background: 'white'}}>
+        <Portlet className={classes.root} >
+            <PortletContent >
                 {completeness > 8 ?
                     <div className={classes.progressWrapper}>
                         <Typography variant="h3" color="textSecondary">Team Selection Completeness: {completeness * 10 + 10}%</Typography>

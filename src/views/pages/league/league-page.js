@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import LeagueTable from '../../components/tables/leagueTable';
-import RankTable from '../../components/tables/ranktTable.js';
+import LeagueRankTable from '../../components/tables/leagueRankTable.js';
 import classNames from 'classnames';
 // Material helpers
 import { withStyles } from '@material-ui/core';
@@ -28,7 +28,7 @@ class LeaguePage extends Component {
                 <div className="g-col">
                   <Typography variant="h2" color="textSecondary">Your Rank</Typography>
                   <br />
-                  <RankTable />
+                  <LeagueRankTable />
                   </div>
                   </div>
               <br />

@@ -28,8 +28,9 @@ const styles = theme => ({
     }
 });
 
+
 const Team = ({ team, classes, profileDetail }, props) => {
-console.log("TEAM::", profileDetail);
+console.log("TEAM::", team);
     if (team) {
         return (
             <div>
@@ -93,17 +94,28 @@ console.log("TEAM::", profileDetail);
         );
     }
     else {
-        return (
-            <div>
-                <Grid container className={classes.root} spacing={10}>
-                    <Grid item xs={12}>
-                        <Grid container className={classes.demo} justify="center" spacing={Number(8)}>
-                            <Typography component="h2" variant="h1">Pick your team...</Typography>
-                        </Grid>
+        return ( <div>
+            <Typography
+            variant="h3"
+            color="textSecondary"
+          >
+           The Stable Area
+          </Typography>
+          <Typography
+            variant="body1"
+            color="textSecondary"
+          >
+           Pick your team.  When the team selection completeness reaches 100% your team will be ready for leagues once selection locking commences about 1 hour before first ride on day one of competition.  You can adjust your team as much as you like before this time.  Good luck!  
+          </Typography>
+          <br />
+            <Divider className={classes.profileDivider} />
+            <Grid container className={classes.root} spacing={12}>
+                <Grid item xs={12}>
+                    <Grid container className={classes.demo} justify="center" spacing={Number(1)}>
                     </Grid>
                 </Grid>
-            </div>
-        );
+            </Grid>
+        </div>);
     }
 };
 

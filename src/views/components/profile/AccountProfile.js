@@ -8,7 +8,10 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core';
 
 // Material components
-import { Avatar, Typography, Button, LinearProgress } from '@material-ui/core';
+import { Avatar, Button, CircularProgress, LinearProgress, Typography } from '@material-ui/core';
+
+//Loader
+import { Loader } from '../../components/loader'
 
 // Shared components
 import Portlet from '../../components/Portlet';
@@ -29,7 +32,7 @@ const styles = theme => ({
     },
     info: {},
     locationText: {
-      marginTop: theme.spacing.unit,
+      marginTop: theme.spacing(1),
       color: theme.palette.text.secondary
     },
     teamText: {
@@ -43,10 +46,10 @@ const styles = theme => ({
       flexGrow: 0
     },
     progressWrapper: {
-      marginTop: theme.spacing.unit * 2
+      marginTop: theme.spacing(2)
     },
     uploadButton: {
-      marginRight: theme.spacing.unit * 2
+      marginRight: theme.spacing(2)
     },
     linearProgress: {
       height: 10
@@ -54,6 +57,12 @@ const styles = theme => ({
     name: {
       marginLeft: 'auto',
       // marginRight: -1,
+    },
+    loader: {
+      paddingTop: '48px',
+      paddingBottom: '24px',
+      display: 'flex',
+      justifyContent: 'center'
     }
   });
 
@@ -67,6 +76,7 @@ function AccountProfile(props) {
   const [name, setName] = useState("");
   const [team, setTeam] = useState("");
   const [pic, setPic] = useState("");
+  const [loading, setLoading] = useState(true);
   const [countryFlag, setCountryFlag] = useState("");
   const [countryName, setCountryName] = useState("");
   const [eventScore, setEventScore] = useState(0)
@@ -85,6 +95,7 @@ function AccountProfile(props) {
         setCountryFlag("https://www.countryflags.io/" + profileDetail.country + "/shiny/64.png");
         setEventScore(profileDetail.score);
         setEventRank(profileDetail.rank);
+        setLoading(false);
         setTier1Count(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length != 0}).length)
         setTier2Count(profileDetail.teamKeysTier2.split(",").filter(x => {return x.length != 0}).length)
         setCompleteness(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length != 0}).length + profileDetail.teamKeysTier2.split(",").filter(x => {return x.length != 0}).length)
@@ -97,6 +108,14 @@ function AccountProfile(props) {
     console.log("KEYS1::",tier1Count);
     console.log("KEYS2::",tier2Count);
     console.log("KEYS3::",completeness);
+
+    if (loading) {
+      return (
+        <div className={classes.loader}>
+          <CircularProgress />
+        </div>
+      );
+    }
     return (
       <Portlet
         {...rest}

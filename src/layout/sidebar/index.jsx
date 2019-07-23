@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
+//Redux
+// import useActions from 'react-redux';
+import { LoadProfile } from '../../actions/profileActions.js'
 // Externals
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -44,17 +47,17 @@ import styles from './styles';
 import { firebaseDb } from '../../firebase';
 
 //loader
-import Loader from 'react-loaders'
+// import Loader from 'react-loaders'
 import 'loaders.css/src/animations/line-scale.scss'
 
 
 function Sidebar(props) {
     console.log("SIDEBARPROPS::", props)
 
-    var loaderStyle = {
-        color: 'black'
-    }
-    let loader = <Loader type="ball-scale" style={loaderStyle} active />
+    // var loaderStyle = {
+    //     color: 'black'
+    // }
+    // let loader = <Loader type="ball-scale" style={loaderStyle} active />
     const { classes, className, id, authenticated, open } = props;
     const [auth] = useState(authenticated);
     const [pic, setPic] = useState("https://www.sackettwaconia.com/wp-content/uploads/default-profile.png")
@@ -77,8 +80,12 @@ function Sidebar(props) {
             })
         }, [authenticated])
 
-    const rootClassName = classNames(classes.root, className);
+        // useEffect(
+        // () => {
 
+        // }, [])
+
+    const rootClassName = classNames(classes.root, className);
     return (
         <div>
             {authenticated ?

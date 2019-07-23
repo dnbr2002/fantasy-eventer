@@ -64,7 +64,7 @@ const Cell = (props) => {
 
 const getRowId = row => row.rank;
 
-class RankTable extends React.Component {
+class LeagueRanktTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -159,4 +159,4 @@ const mapDispatchToProps = Object.assign(
 export default compose(
     withStyles(styles),
     connect(mapStateToProps, mapDispatchToProps)
-    )(withRouter(RankTable));
+    )(withRouter(LeagueRanktTable));

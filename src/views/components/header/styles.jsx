@@ -113,7 +113,7 @@ export default theme => ({
     //     }
     //   },
     //   '& + &': {
-    //     marginTop: theme.spacing.unit
+    //     marginTop: theme.spacing(1)
     //   }
     // },
     // activeListItem: {

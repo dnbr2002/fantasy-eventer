@@ -14,17 +14,33 @@ import { List } from 'immutable';
 import CustomAvatar from '../../components/avatars/avatars';
 import toastr from 'toastr';
 
+const toolbarStyles = theme => ({
+  root: {
+      paddingRight: theme.spacing(1),
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
+  },
+  spacer: {
+      flex: '1 1 100%',
+  },
+  actions: {
+      color: theme.palette.text.secondary,
+  },
+  title: {
+      flex: '0 0 auto',
+  }
+});
 
 let Tier2TableToolbar = props => {
-  const { numSelected, numComps } = props;
+  const { numSelected, numComps, classes } = props;
   return (
-    <Toolbar>
+    <Toolbar className={classes.root}>
       {numSelected > 0 ? (
-        <Typography color="inherit" variant="subheading">
+        <Typography color="inherit" variant="h4">
           {numSelected} selected
           </Typography>
       ) : (
-          <Typography variant="title" id="tableTitle">
+          <Typography variant="h4" id="tableTitle">
             Pick {numComps + 1}
           </Typography>
         )}
@@ -36,10 +52,12 @@ Tier2TableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
+Tier2TableToolbar = withStyles(toolbarStyles)(Tier2TableToolbar);
+
 const CustomHeaderCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
   },
   body: {
     fontSize: 14,

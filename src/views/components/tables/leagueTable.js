@@ -43,7 +43,7 @@ const styles = theme => ({
         paddingBottom: '24px',
         display: 'flex',
         justifyContent: 'center'
-      }
+      },
   });
 
 const TeamAvatar = ({ value, style }) => (

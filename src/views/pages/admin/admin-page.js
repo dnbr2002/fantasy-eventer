@@ -48,8 +48,7 @@ export class AdminPage extends Component {
             <div className={rootClassName}>
             <div className="g-row">
                 <div className="g-col">                    
-                   <h1> Fantasy Eventer </h1>
-                      <h2>  Admin Center </h2>
+                <Typography variant="h2" color="textSecondary">Admin Center </Typography>
                     <br />
                     <RemoveTeams {...this.props} />
                     <br />
