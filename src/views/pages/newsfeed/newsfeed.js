@@ -12,6 +12,23 @@ const styles = theme => ({
   });
 
  class NewsFeedPage extends Component {
+    constructor() {
+        super()
+        this.state = {
+            news: ''
+        };
+      }
+componentWillMount() {
+    fetch('/https://news.google.com/rss/search?q=cats')
+  .then(function(response) {
+      console.log("response", response)
+      this.setState({news: response})
+    return response.json()
+  }).catch(function(ex) {
+    console.log('parsing failed', ex)
+  })
+}
+
     render() {
         const { classes, className } = this.props;
         const rootClassName = classNames(classes.root, className);
@@ -21,7 +38,7 @@ const styles = theme => ({
                 <div className="g-col">
                 <div className="bootstrap">
                 <div className="jumbotron">
-                    <h1 className="display-3">NewsFeed</h1>
+                    <h1 className="display-3">NewsFeed: {this.state.news}</h1>
                     </div>
                     </div>
                 </div>
