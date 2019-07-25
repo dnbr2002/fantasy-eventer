@@ -10,14 +10,29 @@ import Avatar from '@material-ui/core/Avatar';
 import { firebaseDb } from '../../../firebase';
 
 const styles = theme => ({
+    root: {},
     detailContainer: {
-        margin: '20px',
+        margin: '20px'
     },
     title: {
-        color: theme.palette.text.primary,
-        fontSize: theme.typography.fontSize,
+        color: theme.palette.text.secondary,
+        fontSize: theme.typography.h3.fontSize,
     },
+    head: {
+        backgroundColor: theme.palette.primary.medium,
+        color: theme.palette.primary.contrastText
+    }
 });
+
+const HeaderCellBase = ({ classes, className, ...restProps }) => (
+    <TableHeaderRow.Cell
+      {...restProps}
+      className={`${classes.head} ${className}`}
+    />
+  );
+
+
+const HeaderCell = withStyles(styles, { name: 'HeaderCellBase' })(HeaderCellBase);
 
 const TeamAvatar = ({ value, style }) => (
     <Table.Cell>
@@ -94,13 +109,13 @@ function LeagueRowDetail(props) {
     };
 
     return (
-        <div>
+        <div className={classes.root}>
             <div className={classes.detailContainer}>
-                <h5 className={classes.title}>
-                    {row.teamName}
-                    {' '}
+                <div className={classes.title}>
                     Team
-                </h5>
+                    {' '}
+                    {row.teamName}
+                </div>
             </div>
             <Paper>
                 <Grid
@@ -110,7 +125,9 @@ function LeagueRowDetail(props) {
                     <Table
                     cellComponent={Cell}
                     />
-                    <TableHeaderRow />
+                    <TableHeaderRow
+                    cellComponent={HeaderCell}
+                     />
                 </Grid>
             </Paper>
         </div>

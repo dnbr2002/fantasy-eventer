@@ -27,6 +27,10 @@ import {
 import {
     HomeOutlined as HomeIcon,
     PeopleOutlined as PeopleIcon,
+    QuestionAnswerOutlined as RulesIcon,
+    DescriptionOutlined as NewsfeedIcon,
+    ContactSupportOutlined as ContactsIcon,
+    DateRangeOutlined as ScheduleIcon,
     ShoppingBasketOutlined as ShoppingBasketIcon,
     LockOpenOutlined as LockOpenIcon,
     TextFields as TextFieldsIcon,
@@ -189,6 +193,48 @@ function Sidebar(props) {
                             />
                         </ListItem>
                         </a>
+                        <a href="./schedulepage">
+                        <ListItem
+                            activeClassName={classes.activeListItem}
+                            className={classes.listItem}
+                        >
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <ScheduleIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                classes={{ primary: classes.listItemText }}
+                                primary="Schedule"
+                            />
+                        </ListItem>
+                        </a>
+                        <a href="./rulespage">
+                        <ListItem
+                            activeClassName={classes.activeListItem}
+                            className={classes.listItem}
+                        >
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <RulesIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                classes={{ primary: classes.listItemText }}
+                                primary="Rules"
+                            />
+                        </ListItem>
+                        </a>
+                        <a href="./newsfeedpage">
+                        <ListItem
+                            activeClassName={classes.activeListItem}
+                            className={classes.listItem}
+                        >
+                            <ListItemIcon className={classes.listItemIcon}>
+                                <NewsfeedIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                classes={{ primary: classes.listItemText }}
+                                primary="Newsfeed"
+                            />
+                        </ListItem>
+                        </a>
                     </List>
                     <Divider className={classes.listDivider} />
                     <List
@@ -200,21 +246,20 @@ function Sidebar(props) {
                     </ListSubheader>
                         }
                     >
+                        <a href="./contactpage">
                         <ListItem
+                            activeClassName={classes.activeListItem}
                             className={classes.listItem}
-                            component="a"
-                            href="https://devias.io/contact-us"
-                            target="_blank"
                         >
                             <ListItemIcon className={classes.listItemIcon}>
-                                <InfoIcon />
+                                <ContactsIcon />
                             </ListItemIcon>
                             <ListItemText
                                 classes={{ primary: classes.listItemText }}
-                                primary="Customer support"
+                                primary="Contact"
                             />
                         </ListItem>
-                        {/* <a href="./adminpage"> */}
+                        </a>
                         <ListItem
                             className={classes.listItem}
                             component="a"

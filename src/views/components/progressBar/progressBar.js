@@ -29,7 +29,8 @@ const styles = theme => ({
         marginTop: theme.spacing(2)
     },
     linearProgress: {
-        height: 20
+        height: 20,
+        // backgroundColor: theme.palette.common.white,
     },
 });
 

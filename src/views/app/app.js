@@ -15,6 +15,10 @@ import LeaguePage from '../pages/league';
 import ProfilePage from '../pages/profile';
 import SignIn from '../pages/signIn';
 import SignUp from '../pages/signUp';
+import Contact from '../pages/contact';
+import Rules from '../pages/rules';
+import Newsfeed from '../pages/newsfeed';
+import Schedule from '../pages/schedule';
 // Component styles
 import styles from './styles';
 import classNames from 'classnames';
@@ -113,6 +117,10 @@ componentWillReceiveProps(nextProps) {
           [classes.contentShift]: shiftContent
         })}>
           <RequireAuthRoute authenticated={authenticated} exact path="/" component={HomePage} />
+          <RequireAuthRoute authenticated={authenticated} exact path="/contactpage" component={Contact} />
+          <RequireAuthRoute authenticated={authenticated} exact path="/rulespage" component={Rules} />
+          <RequireAuthRoute authenticated={authenticated} exact path="/newsfeedpage" component={Newsfeed} />
+          <RequireAuthRoute authenticated={authenticated} exact path="/schedulepage" component={Schedule} />
           <RequireAuthRoute authenticated={authenticated} exact path="/teampage" component={TeamPage} />
           <RequireAuthRoute authenticated={authenticated} exact path="/leaguepage" component={LeaguePage} />
           <RequireAuthRoute authenticated={authenticated} exact path="/adminpage" component={AdminPage} />

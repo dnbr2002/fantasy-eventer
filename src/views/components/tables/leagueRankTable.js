@@ -20,6 +20,7 @@ import {
     TableRowDetail,
     PagingPanel
 } from '@devexpress/dx-react-grid-material-ui';
+import { Getter } from "@devexpress/dx-react-core";
 
 //Material IU Components
 import { Avatar, CircularProgress, Paper } from '@material-ui/core';
@@ -43,14 +44,41 @@ const styles = theme => ({
         paddingBottom: '24px',
         display: 'flex',
         justifyContent: 'center'
+      },
+      head: {
+        backgroundColor: theme.palette.primary.medium,
+        color: theme.palette.primary.contrastText
+    },
+    detail: {
+        backgroundColor: '#e4e7eb',
+        color: theme.palette.primary.contrastText
       }
   });
 
-const TeamAvatar = ({ value, style }) => (
+  const TeamAvatar = ({ value, style }) => (
     <Table.Cell>
         <Avatar alt="Remy Sharp" src={value} />
     </Table.Cell>
 );
+
+  const HeaderCellBase = ({ classes, className, ...restProps }) => (
+    <TableHeaderRow.Cell
+      {...restProps}
+      className={`${classes.head} ${className}`}
+    />
+  );
+
+
+const HeaderCell = withStyles(styles, { name: 'HeaderCellBase' })(HeaderCellBase);
+
+const DetailCellBase = ({ classes, className, ...restProps }) => (
+    <TableHeaderRow.Cell
+      {...restProps}
+      className={`${classes.detail} ${className}`}
+    />
+  );
+
+const DetailCell = withStyles(styles, { name: 'DetailCell' })(DetailCellBase);
 
 
 const Cell = (props) => {
@@ -60,6 +88,19 @@ const Cell = (props) => {
     }
     return <Table.Cell {...props} />;
 };
+
+const StubHeaderCelllBase = ({ classes, className, ...restProps }) => (
+    <Table.StubHeaderCell 
+    {...restProps}
+      className={`${classes.head} ${className}`} />
+  );
+
+  const StubHeaderCell = withStyles(styles, { name: 'StubHeaderCell' })(StubHeaderCelllBase);
+  
+  const tableColumnsComputed = ({ tableColumns }) => {
+    const [detailColumn, ...restColumns] = tableColumns;
+    return [detailColumn, ...restColumns];
+  };
 
 
 const getRowId = row => row.rank;
@@ -127,11 +168,16 @@ class LeagueRanktTable extends React.Component {
                         />
                         <Table
                             cellComponent={Cell}
+                            stubHeaderCellComponent={StubHeaderCell}
                         />
-                        <TableHeaderRow />
+                        <TableHeaderRow
+                        cellComponent={HeaderCell}
+                         />
                         <TableRowDetail
                             contentComponent={LeagueRowDetail}
+                            cellComponent={DetailCell} 
                         />
+                        <Getter name="tableColumns" computed={tableColumnsComputed} />
                     </Grid>
 
                 </Paper>

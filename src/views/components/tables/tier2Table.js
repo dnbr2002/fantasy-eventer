@@ -17,7 +17,7 @@ import toastr from 'toastr';
 const toolbarStyles = theme => ({
   root: {
       paddingRight: theme.spacing(1),
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.primary.medium,
       color: theme.palette.common.white,
   },
   spacer: {
@@ -40,7 +40,7 @@ let Tier2TableToolbar = props => {
           {numSelected} selected
           </Typography>
       ) : (
-          <Typography variant="h4" id="tableTitle">
+          <Typography variant="h4" id="tableTitle" className={classes.root}>
             Pick {numComps + 1}
           </Typography>
         )}
@@ -56,7 +56,7 @@ Tier2TableToolbar = withStyles(toolbarStyles)(Tier2TableToolbar);
 
 const CustomHeaderCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.medium,
     color: theme.palette.common.white,
   },
   body: {

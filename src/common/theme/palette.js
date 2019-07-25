@@ -10,6 +10,7 @@ export default {
   primary: {
     contrastText: white,
     main: '#0767DB',
+    medium: '#4092f5',
     light: '#F6F9FD',
     dark: '#0B48A0'
   },

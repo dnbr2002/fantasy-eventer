@@ -21,35 +21,10 @@ import * as teamActions from '../../../actions/teamActions';
 
 var competitors = [];
 
-// let AdminTableToolbar = props => {
-//     const { removeCompetitors } = props;
-//     return (
-//         <Toolbar>
-//             <Grid container>
-//                 <Grid container
-//                     spacing={16}
-//                     alignItems="stretch"
-//                     direction="row"
-//                     justify="space-between"
-//                 >
-//                     <Grid>
-//                         <Button variant="raised" size="small" color="secondary" onClick={removeCompetitors} type="submit">Remove</Button>
-//                     </Grid>
-
-//                 </Grid>
-//             </Grid>
-
-//         </Toolbar>
-//     );
-// };
-
-// AdminTableToolbar.propTypes = {
-//     removeCompetitors: PropTypes.func.isRequired,
-// };
 
 const CustomHeaderCell = withStyles(theme => ({
     head: {
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.medium,
         color: theme.palette.common.white,
     },
     body: {
