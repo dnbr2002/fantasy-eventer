@@ -11,8 +11,12 @@ import NewsLinks from '../../components/newsfeed/newsLink.js';
 const styles = theme => ({
     root: {
       padding: theme.spacing(4)
+    },
+    newsHeader: {
+        backgroundColor: theme.palette.primary.main
     }
   });
+
 
   const newsObj = {
     copyright: "2019 Google Inc.",
@@ -56,12 +60,16 @@ xml2Json = () => {
     render() {
         const { classes, className } = this.props;
         const rootClassName = classNames(classes.root, className);
+        const jumboStyles = {
+            backgroundColor: '#0767DB',
+            color: 'white',
+          };
         return (
             <div className={rootClassName}>
             <div className="g-row">
                 <div className="g-col">
                 <div className="bootstrap">
-                <div className="jumbotron">
+                <div className="jumbotron" style={jumboStyles}>
                     <h1 className="display-3">Event Feeds</h1>
                    </div>
                    <NewsLinks news={this.state.news} />
