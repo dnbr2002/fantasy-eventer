@@ -62,9 +62,9 @@ xml2Json = () => {
                 <div className="g-col">
                 <div className="bootstrap">
                 <div className="jumbotron">
-                    <h1 className="display-3">Latest News</h1>
-                    <NewsLinks news={this.state.news} />
-                    </div>
+                    <h1 className="display-3">Event Feeds</h1>
+                   </div>
+                   <NewsLinks news={this.state.news} />
                     </div>
                 </div>
             </div>
