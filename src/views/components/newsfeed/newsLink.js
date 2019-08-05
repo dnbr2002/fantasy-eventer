@@ -105,7 +105,9 @@ function NewsLink(props) {
                             <div className={classes.details}>
                                 <div className={classes.info}>
                                     <div className={classes.image}>
-                                        <img src={item.mediaContent.url} width={item.mediaContent.width} height={item.mediaContent.height} alt={item.value.title + " image"} />
+                                      {  item.mediaContent !== "no media content" ? <img src={item.mediaContent.url} width={item.mediaContent.width} height={item.mediaContent.height} alt={item.value.title + " image"} />
+                                    : null  
+                                    }
                                     </div>
                                     <Typography
                                         className={classes.teamText}
