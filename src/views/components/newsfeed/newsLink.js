@@ -17,16 +17,18 @@ import PortletLabel from '../../components/PortletLabel';
 const styles = theme => ({
     root: {},
     details: {
-        display: 'flex'
+        display: 'flex',
+        float: 'right'
     },
     info: {},
     locationText: {
         marginTop: theme.spacing(1),
         color: theme.palette.text.secondary
     },
-    teamText: {
+    newsText: {
         color: theme.palette.text.secondary,
-        // float: 'left'
+        float: 'left',
+        textAlign: 'left',
     },
     image: {
         float: 'right'
@@ -104,26 +106,26 @@ function NewsLink(props) {
                         <PortletContent>
                             <div className={classes.details}>
                                 <div className={classes.info}>
-                                    <div className={classes.image}>
-                                      {  item.mediaContent !== "no media content" ? <img src={item.mediaContent.url} width={item.mediaContent.width} height={item.mediaContent.height} alt={item.value.title + " image"} />
-                                    : null  
-                                    }
-                                    </div>
                                     <Typography
-                                        className={classes.teamText}
+                                        className={classes.newsText}
                                         variant="h3"
                                     >
                                         <a href={item.value.link} target="_blank">  {item.value.title} </a>
                                     </Typography>
 
                                     <Typography
-                                        className={classes.teamText}
+                                        className={classes.newsText}
                                         variant="h4"
                                         color="secondaryText"
                                     >
                                         {item.contentSnippet}
                                     </Typography>
                                 </div>
+                                <div className={classes.image}>
+                                      {  item.mediaContent !== "no media content" ? <img src={item.mediaContent.url} width={item.mediaContent.width} height={item.mediaContent.height} alt={item.value.title + " image"} />
+                                    : null  
+                                    }
+                                    </div>
                             </div>
                         </PortletContent>
                     </Portlet>
