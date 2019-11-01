@@ -38,8 +38,8 @@ const styles = theme => ({
                     <Typography variant="h2" color="textSecondary" className={classes.email}>Contacts</Typography>
                     <br /> 
                         <br />
-                        <div className={classes.email}><EmailOutlined>Email</EmailOutlined>
-                        {/* <Typography variant="h3" color="textSecondary" className={classes.email}>Email</Typography> */}
+                        <div className={classes.email}><EmailOutlined />
+                        <Typography variant="h3" color="textSecondary" className={classes.email}>Email</Typography>
                         </div>
                         <br /> 
                         <br />

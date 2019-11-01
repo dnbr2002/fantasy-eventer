@@ -27,8 +27,8 @@ import {
 import {
     HomeOutlined as HomeIcon,
     PeopleOutlined as PeopleIcon,
-    QuestionAnswerOutlined as RulesIcon,
-    DescriptionOutlined as NewsfeedIcon,
+    DescriptionOutlined as RulesIcon,
+    QuestionAnswerOutlined as NewsfeedIcon,
     ContactSupportOutlined as ContactsIcon,
     DateRangeOutlined as ScheduleIcon,
     ShoppingBasketOutlined as ShoppingBasketIcon,

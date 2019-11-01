@@ -4,28 +4,58 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core';
 //import PropTypes from 'prop-types'
 
-// Component styles
-const styles = theme => ({
-    root: {
-      padding: theme.spacing(4)
-    }
-  });
+//custome components
+import Parallax from "../../components/parallax/parallax";
+import GridContainer from "../../components/grid/gridContainer.js";
+import GridItem from "../../components/grid/gridItem.js";
+import HomeSections from "../../components/home/homeSections";
 
- class HomePage extends Component {
+// @material-ui/core components
+
+// Component styles
+import styles from "./styles";
+// const styles = theme => ({
+//     root: {
+//         padding: theme.spacing(4)
+//     }
+// });
+
+
+class HomePage extends Component {
     render() {
-        const { classes, className } = this.props;
-        const rootClassName = classNames(classes.root, className);
+        const { className, classes } = this.props;
+        // const classes = useStyles();
+         const rootClassName = classNames(classes.root, className);
+        
         return (
-            <div className={rootClassName}>
-            <div className="g-row">
-                <div className="g-col">
-                <div className="bootstrap">
-                <div className="jumbotron">
-                    <h1 className="display-3">HOMEPAGE</h1>
+            <div>
+                <Parallax filter image={require("../../../assets/images/landing-bg.jpg")}>
+                    <div className={classes.container}>
+                        <GridContainer>
+                            <GridItem xs={12} sm={12} md={6}>
+                                <h1 className={classes.title}>Welcome Fantasy Eventers</h1>
+                                <h4>
+                                    Test your skills at the biggests events in the world. Pick a team of 
+                                    eventers.  Just like the sport itself, lowest score wins!  
+                                 </h4>
+                                <br />
+                                {/* <Button
+                                    color="danger"
+                                    size="lg"
+                                    href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ref=creativetim"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i className="fas fa-play" />
+                                    Watch video
+                            </Button> */}
+                            </GridItem>
+                        </GridContainer>
                     </div>
-                    </div>
+                </Parallax>
+                <div className={classes.container}>
+                    <HomeSections />
                 </div>
-            </div>
             </div>
         )
     }
