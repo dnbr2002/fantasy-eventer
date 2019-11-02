@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import classNames from 'classnames';
 // Material helpers
-import { withStyles } from '@material-ui/core';
+import { 
+    withStyles,
+    Typography 
+} from '@material-ui/core';
 //import PropTypes from 'prop-types'
 
 //custome components
@@ -34,7 +37,10 @@ class HomePage extends Component {
                     <div className={classes.container}>
                         <GridContainer>
                             <GridItem xs={12} sm={12} md={6}>
-                                <h1 className={classes.title}>Welcome Fantasy Eventers</h1>
+                                <Typography className={classes.title} variant="h1">
+                                Welcome Fantasy Eventers
+                                </Typography>
+                                {/* <h1 className={classes.title}>Welcome Fantasy Eventers</h1> */}
                                 <h3>
                                     Test your skills at the biggests events in the world. Pick a team of 
                                     eventers.  Lowest score wins!  

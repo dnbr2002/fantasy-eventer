@@ -79,8 +79,8 @@ export function signInEmailError(error) {
 }
 
 export function signUpSuccess(result, profileData) {
-  console.log("RESULT::",result.user.uid);
-  return createProfileFromSignUp(profileData, result.user.uid)
+  console.log("RESULT::",result);
+  return createProfileFromSignUp(profileData, result)
   return {
     type: SIGN_UP_SUCCESS,
     payload: result.user,

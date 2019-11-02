@@ -44,17 +44,19 @@ export function createProfile(data) {
   };
 }
 
-export function createProfileFromSignUp(data, uid) {
-  console.log('CREATEPROFILE::', data)
+export function createProfileFromSignUp(data, fbData) {
+  console.log('CREATEPROFILE::', data);
+  console.log('CREATEPROFILE2::', fbData);
   var profileName = data.profileName;
   var teamName = data.teamName;
   var profilePic = data.profilePic;
-  var email = data.email;
-  var country = data.country;
+  var email = fbData.user.email;
+  var country = "US";
   var score = 0;
   var rank = 0;
   var teamKeysTier1 ='';
   var teamKeysTier2 = '';
+  var uid = fbData.user.uid;
   return dispatch => {
     console.log("AUTHID::", uid);
     profileFireDB.path = `users/${uid}`;

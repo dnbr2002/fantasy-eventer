@@ -16,7 +16,9 @@ const landingPageStyle = {
     marginTop: "30px",
     minHeight: "32px",
     color: "#FFFFFF",
-    textDecoration: "none"
+    textDecoration: "none",
+    width: '100%',
+    maxWidth: 500,
   },
   subtitle: {
     fontSize: "1.313rem",
