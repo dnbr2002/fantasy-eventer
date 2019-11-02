@@ -6,6 +6,9 @@ import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
 import styles from "./styles";
 
 const useStyles = makeStyles(styles);
@@ -24,6 +27,8 @@ export default function InfoArea(props) {
   });
   return (
     <div className={classes.infoArea}>
+      <Card className={classes.card}>
+        <CardContent>
       <div className={iconWrapper}>
         <props.icon className={iconClasses} />
       </div>
@@ -31,6 +36,8 @@ export default function InfoArea(props) {
         <h4 className={classes.title}>{title}</h4>
         <p className={classes.description}>{description}</p>
       </div>
+      </CardContent>
+      </Card>
     </div>
   );
 }

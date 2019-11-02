@@ -30,7 +30,7 @@ const newsObj = {
     items: [],
     language: "en-US",
     lastBuildDate: "Fri, 26 Jul 2019 03:10:30 GMT",
-    link: "https://news.google.com/search?q=fair+hill+international+horse+trials+5+star&hl=en-US&gl=US&ceid=US:en",
+    link: "https://news.google.com/search?q=fair%20hill%20international%20internation%20horse%20trials&hl=en-US&gl=US&ceid=US%3Aen",
     title: "fair hill international horse trials 5 star - Google News",
     webMaster: "news-webmaster@google.com"
 }

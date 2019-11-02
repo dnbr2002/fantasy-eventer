@@ -122,7 +122,7 @@ function NewsLink(props) {
                                     </Typography>
                                 </div>
                                 <div className={classes.image}>
-                                      {  item.mediaContent !== "no media content" ? <img src={item.mediaContent.url} width={item.mediaContent.width} height={item.mediaContent.height} alt={item.value.title + " image"} />
+                                      {  item.value.content !== "no media content" ? <img src={item.value.content} alt={item.value.title + " image"} />
                                     : null  
                                     }
                                     </div>

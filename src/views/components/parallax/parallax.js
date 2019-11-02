@@ -21,16 +21,16 @@ export default function Parallax(props) {
   const [transform, setTransform] = React.useState(
     "translate3d(0," + windowScrollTop + "px,0)"
   );
-  React.useEffect(() => {
-    if (window.innerWidth >= 768) {
-      window.addEventListener("scroll", resetTransform);
-    }
-    return function cleanup() {
-      if (window.innerWidth >= 768) {
-        window.removeEventListener("scroll", resetTransform);
-      }
-    };
-  });
+  // React.useEffect(() => {
+  //   if (window.innerWidth >= 768) {
+  //     window.addEventListener("scroll", resetTransform);
+  //   }
+  //   return function cleanup() {
+  //     if (window.innerWidth >= 768) {
+  //       window.removeEventListener("scroll", resetTransform);
+  //     }
+  //   };
+  // });
   const resetTransform = () => {
     var windowScrollTop = window.pageYOffset / 3;
     setTransform("translate3d(0," + windowScrollTop + "px,0)");

@@ -1,6 +1,9 @@
 import { container, title } from "../../../assets/jss/material-kit-react";
   
 const landingPageStyle = {
+  page: {
+    backgroundColor: "#f0f1f5"
+  },
   container: {
     zIndex: "12",
     color: "#FFFFFF",

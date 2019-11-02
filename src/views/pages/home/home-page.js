@@ -14,6 +14,7 @@ import HomeSections from "../../components/home/homeSections";
 
 // Component styles
 import styles from "./styles";
+import { mergeClasses } from '@material-ui/styles';
 // const styles = theme => ({
 //     root: {
 //         padding: theme.spacing(4)
@@ -28,17 +29,16 @@ class HomePage extends Component {
          const rootClassName = classNames(classes.root, className);
         
         return (
-            <div>
-                <Parallax filter image={require("../../../assets/images/landing-bg.jpg")}>
+            <div className={classes.page}>
+                <Parallax filter image={require("../../../assets/images/landing-bg2.jpg")}>
                     <div className={classes.container}>
                         <GridContainer>
                             <GridItem xs={12} sm={12} md={6}>
                                 <h1 className={classes.title}>Welcome Fantasy Eventers</h1>
-                                <h4>
+                                <h3>
                                     Test your skills at the biggests events in the world. Pick a team of 
-                                    eventers.  Just like the sport itself, lowest score wins!  
-                                 </h4>
-                                <br />
+                                    eventers.  Lowest score wins!  
+                                 </h3>
                                 {/* <Button
                                     color="danger"
                                     size="lg"
