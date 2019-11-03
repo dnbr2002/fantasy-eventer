@@ -4,6 +4,7 @@ import { FirebaseList } from 'src/firebase';
 
 export const CompInfo = new Record({
   name: null,
+  url: null,
   desc: null,
   location: null,
   date: null,
