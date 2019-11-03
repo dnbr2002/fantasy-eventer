@@ -53,6 +53,18 @@ const styles = theme => ({
   progressBar: {
     position: "-webkit-sticky",
     top: 0
+  },
+  sticky: {
+    background: 'white',
+    position: '-webkit-sticky',
+    position: 'sticky',
+    top: 10,
+    bottom: 0,
+    paddingTop: '40px',
+    paddingBottom: '40px',
+    zIndex: 5,
+    paddingTop: 0,
+    paddingBottom: 0,
   }
 });
 
@@ -179,21 +191,17 @@ class TeamPage extends Component {
     return (
 
       <div className={rootClassName}>
-        <div className="g-row">
-          <div className="g-col">
+        {/* <div className="g-row">
+          <div className="g-col"> */}
             <AccountProfile {...this.props} />
             <br />
-            <Portlet
-              className={rootClassName}
-            >
+            {/* <ProgressBar {...this.props} /> */}
+            <Portlet className={classes.sticky} >
               <PortletContent>
-                <Team team={this.props.team} profileDetail={profileDetail} />
+                <Team team={this.props.team} profileDetail={profileDetail} {...this.props} />
               </PortletContent>
             </Portlet>
             <br />
-            {/* <div className="sticky"> */}
-            <ProgressBar {...this.props} />
-            {/* </div> */}
             <div>
               {
                 this.props.compStatus === "true" ? <FormControlLabel disabled control={<Switch value="true" />} label="Disabled - Teams are locked until event is completed" /> :
@@ -203,8 +211,8 @@ class TeamPage extends Component {
             <div>
               {this.state.toggle ? null : this.renderAddTeam()}
             </div>
-          </div>
-        </div>
+          {/* </div>
+        </div> */}
       </div>
 
     );

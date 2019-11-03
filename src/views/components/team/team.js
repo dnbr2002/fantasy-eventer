@@ -9,15 +9,17 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import PortletHeader from '../../components/PortletHeader';
 import PortletLabel from '../../components/PortletLabel';
+import ProgressBar from '../../components/progressBar/progressBar.js';
 
 const styles = theme => ({
     root: {
         flexGrow: 1,
+        // paddingTop: 0,
     },
     paper: {
-        height: 200,
+        height: 175,
         width: 100,
-        margin: theme.spacing(3)
+        margin: theme.spacing(1)
     },
     image: {
         height: 100,
@@ -30,24 +32,10 @@ const styles = theme => ({
 
 
 const Team = ({ team, classes, profileDetail }, props) => {
-console.log("TEAM::", team);
-    if (team) {
+    console.log("TEAM::", team);
+    if (team && team.size > 0) {
         return (
             <div>
-                <Typography
-                variant="h3"
-                color="textSecondary"
-              >
-               The Stable Area
-              </Typography>
-              <Typography
-                variant="body1"
-                color="textSecondary"
-              >
-               Pick your team.  When the team selection completeness reaches 100% your team will be ready for leagues once selection locking commences about 1 hour before first ride on day one of competition.  You can adjust your team as much as you like before this time.  Good luck!  
-              </Typography>
-              <br />
-                <Divider className={classes.profileDivider} />
                 <Grid container className={classes.root} spacing={12}>
                     <Grid item xs={12}>
                         <Grid container className={classes.demo} justify="center" spacing={Number(1)}>
@@ -60,16 +48,16 @@ console.log("TEAM::", team);
                                                 src={competitor.pic}
                                                 alt="competitor pic"
                                             />
-                                            <Grid container justify="center">
+                                            {/* <Grid container justify="center">
                                                 <Typography variant="caption">
                                                     Tier: <b>{competitor.tier}</b>
                                                 </Typography>
-                                            </Grid>
+                                            </Grid> */}
                                             <Divider className={classes.paperDivider} />
                                             <Grid container justify="center">
                                                 <Typography variant="caption">
                                                     Score: <b>{competitor.score}</b>
-                                                </Typography>                                                
+                                                </Typography>
                                             </Grid>
                                             <Divider className={classes.paperDivider} />
                                             <Grid container justify="center">
@@ -90,31 +78,24 @@ console.log("TEAM::", team);
                         </Grid>
                     </Grid>
                 </Grid>
+                <ProgressBar profileDetail={profileDetail} {...props} />
             </div>
         );
     }
     else {
-        return ( <div>
+        return (<div>
             <Typography
-            variant="h3"
-            color="textSecondary"
-          >
-           The Stable Area
+                variant="h3"
+                color="textSecondary"
+            >
+                The Stable Area
           </Typography>
-          <Typography
-            variant="body1"
-            color="textSecondary"
-          >
-           Pick your team.  When the team selection completeness reaches 100% your team will be ready for leagues once selection locking commences about 1 hour before first ride on day one of competition.  You can adjust your team as much as you like before this time.  Good luck!  
+            <Typography
+                variant="body1"
+                color="textSecondary"
+            >
+                Pick your team.  When the team selection completeness reaches 100% your team will be ready for leagues once selection locking commences about 1 hour before first ride on day one of competition.  You can adjust your team as much as you like before this time.  Good luck!
           </Typography>
-          <br />
-            <Divider className={classes.profileDivider} />
-            <Grid container className={classes.root} spacing={12}>
-                <Grid item xs={12}>
-                    <Grid container className={classes.demo} justify="center" spacing={Number(1)}>
-                    </Grid>
-                </Grid>
-            </Grid>
         </div>);
     }
 };
