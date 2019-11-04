@@ -30,7 +30,7 @@ const newsObj = {
     items: [],
     language: "en-US",
     lastBuildDate: "Fri, 26 Jul 2019 03:10:30 GMT",
-    link: "https://news.google.com/search?q=fair%20hill%20international%20internation%20horse%20trials&hl=en-US&gl=US&ceid=US%3Aen",
+    link: "https://news.google.com/rss/search?q=fairhill+kentucky+land+rover+3+day+event&sxsrf=ACYBGNQgJzL8_MCw-yOA3dWzpJwittGmWA:1572898589095&source=lnms&tbm=nws&sa=X&ved=0ahUKEwiyoK7tr9HlAhVGRa0KHZHKD9UQ_AUIEigB&biw=1280&bih=646&hl=en-US&gl=US&ceid=US:en",
     title: "fair hill international horse trials 5 star - Google News",
     webMaster: "news-webmaster@google.com"
 }
@@ -46,11 +46,11 @@ class NewsFeedPage extends Component {
     }
     componentWillMount() {
         let parser = new RSSParser({
-            customFields: {
-                item: ['media:content', 'content'],
-            }
+            // customFields: {
+            //     item: ['media:content', 'content'],
+            // }
         })
-        parser.parseURL(CORS_PROXY + 'https://news.google.com/rss/search?q=fair+hill+international+horse+trials+5+star', (err, feed) => {
+        parser.parseURL(CORS_PROXY + 'https://news.google.com/rss/search?q=fairhill+kentucky+land+rover+3+day+event&sxsrf=ACYBGNQgJzL8_MCw-yOA3dWzpJwittGmWA:1572898589095&source=lnms&tbm=nws&sa=X&ved=0ahUKEwiyoK7tr9HlAhVGRa0KHZHKD9UQ_AUIEigB&biw=1280&bih=646&hl=en-US&gl=US&ceid=US:en', (err, feed) => {
             console.log(feed.title);
             console.log("FEED::", feed);
             this.setState({ news: feed })
@@ -69,6 +69,7 @@ class NewsFeedPage extends Component {
             backgroundColor: '#0767DB',
             color: 'white',
         };
+        console.log("NEWS::",this.state.news)
         return (
             <div className={rootClassName}>
                 <div className="g-row">

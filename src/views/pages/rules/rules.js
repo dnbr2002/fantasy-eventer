@@ -30,9 +30,9 @@ class RulesPage extends Component {
                     <PortletHeader>
                         <Typography variant="h1" component="h2">
                             <br />
-                            Fantasy Eventer Rules
-                        <br />
-                        <br />
+                            &nbsp;&nbsp;Fantasy Eventer Rules
+                            <br />
+                            <br />
                         </Typography>
                     </PortletHeader>
                     <PortletContent>
@@ -44,13 +44,13 @@ class RulesPage extends Component {
                         <Typography variant="subtitle1" component="subtitle1">
                             <blockquote>
                                 1.1.1 Team consists of 9 players you select up to 1 hour before start time of major FE Event.  3 Tier One Competitor, 6 Tier Two Competitors.
-                        <br />
+                                <br />
                                 <br />
                                 1.1.2 Selections can start as early as the first public posting of horse and rider pairs for said event and are subject to change up to 1 hour before start of event.  Its your responsibility to keep checking for addition/change/removal of competitors before the event to ensure a coomplete team.
-                        <br />
+                                <br />
                                 <br />
                                 1.1.3 One hour before the event the start the ability to select competitors for to team rosters will be locked.
-                        <br />
+                                <br />
                                 <br />
                                 1.1.4 Only team rosters will a complete team will be entered in the league and will recieve a qualifying score.  Incomplete rosters, teams with less than 3 Tier Oee and 6 Tier Two Competitors our effectively removed from the competition pool.
                         </blockquote>
@@ -65,27 +65,30 @@ class RulesPage extends Component {
                         <Typography variant="subtitle1" component="subtitle1">
                             <blockquote>
                                 1.2.1 Combined score of 3 Tier One Competitors and 6 Tier Two Competitors equals total Team Score.
-                        <br />
+                                <br />
                                 <br />
                                 1.2.2 Low score wins, just like real eventing.
+                                <br />
+                                <br />
+                                1.2.3 Scores may be updated through out the day but will be updated more completely at the conclusion of each day days competition.
+                                <br />
+                                <br />
+                                1.2.4 Scores are subject to change at any time based on scoring adjustments at the event for competitors throughout the event.
                         </blockquote>
                         </Typography>
                     </PortletContent>
-                    {/* <PortletContent>
-                    <Typography variant="h3" component="h3">
-                        1.3 Scoring
+                    <PortletContent>
+                        <Typography variant="h3" component="h3">
+                            1.3 Disclaimer
                     </Typography>
-                </PortletContent>
-                <PortletContent>
-                    <Typography variant="subtitle1" component="subtitle1">
-                    <blockquote>
-                        1.3.1 Combined score of 3 Tier One Competitors and 6 Tier Two Competitors equals total Team Score.    
-                        <br />  
-                        <br /> 
-                        1.3.2 Low score wins, just like real eventing. 
+                    </PortletContent>
+                    <PortletContent>
+                        <Typography variant="subtitle1" component="subtitle1">
+                            <blockquote>
+                                1.3.1 This a fantasy game site not a betting site.  While we promise to make every effort to give you the best fantasy game experience we make no gaurantees about the accuracy of the information on this site in regards to stats and scores.
                         </blockquote>
-                    </Typography>
-                </PortletContent> */}
+                        </Typography>
+                    </PortletContent>
                 </Portlet>
             </div>
             // <div className={rootClassName}>

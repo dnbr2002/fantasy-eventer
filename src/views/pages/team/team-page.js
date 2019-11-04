@@ -112,12 +112,13 @@ class TeamPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log("CDUPROPS::",this.props);
     if (prevProps.competition.size !== this.props.competition.size) {
       this.renderEventName();
     }
 
     if (prevProps.compStatus !== this.props.compStatus) {
-      this.setState({ toggle: JSON.parse(this.props.compStatus) })
+      this.setState({ toggle: this.props.compStatus })
     }
 
     // if (prevProps.profile.teamKeysTier1 != this.props.profile.teamKeysTier1 || prevProps.profile.teamKeysTier2 != this.props.profile.teamKeysTier2)
@@ -189,14 +190,12 @@ class TeamPage extends Component {
     const { completeness } = this.state;
     const rootClassName = classNames(classes.root, className);
     return (
-
       <div className={rootClassName}>
         {/* <div className="g-row">
           <div className="g-col"> */}
             <AccountProfile {...this.props} />
             <br />
-            {/* <ProgressBar {...this.props} /> */}
-            <Portlet className={classes.sticky} >
+             <Portlet className={classes.sticky} >
               <PortletContent>
                 <Team team={this.props.team} profileDetail={profileDetail} {...this.props} />
               </PortletContent>
@@ -211,10 +210,7 @@ class TeamPage extends Component {
             <div>
               {this.state.toggle ? null : this.renderAddTeam()}
             </div>
-          {/* </div>
-        </div> */}
       </div>
-
     );
   }
 }

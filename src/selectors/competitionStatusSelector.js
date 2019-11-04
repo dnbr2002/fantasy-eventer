@@ -10,7 +10,8 @@ export function getCompetitionList(state) {
 
 export function getCompetitionStatus(competition) {
     var compStatus
-    competition.slice(0, 1).forEach(comp => {
+    let sortedCompetition = competition.sort((a, b) => new Date(...b.date.split('/')) - new Date(...a.date.split('/')));
+    sortedCompetition.slice(0, 1).forEach(comp => {
         compStatus = comp.active
     })
     return compStatus

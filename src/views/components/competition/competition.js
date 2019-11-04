@@ -37,7 +37,7 @@ const styles = theme => ({
 const Competition = ({ classes, competition }) => {
     console.log("Comp::", competition);
     if (competition && competition.list.size > 0) {
-        let sortedCompetition = competition.list.sort((a, b) => new Date(...a.date.split('/').reverse()) - new Date(...b.date.split('/')));
+        let sortedCompetition = competition.list.sort((a, b) => new Date(...b.date.split('/')) - new Date(...a.date.split('/')));
         return (
             <div>
                 {sortedCompetition.map(comp => (
