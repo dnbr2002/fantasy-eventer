@@ -52,7 +52,7 @@ export function ProgressBar(props) {
         <div>
             {completeness > 8 ?
                 <div className={classes.progressWrapper}>
-                    <Typography variant="h3" color="textSecondary">{completeness * 10 + 10}% Complete</Typography>
+                    <Typography variant="h3" color="textSecondary">Team Selection {completeness * 10 + 10}% Complete</Typography>
                     <br />
                     <LinearProgress
                         className={classes.linearProgress}
@@ -61,7 +61,7 @@ export function ProgressBar(props) {
                         position="fixed"
                     /> </div> :
                 <div className={classes.progressWrapper}>
-                    <Typography variant="h3" color="textSecondary">{completeness * 10}% Complete</Typography>
+                    <Typography variant="h3" color="textSecondary">Team Selection {completeness * 10}% Complete</Typography>
                     <br />
                     <LinearProgress
                         className={classes.linearProgress}

@@ -46,9 +46,9 @@ class NewsFeedPage extends Component {
     }
     componentWillMount() {
         let parser = new RSSParser({
-            // customFields: {
-            //     item: ['media:content', 'content'],
-            // }
+            customFields: {
+                item: ['media:content', 'content'],
+            }
         })
         parser.parseURL(CORS_PROXY + 'https://news.google.com/rss/search?q=fairhill+kentucky+land+rover+3+day+event&sxsrf=ACYBGNQgJzL8_MCw-yOA3dWzpJwittGmWA:1572898589095&source=lnms&tbm=nws&sa=X&ved=0ahUKEwiyoK7tr9HlAhVGRa0KHZHKD9UQ_AUIEigB&biw=1280&bih=646&hl=en-US&gl=US&ceid=US:en', (err, feed) => {
             console.log(feed.title);

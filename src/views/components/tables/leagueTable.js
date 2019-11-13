@@ -35,26 +35,26 @@ import { Loader } from '../../components/loader'
 
 const styles = theme => ({
     root: {
-      padding: theme.spacing(3)
+        padding: theme.spacing(3)
     },
     content: {
         marginTop: theme.spacing(2)
-      },
-      progressWrapper: {
+    },
+    progressWrapper: {
         paddingTop: '48px',
         paddingBottom: '24px',
         display: 'flex',
         justifyContent: 'center'
-      },
-      head: {
-          backgroundColor: theme.palette.primary.medium,
-          color: theme.palette.primary.contrastText
-      }, 
-      detail: {
+    },
+    head: {
+        backgroundColor: theme.palette.primary.medium,
+        color: theme.palette.primary.contrastText
+    },
+    detail: {
         backgroundColor: '#e4e7eb',
         color: theme.palette.primary.contrastText
-      }
-  });
+    }
+});
 
 const TeamAvatar = ({ value, style }) => (
     <Table.Cell>
@@ -62,22 +62,22 @@ const TeamAvatar = ({ value, style }) => (
     </Table.Cell>
 );
 
-  const HeaderCellBase = ({ classes, className, ...restProps }) => (
+const HeaderCellBase = ({ classes, className, ...restProps }) => (
     <TableHeaderRow.Cell
-      {...restProps}
-      className={`${classes.head} ${className}`}
+        {...restProps}
+        className={`${classes.head} ${className}`}
     />
-  );
+);
 
 
 const HeaderCell = withStyles(styles, { name: 'HeaderCellBase' })(HeaderCellBase);
 
 const DetailCellBase = ({ classes, className, ...restProps }) => (
     <TableHeaderRow.Cell
-      {...restProps}
-      className={`${classes.detail} ${className}`}
+        {...restProps}
+        className={`${classes.detail} ${className}`}
     />
-  );
+);
 
 const DetailCell = withStyles(styles, { name: 'DetailCell' })(DetailCellBase);
 
@@ -90,20 +90,23 @@ const Cell = (props) => {
 };
 
 const StubHeaderCelllBase = ({ classes, className, ...restProps }) => (
-    <Table.StubHeaderCell 
-    {...restProps}
-      className={`${classes.head} ${className}`} />
-  );
+    <Table.StubHeaderCell
+        {...restProps}
+        className={`${classes.head} ${className}`} />
+);
 
-  const StubHeaderCell = withStyles(styles, { name: 'StubHeaderCell' })(StubHeaderCelllBase);
-  
-  const tableColumnsComputed = ({ tableColumns }) => {
+const StubHeaderCell = withStyles(styles, { name: 'StubHeaderCell' })(StubHeaderCelllBase);
+
+const tableColumnsComputed = ({ tableColumns }) => {
     const [detailColumn, ...restColumns] = tableColumns;
     return [detailColumn, ...restColumns];
-  };
+};
 
 
-const getRowId = row => row.rank;
+const getRowId = row => (
+    console.log("ROW::", row),
+    row.rank
+);
 
 class LeagueTable extends React.Component {
     constructor(props) {
@@ -125,33 +128,49 @@ class LeagueTable extends React.Component {
         };
     }
 
-    componentWillMount() {
-        this.props.loadLeague();
-        this.props.loadCompetitors();
-    }
+    // componentWillMount() {
+    //     this.props.loadLeague();
+    //     this.props.loadCompetitors();
+    // }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.league.length > 1) {
-            this.setState({ rows: nextProps.league })
-            this.setState({ loading: false })
+        if (this.props.league) {
+            console.log("NPROWS::", nextProps.league)
+            if (nextProps.league.length > 1) {
+                this.setState({ rows: nextProps.league })
+                this.setState({ loading: false })
+            }
         }
     }
 
+    //     componentDidUpdate(prevProps) {
+    //         console.log("UPDATE::", this.props.league);
+    //         if(this.props.league){
+    //             // console.log("UPDATE2::", this.props.league.ln);
+    //         if (this.state.rows.length !== this.props.league.length) {
+    //             this.setState({rows: this.props.league})
+    //         }        
+    //     }
+    // }
+
     handleExpandedRowIdsChange = (expandedRowIds) => {
+        console.log("hellow")
         this.setState({ expandedRowIds });
+        this.setState({ rows: this.props.league });
     }
 
 
     render() {
+        console.log("LTPROPS::", this.props);
         const { classes } = this.props;
         const { columns, rows, expandedRowIds, pageSizes, loading } = this.state;
         if (loading) {
             return (
-              <div className={classes.progressWrapper}>
-                <CircularProgress />
-              </div>
+                <div className={classes.progressWrapper}>
+                    <CircularProgress />
+                </div>
             );
-          }
+        }
         return (
             <div>
                 <Paper>
@@ -161,55 +180,53 @@ class LeagueTable extends React.Component {
                         getRowId={getRowId}
                     >
                         <SortingState
-                            // defaultSorting={[{ columnName: 'score', direction: 'desc' }]}
+                        // defaultSorting={[{ columnName: 'score', direction: 'desc' }]}
                         />
                         <IntegratedSorting />
-                        <PagingState
+                        {/* <PagingState
                             defaultCurrentPage={0}
                             pageSize={5}
-                        />
+                        /> */}
                         <RowDetailState
                             expandedRowIds={expandedRowIds}
                             onExpandedRowIdsChange={this.handleExpandedRowIdsChange}
                         />
-                        <IntegratedPaging />
+                        {/* <IntegratedPaging /> */}
                         <Table
                             cellComponent={Cell}
                             stubHeaderCellComponent={StubHeaderCell}
                         />
-                        <TableHeaderRow 
+                        <TableHeaderRow
                             cellComponent={HeaderCell}
                         />
                         <TableRowDetail
                             contentComponent={LeagueRowDetail}
-                            cellComponent={DetailCell}                            
+                            cellComponent={DetailCell}
                         />
                         <Getter name="tableColumns" computed={tableColumnsComputed} />
-                        <PagingPanel />
+                        {/* <PagingPanel /> */}
                     </Grid>
-
                 </Paper>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    console.log("MYSTATE::", state)
-    return {
-        league: state.league,
-        competitors: state.competitors
-    }
-}
+// const mapStateToProps = (state, ownProps) => {
+//     console.log("MYSTATE::", state)
+//     return {
+//         league: state.league,
+//         competitors: state.competitors
+//     }
+// }
 
-const mapDispatchToProps = Object.assign(
-    {},
-    leagueActions,
-    teamActions,
-    adminActions,
-);
+// const mapDispatchToProps = Object.assign(
+//     {},
+//     leagueActions,
+//     adminActions,
+// );
 
 export default compose(
     withStyles(styles),
-    connect(mapStateToProps, mapDispatchToProps)
-    )(withRouter(LeagueTable));
+    // connect(mapStateToProps, mapDispatchToProps)
+)(withRouter(LeagueTable));

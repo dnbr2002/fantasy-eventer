@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import compose from 'recompose/compose';
 import LeagueTable from '../../components/tables/leagueTable';
 import LeagueRankTable from '../../components/tables/leagueRankTable.js';
 import classNames from 'classnames';
+//Redux stuff
+
+import * as leagueActions from '../../../actions/leagueActions';
+import * as adminActions from '../../../actions/adminActions';
+import { LeagueSelector } from '../../../selectors/leagueSelector';
+
 // Material helpers
 import { withStyles } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
+
 
 // Component styles
 const styles = theme => ({
@@ -14,9 +23,13 @@ const styles = theme => ({
     }
   });
 
-
-
 class LeaguePage extends Component {
+
+  componentWillMount() {
+    this.props.loadLeague();
+    this.props.loadCompetitors();
+}
+
     render() {
         console.log("LEAGUEPROPS::",this.props);
         const { classes, className } = this.props;
@@ -37,7 +50,7 @@ class LeaguePage extends Component {
                 <Typography variant="h2" color="textSecondary">Global League Rankings</Typography>
                 <br />
                 <br />
-                <LeagueTable />
+                <LeagueTable  league={this.props.league} competitors={this.props.competitors} />
                 <br />
                 <br />
                 <br />
@@ -49,7 +62,25 @@ class LeaguePage extends Component {
         )
     }
 }
-export default withStyles(styles)(LeaguePage);
+
+const mapStateToProps = (state, ownProps) => {
+  console.log("MYSTATE::", state)
+  return {
+      league: LeagueSelector(state.league),
+      competitors: state.competitors
+  }
+}
+
+const mapDispatchToProps = Object.assign(
+  {},
+  leagueActions,
+  adminActions,
+);
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(withRouter(LeaguePage));
 
 
   
