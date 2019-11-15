@@ -1,10 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import compose from 'recompose/compose';
-import * as leagueActions from '../../../actions/leagueActions';
-import * as teamActions from '../../../actions/teamActions';
-import * as adminActions from '../../../actions/adminActions';
 import LeagueRowDetail from './leagueRowDetail';
 import {
     RowDetailState,
@@ -20,18 +16,13 @@ import {
     TableRowDetail,
     PagingPanel
 } from '@devexpress/dx-react-grid-material-ui';
+
 import { Getter } from "@devexpress/dx-react-core";
 
 //Material IU Components
 import { Avatar, CircularProgress, Paper } from '@material-ui/core';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 // Material helpers
-
 import { withStyles } from '@material-ui/core';
-
-//Loader
-import { Loader } from '../../components/loader'
-
 
 const styles = theme => ({
     root: {
@@ -103,11 +94,6 @@ const tableColumnsComputed = ({ tableColumns }) => {
     return [detailColumn, ...restColumns];
 };
 
-
-// const getRowId = row => (
-//     console.log("ROW::", row),
-//     row.rank
-// );
 const getRowId = row => row.uid;
 
 class LeagueTable extends React.Component {
@@ -130,14 +116,8 @@ class LeagueTable extends React.Component {
         };
     }
 
-    // componentWillMount() {
-    //     this.props.loadLeague();
-    //     this.props.loadCompetitors();
-    // }
-
     componentWillReceiveProps(nextProps) {
         if (this.props.league) {
-            console.log("NPROWS::", nextProps.league)
             if (nextProps.league.length > 1) {
                 this.setState({ rows: nextProps.league })
                 this.setState({ loading: false })
@@ -145,28 +125,9 @@ class LeagueTable extends React.Component {
         }
     }
 
-    //     componentDidUpdate(prevProps) {
-    //         console.log("UPDATE::", this.props.league);
-    //         if(this.props.league){
-    //             // console.log("UPDATE2::", this.props.league.ln);
-    //         if (this.state.rows.length !== this.props.league.length) {
-    //             this.setState({rows: this.props.league})
-    //         }        
-    //     }
-    // }
-
     handleExpandedRowIdsChange = (expandedRowIds) => {
-        // if (expandedRowIds.length > 0) {
-        //     const minusOne = expandedRowIds.map(num => num - 1);
-        //     console.log("LTPROPS1::", minusOne);
-        //     this.setState({ minusOne });
-        //     this.setState({ rows: this.props.league });
-        // }
-        // else {
-            console.log("LTPROPS2::", expandedRowIds);
             this.setState({ expandedRowIds });
             this.setState({ rows: this.props.league });
-        // }
     }
 
 
@@ -222,21 +183,6 @@ class LeagueTable extends React.Component {
     }
 }
 
-// const mapStateToProps = (state, ownProps) => {
-//     console.log("MYSTATE::", state)
-//     return {
-//         league: state.league,
-//         competitors: state.competitors
-//     }
-// }
-
-// const mapDispatchToProps = Object.assign(
-//     {},
-//     leagueActions,
-//     adminActions,
-// );
-
 export default compose(
     withStyles(styles),
-    // connect(mapStateToProps, mapDispatchToProps)
 )(withRouter(LeagueTable));

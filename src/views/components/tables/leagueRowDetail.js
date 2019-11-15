@@ -26,10 +26,10 @@ const styles = theme => ({
 
 const HeaderCellBase = ({ classes, className, ...restProps }) => (
     <TableHeaderRow.Cell
-      {...restProps}
-      className={`${classes.head} ${className}`}
+        {...restProps}
+        className={`${classes.head} ${className}`}
     />
-  );
+);
 
 
 const HeaderCell = withStyles(styles, { name: 'HeaderCellBase' })(HeaderCellBase);
@@ -48,8 +48,8 @@ const Cell = (props) => {
         return <TeamAvatar {...props} />;
     }
     if (column.name === 'country') {
-        var imgSrc = "https://www.countryflags.io/"+ row.country +"/shiny/64.png"
-        var altText = "country flag - " + row.country 
+        var imgSrc = "https://www.countryflags.io/" + row.country + "/shiny/64.png"
+        var altText = "country flag - " + row.country
         return <Table.Cell> <img src={imgSrc} width="40" height="30" alt={altText} /> </Table.Cell>
     }
     return <Table.Cell {...props} />;
@@ -71,8 +71,7 @@ function LeagueRowDetail(props) {
         { name: 'pic', title: 'Avatar' },
         { name: 'score', title: 'Score' }
     ])
-
-
+    
     useEffect(
         () => {
             firebaseDb.ref(`competitors`).once('value').then(function (snapshot) {
@@ -88,7 +87,6 @@ function LeagueRowDetail(props) {
                 console.log("RDB12", value);
                 if (keys1.concat(keys2).some(key => key === value.key))
                     teamArr.push(value);
-
             })
             console.log("LRD1::", teamArr);
             setTeam(teamArr);
@@ -100,12 +98,9 @@ function LeagueRowDetail(props) {
 
         snapshot.forEach(function (childSnapshot) {
             var item = childSnapshot.val();
-            
             item.key = childSnapshot.key;
-
             returnArr.push(item);
         });
-        console.log("LRD2::", returnArr);
         return returnArr;
     };
 
@@ -124,11 +119,11 @@ function LeagueRowDetail(props) {
                     columns={detailColumns}
                 >
                     <Table
-                    cellComponent={Cell}
+                        cellComponent={Cell}
                     />
                     <TableHeaderRow
-                    cellComponent={HeaderCell}
-                     />
+                        cellComponent={HeaderCell}
+                    />
                 </Grid>
             </Paper>
         </div>

@@ -41,7 +41,7 @@ class LeaguePage extends Component {
                 <div className="g-col">
                   <Typography variant="h2" color="textSecondary">Your Rank</Typography>
                   <br />
-                  <LeagueRankTable />
+                  <LeagueRankTable league={this.props.league} competitors={this.props.competitors} auth={this.props.auth} />
                   </div>
                   </div>
               <br />
@@ -67,7 +67,8 @@ const mapStateToProps = (state, ownProps) => {
   console.log("MYSTATE::", state)
   return {
       league: LeagueSelector(state.league),
-      competitors: state.competitors
+      competitors: state.competitors,
+      auth: state.auth
   }
 }
 
