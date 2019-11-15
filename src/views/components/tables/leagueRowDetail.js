@@ -56,7 +56,7 @@ const Cell = (props) => {
 };
 
 function LeagueRowDetail(props) {
-    console.log("RDB10::", props)
+    console.log("RDB10::", props.row)
     const { classes } = props;
     const [row] = useState(props.row);
     const [competitors, setCompetitors] = useState([]);
@@ -90,7 +90,7 @@ function LeagueRowDetail(props) {
                     teamArr.push(value);
 
             })
-            console.log("RDB14", teamArr);
+            console.log("LRD1::", teamArr);
             setTeam(teamArr);
         }, [competitors, keys1, keys2])
 
@@ -100,11 +100,12 @@ function LeagueRowDetail(props) {
 
         snapshot.forEach(function (childSnapshot) {
             var item = childSnapshot.val();
+            
             item.key = childSnapshot.key;
 
             returnArr.push(item);
         });
-
+        console.log("LRD2::", returnArr);
         return returnArr;
     };
 

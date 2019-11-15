@@ -1,5 +1,8 @@
 import { createSelector } from 'reselect';
 
+var reduceArray = [];
+var sorted = [];
+
 export function getLeagueState(state) {
     console.log("LEAGUESTATE::", state);
     if (state) {
@@ -8,30 +11,32 @@ export function getLeagueState(state) {
 }
 
 export function getLeagueList(state) {
-    console.log("LEAGUESTATE2::", state.length);
-    if (!Array.isArray(state) || !state.length) {
-    const reduceArray = state.reduce((reduceArray, obj) => {
+    console.log("LEAGUESTATE2::", state);
+    // if (!Array.isArray(state) || !state.length) {
+        if (state.length > 0) {
+        reduceArray = state.reduce((reduceArray, obj) => {
         if (obj[Object.keys(obj)[0]].teamKeysTier1.split(",").length === 3 && obj[Object.keys(obj)[0]].teamKeysTier2.split(",").length === 6) {
           reduceArray.push(obj[Object.keys(obj)[0]]);
         }
+        console.log("LEAGUESTATE3::", reduceArray);
         return reduceArray
       }, []);
     }
 }
 
-export function getSortedList(state) {
-    console.log("LEAGUESTATE3::", state);
-    const sorted = state.slice().sort((a, b) => a.score > b.score ? 1 : -1);
+export function getSortedList() {
+    sorted = reduceArray.slice().sort((a, b) => a.score > b.score ? 1 : -1);
     sorted.map((x, index) => x.rank = index + 1)
+    console.log("LEAGUESTATE4::", sorted);
     return sorted;
 }
 
-export function getLeagueRanking(state) {
-    console.log("LEAGUESTATE4::", state);
+export function getLeagueRanking() {
+    console.log("LEAGUESTATE5::", sorted);
     var rankLeague = []
-    if (state) {
-        for (var i = 0; i < state.length; i++) {
-            rankLeague.push(state[i]);
+    if (sorted) {
+        for (var i = 0; i < sorted.length; i++) {
+            rankLeague.push(sorted[i]);
         }
         for (var k = 0; k < rankLeague.length; k++) {
             for (var h = 1; h < rankLeague.length + 1; h++) {
@@ -47,7 +52,7 @@ export function getLeagueRanking(state) {
                 }
             }
         }
-        console.log("LEAGUESTATE2::", rankLeague);
+        console.log("LEAGUESTATE6::", rankLeague);
         return rankLeague;
     }
 }

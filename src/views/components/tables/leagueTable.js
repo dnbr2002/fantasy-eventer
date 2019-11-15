@@ -73,6 +73,7 @@ const HeaderCellBase = ({ classes, className, ...restProps }) => (
 const HeaderCell = withStyles(styles, { name: 'HeaderCellBase' })(HeaderCellBase);
 
 const DetailCellBase = ({ classes, className, ...restProps }) => (
+    console.log("RESTPROPS::", { ...restProps }),
     <TableHeaderRow.Cell
         {...restProps}
         className={`${classes.detail} ${className}`}
@@ -103,10 +104,11 @@ const tableColumnsComputed = ({ tableColumns }) => {
 };
 
 
-const getRowId = row => (
-    console.log("ROW::", row),
-    row.rank
-);
+// const getRowId = row => (
+//     console.log("ROW::", row),
+//     row.rank
+// );
+const getRowId = row => row.uid;
 
 class LeagueTable extends React.Component {
     constructor(props) {
@@ -154,9 +156,17 @@ class LeagueTable extends React.Component {
     // }
 
     handleExpandedRowIdsChange = (expandedRowIds) => {
-        console.log("hellow")
-        this.setState({ expandedRowIds });
-        this.setState({ rows: this.props.league });
+        // if (expandedRowIds.length > 0) {
+        //     const minusOne = expandedRowIds.map(num => num - 1);
+        //     console.log("LTPROPS1::", minusOne);
+        //     this.setState({ minusOne });
+        //     this.setState({ rows: this.props.league });
+        // }
+        // else {
+            console.log("LTPROPS2::", expandedRowIds);
+            this.setState({ expandedRowIds });
+            this.setState({ rows: this.props.league });
+        // }
     }
 
 
@@ -183,15 +193,15 @@ class LeagueTable extends React.Component {
                         // defaultSorting={[{ columnName: 'score', direction: 'desc' }]}
                         />
                         <IntegratedSorting />
-                        {/* <PagingState
+                        <PagingState
                             defaultCurrentPage={0}
                             pageSize={5}
-                        /> */}
+                        />
                         <RowDetailState
                             expandedRowIds={expandedRowIds}
                             onExpandedRowIdsChange={this.handleExpandedRowIdsChange}
                         />
-                        {/* <IntegratedPaging /> */}
+                        <IntegratedPaging />
                         <Table
                             cellComponent={Cell}
                             stubHeaderCellComponent={StubHeaderCell}
@@ -204,7 +214,7 @@ class LeagueTable extends React.Component {
                             cellComponent={DetailCell}
                         />
                         <Getter name="tableColumns" computed={tableColumnsComputed} />
-                        {/* <PagingPanel /> */}
+                        <PagingPanel />
                     </Grid>
                 </Paper>
             </div>
