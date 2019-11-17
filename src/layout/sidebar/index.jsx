@@ -67,32 +67,37 @@ function Sidebar(props) {
     const [pic, setPic] = useState("https://www.sackettwaconia.com/wp-content/uploads/default-profile.png")
     const [name, setName] = useState("");
     const [team, setTeam] = useState("");
+    const [role, setRole] = useState("user");
 
     useLayoutEffect(
         () => {
             firebaseDb.ref(`users`).child(`${id}`).child(`${id}`).on('value', snapshot => {
-                console.log("PROFILENAME::", snapshot.exists());
+                console.log("PROFILENAME::", snapshot.val());
                 if (snapshot.exists()) {
                     setName(snapshot.val().profileName);
                     setPic(snapshot.val().profilePic);
                     setTeam(snapshot.val().teamName);
-                } else
-                {   
-                    
+                    setRole(snapshot.val().role);
+                    // debugger;
+                } else {
 
                 }
             })
         }, [authenticated])
 
-        // useEffect(
-        // () => {
+    // useEffect(
+    // () => {
 
-        // }, [])
+    // }, [])
 
     const rootClassName = classNames(classes.root, className);
+
+    console.log("SIDEBARPROPS2::", props)
+
     return (
+        console.log("SIDEBARPROPS3::", role),
         <div>
-            {authenticated ?
+            {role !== "admin" ?
                 <nav className={rootClassName}>
                     <div className={classes.logoWrapper}>
                         <Link
@@ -151,89 +156,89 @@ function Sidebar(props) {
                             </ListItem>
                         </a>
                         <a href="./profile">
-                        <ListItem
-                            activeClassName={classes.activeListItem}
-                            className={classes.listItem}
-                        >
-                            <ListItemIcon className={classes.listItemIcon}>
-                                <AccountBoxIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                classes={{ primary: classes.listItemText }}
-                                primary="Profile"
-                            />
-                        </ListItem>
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <AccountBoxIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Profile"
+                                />
+                            </ListItem>
                         </a>
                         <a href="./teampage">
-                        <ListItem
-                            activeClassName={classes.activeListItem}
-                            className={classes.listItem}
-                        >
-                            <ListItemIcon className={classes.listItemIcon}>
-                                <FontAwesomeIcon icon={faHorse} />
-                                {/* <Horse /> */}
-                            </ListItemIcon>
-                            <ListItemText
-                                classes={{ primary: classes.listItemText }}
-                                primary="Team"
-                            />
-                        </ListItem>
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <FontAwesomeIcon icon={faHorse} />
+                                    {/* <Horse /> */}
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Team"
+                                />
+                            </ListItem>
                         </a>
                         <a href="./leaguepage">
-                        <ListItem
-                            activeClassName={classes.activeListItem}
-                            className={classes.listItem}
-                        >
-                            <ListItemIcon className={classes.listItemIcon}>
-                                <PeopleIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                classes={{ primary: classes.listItemText }}
-                                primary="League"
-                            />
-                        </ListItem>
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <PeopleIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="League"
+                                />
+                            </ListItem>
                         </a>
                         <a href="./schedulepage">
-                        <ListItem
-                            activeClassName={classes.activeListItem}
-                            className={classes.listItem}
-                        >
-                            <ListItemIcon className={classes.listItemIcon}>
-                                <ScheduleIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                classes={{ primary: classes.listItemText }}
-                                primary="Schedule"
-                            />
-                        </ListItem>
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <ScheduleIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Schedule"
+                                />
+                            </ListItem>
                         </a>
                         <a href="./rulespage">
-                        <ListItem
-                            activeClassName={classes.activeListItem}
-                            className={classes.listItem}
-                        >
-                            <ListItemIcon className={classes.listItemIcon}>
-                                <RulesIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                classes={{ primary: classes.listItemText }}
-                                primary="Rules"
-                            />
-                        </ListItem>
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <RulesIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Rules"
+                                />
+                            </ListItem>
                         </a>
                         <a href="./newsfeedpage">
-                        <ListItem
-                            activeClassName={classes.activeListItem}
-                            className={classes.listItem}
-                        >
-                            <ListItemIcon className={classes.listItemIcon}>
-                                <NewsfeedIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                classes={{ primary: classes.listItemText }}
-                                primary="Newsfeed"
-                            />
-                        </ListItem>
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <NewsfeedIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Newsfeed"
+                                />
+                            </ListItem>
                         </a>
                     </List>
                     <Divider className={classes.listDivider} />
@@ -247,18 +252,188 @@ function Sidebar(props) {
                         }
                     >
                         <a href="./contactpage">
-                        <ListItem
-                            activeClassName={classes.activeListItem}
-                            className={classes.listItem}
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <ContactsIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Contact"
+                                />
+                            </ListItem>
+                        </a>
+                    </List>
+                </nav>
+                :
+                <nav className={rootClassName}>
+                    <div className={classes.logoWrapper}>
+                        <Link
+                            className={classes.logoLink}
+                            to="/"
                         >
-                            <ListItemIcon className={classes.listItemIcon}>
-                                <ContactsIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                classes={{ primary: classes.listItemText }}
-                                primary="Contact"
+                            <img
+                                alt="Brainalytica logo"
+                                className={classes.logoImage}
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhlALV-ZF5Ubd9k41MsSepJPy3wVj14HSUQdhPGvMhCXmw1NBOMA"
+                                height="25"
+                                width="150"
+                                hspace="20"
                             />
-                        </ListItem>
+                        </Link>
+                    </div>
+                    <Divider className={classes.logoDivider} />
+                    <div className={classes.profile}>
+                        <Link to="/profile">
+                            <Avatar
+                                alt={name}
+                                className={classes.avatar}
+                                src={pic}
+                            />
+                        </Link>
+                        <Typography
+                            className={classes.nameText}
+                            variant="h6"
+                        >
+                            {name}
+                        </Typography>
+                        <Typography
+                            className={classes.bioText}
+                            variant="caption"
+                        >
+                            {team}
+                        </Typography>
+                    </div>
+                    <Divider className={classes.profileDivider} />
+                    <List
+                        component="div"
+                        disablePadding
+                    >
+                        <a href="./">
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <HomeIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Home"
+                                />
+                            </ListItem>
+                        </a>
+                        <a href="./profile">
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <AccountBoxIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Profile"
+                                />
+                            </ListItem>
+                        </a>
+                        <a href="./teampage">
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <FontAwesomeIcon icon={faHorse} />
+                                    {/* <Horse /> */}
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Team"
+                                />
+                            </ListItem>
+                        </a>
+                        <a href="./leaguepage">
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <PeopleIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="League"
+                                />
+                            </ListItem>
+                        </a>
+                        <a href="./schedulepage">
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <ScheduleIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Schedule"
+                                />
+                            </ListItem>
+                        </a>
+                        <a href="./rulespage">
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <RulesIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Rules"
+                                />
+                            </ListItem>
+                        </a>
+                        <a href="./newsfeedpage">
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <NewsfeedIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Newsfeed"
+                                />
+                            </ListItem>
+                        </a>
+                    </List>
+                    <Divider className={classes.listDivider} />
+                    <List
+                        component="div"
+                        disablePadding
+                        subheader={
+                            <ListSubheader className={classes.listSubheader}>
+                                Support
+                    </ListSubheader>
+                        }
+                    >
+                        <a href="./contactpage">
+                            <ListItem
+                                activeClassName={classes.activeListItem}
+                                className={classes.listItem}
+                            >
+                                <ListItemIcon className={classes.listItemIcon}>
+                                    <ContactsIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{ primary: classes.listItemText }}
+                                    primary="Contact"
+                                />
+                            </ListItem>
                         </a>
                         <ListItem
                             className={classes.listItem}
@@ -273,12 +448,10 @@ function Sidebar(props) {
                                 primary="Admin"
                             />
                         </ListItem>
-                        {/* </a> */}
                     </List>
-                </nav> : null}
+                </nav>}
         </div>
     );
-    // }
 }
 
 Sidebar.propTypes = {
