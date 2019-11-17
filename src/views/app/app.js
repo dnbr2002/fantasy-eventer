@@ -6,6 +6,7 @@ import compose from 'recompose/compose';
 import { authActions, getAuth } from 'src/auth';
 import Header from '../components/header';
 import RequireAuthRoute from '../components/require-auth-route';
+import RequireAdminRoute from '../components/require-admin-route';
 import RequireUnauthRoute from '../components/require-unauth-route';
 import AdminPage from '../pages/admin';
 import TasksPage from '../pages/tasks';
@@ -27,6 +28,8 @@ import { withStyles, withWidth } from '@material-ui/core';
 import { Drawer } from '@material-ui/core';
 //Custom components
 import { Topbar, Sidebar, Footer } from '../../layout';
+import { classPrivateProperty } from '@babel/types';
+
 
 class App extends Component {
   constructor(props) {
@@ -35,7 +38,7 @@ class App extends Component {
     const isMobile = ['xs', 'sm', 'md'].includes(props.width);
 
     this.state = {
-      isOpen: !isMobile
+      isOpen: !isMobile,
     };
   }
 
@@ -51,16 +54,12 @@ componentWillMount() {
   }
 }
 
-
-
 componentWillReceiveProps(nextProps) {
   console.log("NEXTPROPS::", nextProps)
   if(nextProps.authenticated === false) {
     this.setState({isOpen: false});
   }
 }
-
-
 
   handleClose = () => {
     this.setState({ isOpen: false });
@@ -123,7 +122,7 @@ componentWillReceiveProps(nextProps) {
           <RequireAuthRoute authenticated={authenticated} exact path="/schedulepage" component={Schedule} />
           <RequireAuthRoute authenticated={authenticated} exact path="/teampage" component={TeamPage} />
           <RequireAuthRoute authenticated={authenticated} exact path="/leaguepage" component={LeaguePage} />
-          <RequireAuthRoute authenticated={authenticated} exact path="/adminpage" component={AdminPage} />
+          <RequireAdminRoute authenticated={authenticated} id={id} exact path="/adminpage" component={AdminPage} />
           <RequireAuthRoute authenticated={authenticated} exact path="/taskspage" component={TasksPage} />
           <RequireAuthRoute authenticated={authenticated} exact path="/profile" component={ProfilePage} />
           <RequireUnauthRoute authenticated={authenticated} path="/signin" component={SignIn} />
