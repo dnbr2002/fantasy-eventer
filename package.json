@@ -80,6 +80,7 @@
     "enzyme": "^2.9.1",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "firebase-tools": "^3.19.3",
     "minx": "github:r-park/minx",
     "node-sass-chokidar": "0.0.3",

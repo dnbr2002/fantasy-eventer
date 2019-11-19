@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
 import compose from 'recompose/compose';
 import { authActions, getAuth } from 'src/auth';
 import Header from '../components/header';
@@ -30,6 +30,9 @@ import { Drawer } from '@material-ui/core';
 import { Topbar, Sidebar, Footer } from '../../layout';
 import { classPrivateProperty } from '@babel/types';
 
+//Firebase
+import { firebaseDb } from '../../firebase';
+
 
 class App extends Component {
   constructor(props) {
@@ -39,6 +42,7 @@ class App extends Component {
 
     this.state = {
       isOpen: !isMobile,
+      role: "user",
     };
   }
 
@@ -52,6 +56,21 @@ componentWillMount() {
   if(this.props.authenticated === false) {
     this.setState({isOpen: false});
   }
+  if(this.props.id){
+    this.getRole(this.props.id)
+  } 
+
+}
+
+getRole = (id) => {
+  firebaseDb.ref(`users`).child(`${id}`).child(`${id}`).on('value', snapshot => {
+      console.log("ADMINAUTH::", snapshot.val());
+      if (snapshot.exists()) {
+          console.log("ADMINAUTH::2", snapshot.val().role);
+          this.setState({ role: snapshot.val().role })
+      }
+  }
+  )
 }
 
 componentWillReceiveProps(nextProps) {
@@ -122,7 +141,7 @@ componentWillReceiveProps(nextProps) {
           <RequireAuthRoute authenticated={authenticated} exact path="/schedulepage" component={Schedule} />
           <RequireAuthRoute authenticated={authenticated} exact path="/teampage" component={TeamPage} />
           <RequireAuthRoute authenticated={authenticated} exact path="/leaguepage" component={LeaguePage} />
-          <RequireAdminRoute authenticated={authenticated} id={id} exact path="/adminpage" component={AdminPage} />
+          <RequireAdminRoute authenticated={authenticated} role={this.state.role} exact path="/adminpage" component={AdminPage} />
           <RequireAuthRoute authenticated={authenticated} exact path="/taskspage" component={TasksPage} />
           <RequireAuthRoute authenticated={authenticated} exact path="/profile" component={ProfilePage} />
           <RequireUnauthRoute authenticated={authenticated} path="/signin" component={SignIn} />
