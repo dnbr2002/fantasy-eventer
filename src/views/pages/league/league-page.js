@@ -5,11 +5,13 @@ import compose from 'recompose/compose';
 import LeagueTable from '../../components/tables/leagueTable';
 import LeagueRankTable from '../../components/tables/leagueRankTable.js';
 import classNames from 'classnames';
-//Redux stuff
 
+//Redux stuff
 import * as leagueActions from '../../../actions/leagueActions';
 import * as adminActions from '../../../actions/adminActions';
+import * as competitionActions from '../../../actions/competitionActions';
 import { LeagueSelector } from '../../../selectors/leagueSelector';
+import { CompetitionStatusSelector } from '../../../selectors/competitionStatusSelector';
 
 // Material helpers
 import { withStyles } from '@material-ui/core';
@@ -28,7 +30,10 @@ class LeaguePage extends Component {
   componentWillMount() {
     this.props.loadLeague();
     this.props.loadCompetitors();
+    this.props.loadCompetition();
 }
+
+
 
     render() {
         console.log("LEAGUEPROPS::",this.props);
@@ -50,7 +55,7 @@ class LeaguePage extends Component {
                 <Typography variant="h2" color="textSecondary">Global League Rankings</Typography>
                 <br />
                 <br />
-                <LeagueTable  league={this.props.league} competitors={this.props.competitors} />
+                <LeagueTable  league={this.props.league} competitors={this.props.competitors} compStatus={this.props.compStatus} />
                 <br />
                 <br />
                 <br />
@@ -64,11 +69,11 @@ class LeaguePage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("MYSTATE::", state)
   return {
       league: LeagueSelector(state.league),
       competitors: state.competitors,
-      auth: state.auth
+      auth: state.auth,
+      compStatus: CompetitionStatusSelector(state)
   }
 }
 
@@ -76,6 +81,7 @@ const mapDispatchToProps = Object.assign(
   {},
   leagueActions,
   adminActions,
+  competitionActions,
 );
 
 export default compose(

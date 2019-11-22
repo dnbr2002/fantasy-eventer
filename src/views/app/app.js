@@ -141,7 +141,7 @@ componentWillReceiveProps(nextProps) {
           <RequireAuthRoute authenticated={authenticated} exact path="/schedulepage" component={Schedule} />
           <RequireAuthRoute authenticated={authenticated} exact path="/teampage" component={TeamPage} />
           <RequireAuthRoute authenticated={authenticated} exact path="/leaguepage" component={LeaguePage} />
-          <RequireAdminRoute authenticated={authenticated} role={this.state.role} exact path="/adminpage" component={AdminPage} />
+          <RequireAdminRoute authenticated={authenticated} id={id} role={this.state.role} exact path="/adminpage" component={AdminPage} />
           <RequireAuthRoute authenticated={authenticated} exact path="/taskspage" component={TasksPage} />
           <RequireAuthRoute authenticated={authenticated} exact path="/profile" component={ProfilePage} />
           <RequireUnauthRoute authenticated={authenticated} path="/signin" component={SignIn} />

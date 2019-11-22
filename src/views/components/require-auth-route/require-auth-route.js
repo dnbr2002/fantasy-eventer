@@ -2,11 +2,11 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom'
 
 
-const RequireAuthRoute = ({component: Component, authenticated, id, ...rest}) => (
+const RequireAuthRoute = ({component: Component, authenticated, ...rest}) => (
   <Route
     {...rest}
     render={props => {
-      console.log("AUTH::", id)
+      console.log("AUTH::", authenticated)
       return authenticated ? (
         <Component {...props} />
       ) : (

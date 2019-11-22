@@ -30,6 +30,7 @@ function authenticate(provider) {
 }
 
 export function initAuth(user) {
+  console.log("AUTHUSER::", user);
   return {
     type: INIT_AUTH,
     payload: user

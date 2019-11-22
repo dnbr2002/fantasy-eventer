@@ -133,7 +133,7 @@ class LeagueTable extends React.Component {
 
     render() {
         console.log("LTPROPS::", this.props);
-        const { classes } = this.props;
+        const { classes, compStatus } = this.props;
         const { columns, rows, expandedRowIds, pageSizes, loading } = this.state;
         if (loading) {
             return (
@@ -170,10 +170,12 @@ class LeagueTable extends React.Component {
                         <TableHeaderRow
                             cellComponent={HeaderCell}
                         />
-                        <TableRowDetail
+                        {compStatus ? <TableRowDetail
                             contentComponent={LeagueRowDetail}
                             cellComponent={DetailCell}
-                        />
+                        /> :
+                        null
+                    }
                         <Getter name="tableColumns" computed={tableColumnsComputed} />
                         <PagingPanel />
                     </Grid>

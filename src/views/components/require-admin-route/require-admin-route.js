@@ -73,12 +73,12 @@ const getRole = (id) => {
     )
 }
 
-const RequireAdminRoute = ({ component: Component, authenticated, role, ...rest }) => (
+const RequireAdminRoute = ({ component: Component, authenticated, id, role, ...rest }) => (
     <Route
     {...rest}
     render={props => {
-      console.log("AUTH::", role)
-      return authenticated && role == "admin" ? (
+      console.log("AUTH::", id)
+      return authenticated && id == "s9DolMTaZuWDntFEA5KBlE2Wc2o1" ? (
         <Component {...props} />
       ) : (
         <Redirect to={{

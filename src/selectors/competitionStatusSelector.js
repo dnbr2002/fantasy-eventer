@@ -14,6 +14,7 @@ export function getCompetitionStatus(competition) {
     sortedCompetition.slice(0, 1).forEach(comp => {
         compStatus = comp.active
     })
+    console.log("COMPSTATUS::",compStatus);
     return compStatus
 }
 
