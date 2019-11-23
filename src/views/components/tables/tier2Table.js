@@ -16,18 +16,18 @@ import toastr from 'toastr';
 
 const toolbarStyles = theme => ({
   root: {
-      paddingRight: theme.spacing(1),
-      backgroundColor: theme.palette.primary.medium,
-      color: theme.palette.common.white,
+    paddingRight: theme.spacing(1),
+    backgroundColor: theme.palette.primary.medium,
+    color: theme.palette.common.white,
   },
   spacer: {
-      flex: '1 1 100%',
+    flex: '1 1 100%',
   },
   actions: {
-      color: theme.palette.text.secondary,
+    color: theme.palette.text.secondary,
   },
   title: {
-      flex: '0 0 auto',
+    flex: '0 0 auto',
   }
 });
 
@@ -118,8 +118,10 @@ class Tier2Table extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.team.size !== this.props.team.size) {
-      this.renderChecks(this.props.team);
+    if (typeof prevProps.team !== "undefined") {
+      if (prevProps.team.size !== this.props.team.size) {
+        this.renderChecks(this.props.team);
+      }
     }
   }
 
@@ -257,8 +259,8 @@ class Tier2Table extends React.Component {
                       />
                     </TableCell>
                     <TableCell>{competitor.value.description}</TableCell>
-                    <TableCell><img src={"https://www.countryflags.io/"+competitor.value.country+"/shiny/64.png"} width="40" height="30" alt={competitor.value.country} /> </TableCell>
-                    
+                    <TableCell><img src={"https://www.countryflags.io/" + competitor.value.country + "/shiny/64.png"} width="40" height="30" alt={competitor.value.country} /> </TableCell>
+
                   </TableRow>
                 );
               })}

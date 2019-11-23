@@ -18,6 +18,7 @@ import Horse from "../icon/horse";
 // import { faHorse } from '@fortawesome/free-solid-svg-icons'
 
 import styles from "./styles";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -26,17 +27,20 @@ export default function HomeSections() {
   return (
     <div className={classes.section}>
           <GridContainer justify="center">
-            <GridItem xs={12} sm={12} md={8}>
-              <h2 className={classes.title}>Ready, Set, Go!!</h2>
-              <h4 className={classes.description}>
+            <GridItem xs={12} sm={12} md={12}>
+              <Typography variant="h2" className={classes.title}>Ready, Set, Go!!</Typography >
+              <Typography variant="h4" color="textSecondary" className={classes.description}>
                 If your new to FE then get started right away.  Upate your Profile.
                 Then make sure to review the rules of the game.  The basics are pick a group of 
                 horse and riders and compete with other completed team rosters in the league.  Lowest score wins.
-
-          </h4>
-          <br />
+          </Typography>
             </GridItem>
           </GridContainer>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
           <div>
             <GridContainer>
               <GridItem xs={12} sm={12} md={4}>

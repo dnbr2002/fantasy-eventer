@@ -49,7 +49,7 @@ import './team-page.css';
 const styles = theme => ({
   root: {
     padding: theme.spacing(4),
-  }, 
+  },
   progressBar: {
     position: "-webkit-sticky",
     top: 0
@@ -112,15 +112,18 @@ class TeamPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("CDUPROPS::",this.props);
+    console.log("CDUPROPS::", this.props);
     if (prevProps.competition.size !== this.props.competition.size) {
       this.renderEventName();
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.compStatus !== this.state.toggle) {
+  componentWillReceiveProps(nextProps) {
+    console.log("RENDADDTEAM::",nextProps.compStatus)
+    if (nextProps.compStatus !== this.state.toggle && nextProps.compStatus === "false") {
       console.log("HANDLETOGGLE::2", nextProps.compStatus);
+      this.renderToggle(nextProps.compStatus);
+      this.renderAddTeam(nextProps.compStatus);
       this.setState({ toggle: nextProps.compStatus })
     }
 
@@ -142,7 +145,7 @@ class TeamPage extends Component {
   // }
 
   handleToggle = (event) => {
-    console.log("HANDLETOGGLE::",event.target.checked);
+    console.log("HANDLETOGGLE::", event.target.checked);
     this.setState({ toggle: event.target.checked });
   };
 
@@ -178,6 +181,16 @@ class TeamPage extends Component {
     }
   }
 
+  renderToggle = (status) => {
+    console.log("RENDADDTEAM::1",status)
+    if (status) {
+     return <FormControlLabel disabled control={<Switch value="true" />} label="Disabled - Teams are locked until event is completed" />
+    }
+    else {
+     return <Toggle label="Pick or Update Your Team in the tables below" handleToggle={this.handleToggle} togglePosition={status} />
+    }
+  }
+
 
   // renderDefaultTitle = () => {
   //   return <Typography variant="display2" gutterBottom>
@@ -185,17 +198,20 @@ class TeamPage extends Component {
   //     </Typography>
   // }
 
-  renderAddTeam = () => {
-    return (
-      <div>
+  renderAddTeam = (status) => {
+    console.log("RENDADDTEAM::2",status)
+    if(status === "false") {
+      return (
         <div>
-          <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
+          <div>
+            <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
+          </div>
+          <div>
+            <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
+          </div>
         </div>
-        <div>
-          <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
-        </div>
-      </div>
-    )
+      )
+    }
   }
 
   render() {
@@ -207,23 +223,20 @@ class TeamPage extends Component {
       <div className={rootClassName}>
         {/* <div className="g-row">
           <div className="g-col"> */}
-            <AccountProfile {...this.props} />
-            <br />
-             <Portlet className={classes.sticky} >
-              <PortletContent>
-                <Team team={this.props.team} profileDetail={profileDetail} {...this.props} />
-              </PortletContent>
-            </Portlet>
-            <br />
-            <div>
-              {
-                toggle ? <FormControlLabel disabled control={<Switch value="true" />} label="Disabled - Teams are locked until event is completed" /> :
-                  <Toggle label="Pick or Update Team" handleToggle={this.handleToggle} togglePosition={toggle} />
-              }
-            </div>
-            <div>
-              {this.state.toggle ? null : this.renderAddTeam()}
-            </div>
+        <AccountProfile {...this.props} />
+        <br />
+        <Portlet className={classes.sticky} >
+          <PortletContent>
+            <Team team={this.props.team} profileDetail={profileDetail} {...this.props} />
+          </PortletContent>
+        </Portlet>
+        <br />
+        <div>
+          {this.renderToggle()}
+        </div>
+        <div>
+           {this.renderAddTeam()}
+        </div>
       </div>
     );
   }

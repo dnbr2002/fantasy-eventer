@@ -136,10 +136,12 @@ class Tier1Table extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        if (typeof prevProps.team !== "undefined") {
         console.log('PREPROPS::', prevProps)
         if (prevProps.team.size !== this.props.team.size) {
             this.renderChecks(this.props.team);
         }
+    }
     }
 
     renderChecks(team) {

@@ -18,7 +18,7 @@ import "./competitorCard.css";
 const styles = theme => ({
     card: {
       width: 200,
-      height: 225,
+      height: 250,
     //   margin: "auto",
       margin: theme.spacing(1),
       transition: "0.3s",
@@ -28,11 +28,11 @@ const styles = theme => ({
       }
     },
     media: {
-      paddingTop: "50%"
+      paddingTop: "75%"
     },
     content: {
       textAlign: "left",
-      padding: theme.spacing.unit * 3
+      padding: theme.spacing.unit * 1
     },
     divider: {
     //   margin: `${theme.spacing.unit * 3}px 0`
@@ -48,38 +48,7 @@ const styles = theme => ({
     }
   });
 
-class CompetitorCard extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-    //   profileName: '',
-    //   teamName: '',
-    //   profilePic: '',
-    //   score: 0
-    };
-  }
-
-//   componentWillReceiveProps(nextProps) {
-//     if (nextProps.profile.list.get(0)) {
-//       // console.log("TEAMCARDCWRP::", nextProps.profile.list.get(0))
-//       if (nextProps.profile.list.get(0).profileName !== this.state.profileName) {
-//         this.setState({ profileName: nextProps.profile.list.get(0).profileName });
-//       }
-//       if (nextProps.profile.list.get(0).teamName !== this.state.teamName) {
-//         this.setState({ teamName: nextProps.profile.list.get(0).teamName });
-//       }
-//       if (nextProps.profile.list.get(0).profilePic !== this.state.profilePic) {
-//         this.setState({ profilePic: nextProps.profile.list.get(0).profilePic });
-//       }
-//       if (nextProps.profile.list.get(0).score !== this.state.score) {
-//         this.setState({ score: nextProps.profile.list.get(0).score });
-//       }
-//     }
-//   }
-
-  render() {
-    const { classes, competitor } = this.props;
-    console.log('COMPCARDPROPS::', this.props)
+const CompetitorCard = ({classes, competitor}) =>  {
     return (
         <div className="App">
         <Card className={classes.card}>
@@ -121,11 +90,5 @@ class CompetitorCard extends Component {
       </div>
     );
   }
-}
-
-CompetitorCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  renderAddTeamName: PropTypes.func,
-};
 
 export default withStyles(styles)(CompetitorCard);
