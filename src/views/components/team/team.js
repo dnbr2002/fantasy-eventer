@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Divider,
     Grid,
-    Paper,
     Typography
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import PortletHeader from '../../components/PortletHeader';
-import PortletLabel from '../../components/PortletLabel';
 import ProgressBar from '../../components/progressBar/progressBar.js';
+
+//Custom Comps
+import CompetitorCard from "../competitors/competitorCard";
 
 const styles = theme => ({
     root: {
@@ -40,44 +39,12 @@ const Team = ({ team, classes, profileDetail }, props) => {
                     <Grid item xs={12}>
                         <Grid container className={classes.demo} justify="center" spacing={Number(1)}>
                             {team.map(competitor => (
-                                <Grid key={competitor.key} item>
-                                    <Paper className={classes.paper} >
-                                        <Grid container justify="center">
-                                            <img
-                                                className={classes.image}
-                                                src={competitor.pic}
-                                                alt="competitor pic"
-                                            />
-                                            {/* <Grid container justify="center">
-                                                <Typography variant="caption">
-                                                    Tier: <b>{competitor.tier}</b>
-                                                </Typography>
-                                            </Grid> */}
-                                            <Divider className={classes.paperDivider} />
-                                            <Grid container justify="center">
-                                                <Typography variant="caption">
-                                                    Score: <b>{competitor.score}</b>
-                                                </Typography>
-                                            </Grid>
-                                            <Divider className={classes.paperDivider} />
-                                            <Grid container justify="center">
-                                                <Typography variant="caption">
-                                                    H: <b>{competitor.horse}</b>
-                                                </Typography>
-                                            </Grid>
-
-                                            <Grid container justify="center">
-                                                <Typography variant="caption">
-                                                    R: <b>{competitor.rider}</b>
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
+                                <CompetitorCard competitor={competitor} />
                             ))}
                         </Grid>
                     </Grid>
                 </Grid>
+
                 <ProgressBar profileDetail={profileDetail} {...props} />
             </div>
         );

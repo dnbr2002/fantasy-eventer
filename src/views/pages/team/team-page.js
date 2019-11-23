@@ -106,9 +106,9 @@ class TeamPage extends Component {
     this.props.loadTeam();
     this.props.loadTeamName();
     this.props.loadCompetition();
-    if (this.props.compStatus === true) {
-      this.setState({ toggle: false })
-    }
+    // if (this.props.compStatus === true) {
+    //   this.setState({ toggle: false })
+    // }
   }
 
   componentDidUpdate(prevProps) {
@@ -116,19 +116,33 @@ class TeamPage extends Component {
     if (prevProps.competition.size !== this.props.competition.size) {
       this.renderEventName();
     }
-
-    if (prevProps.compStatus !== this.props.compStatus) {
-      this.setState({ toggle: this.props.compStatus })
-    }
-
-    // if (prevProps.profile.teamKeysTier1 != this.props.profile.teamKeysTier1 || prevProps.profile.teamKeysTier2 != this.props.profile.teamKeysTier2)
-    // {
-    //   var completeness = this.props.profile.teamKeysTier1.split(",").length + this.props.profile.teamKeysTier2.split(",").length
-    //   this.setState({completeness: completeness})
-    // }
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.compStatus !== this.state.toggle) {
+      console.log("HANDLETOGGLE::2", nextProps.compStatus);
+      this.setState({ toggle: nextProps.compStatus })
+    }
+
+    // if (nextProps.competition.size !== this.props.competition.size) {
+    //   this.renderEventName();
+    // }
+
+  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log("HANDLETOGGLE::3", nextProps.compStatus);
+  //   console.log("HANDLETOGGLE::4", this.state.toggle);
+  //   if(this.state.toggle) {
+  //   if (nextProps.compStatus !== this.state.toggle) {
+  //     console.log("HANDLETOGGLE::2", nextProps.compStatus);
+  //     this.setState({ toggle: nextProps.compStatus })
+  //   }
+  // }
+  // }
+
   handleToggle = (event) => {
+    console.log("HANDLETOGGLE::",event.target.checked);
     this.setState({ toggle: event.target.checked });
   };
 
@@ -186,8 +200,8 @@ class TeamPage extends Component {
 
   render() {
     console.log("TEAMPROPS::", this.props)
-    const { classes, className, profileDetail } = this.props;
-    const { completeness } = this.state;
+    const { classes, className, profileDetail, compStatus } = this.props;
+    const { completeness, toggle } = this.state;
     const rootClassName = classNames(classes.root, className);
     return (
       <div className={rootClassName}>
@@ -203,8 +217,8 @@ class TeamPage extends Component {
             <br />
             <div>
               {
-                this.props.compStatus === "true" ? <FormControlLabel disabled control={<Switch value="true" />} label="Disabled - Teams are locked until event is completed" /> :
-                  <Toggle label="Pick or Update Team" handleToggle={this.handleToggle} togglePosition={this.state.toggle} />
+                toggle ? <FormControlLabel disabled control={<Switch value="true" />} label="Disabled - Teams are locked until event is completed" /> :
+                  <Toggle label="Pick or Update Team" handleToggle={this.handleToggle} togglePosition={toggle} />
               }
             </div>
             <div>
