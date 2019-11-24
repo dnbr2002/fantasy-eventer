@@ -37,11 +37,11 @@ let Tier2TableToolbar = props => {
     <Toolbar className={classes.root}>
       {numSelected > 0 ? (
         <Typography color="inherit" variant="h4">
-          {numSelected} selected
+          {numSelected} Tier 2 Competitors selected
           </Typography>
       ) : (
           <Typography variant="h4" id="tableTitle" className={classes.root}>
-            Pick {numComps + 1}
+            Pick {numComps + 1} Tier 2 Competitors
           </Typography>
         )}
     </Toolbar>

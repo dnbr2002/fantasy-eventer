@@ -42,7 +42,7 @@ let Tier1TableToolbar = props => {
                 <Grid container spacing={24}>
                     <Grid item xs={12} sm={6}>
                         <Typography color="inherit" variant="h4">
-                            {numSelected} selected
+                            {numSelected} Tier 1 Competitors selected
           </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -53,7 +53,7 @@ let Tier1TableToolbar = props => {
                 </Grid>
             ) : (
                     <Typography variant="h4" id="tableTitle" className={classes.root}>
-                        Pick {numComps + 1}
+                        Pick {numComps + 1} Tier 1 Competitors
                     </Typography>
                 )}
         </Toolbar>

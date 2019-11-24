@@ -17,8 +17,9 @@ import "./competitorCard.css";
 
 const styles = theme => ({
     card: {
-      width: 200,
-      height: 250,
+      width: 140,
+      height: 205,
+      paddingTop: 5,
     //   margin: "auto",
       margin: theme.spacing(1),
       transition: "0.3s",
@@ -28,7 +29,7 @@ const styles = theme => ({
       }
     },
     media: {
-      paddingTop: "75%"
+      paddingTop: "75%",
     },
     content: {
       textAlign: "left",
@@ -65,8 +66,8 @@ const CompetitorCard = ({classes, competitor}) =>  {
               {competitor.rider}
             </Typography>
             <Typography
-            className={"MuiTypography--heading"}
-            color="textSecondary"
+              className={"MuiTypography--heading"}
+              color="textSecondary"
               variant={"h6"}
               gutterBottom
             >

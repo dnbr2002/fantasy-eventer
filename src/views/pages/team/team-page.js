@@ -16,32 +16,16 @@ import * as competitionActions from '../../../actions/competitionActions';
 import * as profileActions from '../../../actions/profileActions';
 import Tier1Table from '../../components/tables/tier1Table';
 import Tier2Table from '../../components/tables/tier2Table';
-// import AddTeamName from '../../components/team/addTeamName';
 import Team from '../../components/team/team';
-import TeamSummary from '../../components/team/teamSummary';
-import TeamCard from '../../components/team/teamCard';
-import Toggle from '../../components/toggle/toggle';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-// import Paper from '@material-ui/core/Paper';
-// import TeamName from '../../components/team/teamName'
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import toastr from 'toastr';
-import { Record } from 'immutable';
-
-import { StickyContainer, Sticky } from 'react-sticky';
 
 // Custom components
 import AccountProfile from '../../components/profile/AccountProfile';
 import Portlet from '../../components/Portlet';
 import PortletContent from '../../components/PortletContent';
-import PortletHeader from '../../components/Portlet';
-import PortletLabel from '../../components/Portlet';
-import ProgressBar from '../../components/progressBar/progressBar.js';
+import PortletHeader from '../../components/PortletHeader';
 
 // Material helpers
-import { withStyles } from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 
 import './team-page.css';
 
@@ -91,7 +75,7 @@ class TeamPage extends Component {
     super()
     this.state = {
       active: true,
-      toggle: true,
+      compStatus: true,
       spacing: '8',
       eventName: '',
       open: false,
@@ -106,9 +90,6 @@ class TeamPage extends Component {
     this.props.loadTeam();
     this.props.loadTeamName();
     this.props.loadCompetition();
-    // if (this.props.compStatus === true) {
-    //   this.setState({ toggle: false })
-    // }
   }
 
   componentDidUpdate(prevProps) {
@@ -119,30 +100,13 @@ class TeamPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("RENDADDTEAM::",nextProps.compStatus)
-    if (nextProps.compStatus !== this.state.toggle && nextProps.compStatus === "false") {
-      console.log("HANDLETOGGLE::2", nextProps.compStatus);
-      this.renderToggle(nextProps.compStatus);
+    console.log("RENDADDTEAM::", nextProps.compStatus)
+    if (nextProps.compStatus !== this.state.compStatus) {
+      console.log("RENDADDTEAM::2", nextProps.compStatus);
       this.renderAddTeam(nextProps.compStatus);
-      this.setState({ toggle: nextProps.compStatus })
+      this.setState({ compStatus: nextProps.compStatus })
     }
-
-    // if (nextProps.competition.size !== this.props.competition.size) {
-    //   this.renderEventName();
-    // }
-
   }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log("HANDLETOGGLE::3", nextProps.compStatus);
-  //   console.log("HANDLETOGGLE::4", this.state.toggle);
-  //   if(this.state.toggle) {
-  //   if (nextProps.compStatus !== this.state.toggle) {
-  //     console.log("HANDLETOGGLE::2", nextProps.compStatus);
-  //     this.setState({ toggle: nextProps.compStatus })
-  //   }
-  // }
-  // }
 
 
   handleClickOpen = () => {
@@ -177,48 +141,71 @@ class TeamPage extends Component {
     }
   }
 
-  handleToggle = (event) => {
-    console.log("HANDLETOGGLE::", event.target.checked);
-    this.setState({ toggle: event.target.checked });
-  };
-
-  renderToggle = (status) => {
-    console.log("RENDADDTEAM::1",status)
-    if (status) {
-     return <FormControlLabel disabled control={<Switch value="true" />} label="Disabled - Teams are locked until event is completed" />
-    }
-    else {
-    //  return <Toggle label="Pick or Update Your Team in the tables below" handleToggle={this.handleToggle} togglePosition={status} />
-    return  <Switch
-    checked={status}
-    onChange={this.handleToggle.bind(this)}
-    value="Event Active"
-    label="Pick or Update Your Team in the tables below"
-    inputProps={{ 'aria-label': 'secondary checkbox' }}
-  />
-    }
-  }
-
   renderAddTeam = (status) => {
-    console.log("RENDADDTEAM::2",status)
-    if (!status) {
-      return (
-        <div>
-          <div>
-            <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
-          </div>
-          <div>
-            <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
-          </div>
-        </div>
-      )
-    }
+    console.log("RENDADDTEAM::3", status)
+    // if (status) {
+    //   console.log("RENDADDTEAM::4", status)
+    //   return (
+    //     <Portlet>
+    //       <PortletHeader>
+    //       <Typography variant="h4" color="textSecondary">Event is active</Typography>
+    //       </PortletHeader>
+    //       <PortletContent>
+    //         <Typography variant="subtitle1" color="textSecondary">Team Selection is locked until event is completed</Typography>
+    //       </PortletContent>
+    //     </Portlet>
+    //   )
+    // }
+    // if (!!status) {
+    //   console.log("RENDADDTEAM::5", status)
+    //   return (
+    //     <div>
+    //     <div>
+    //       <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
+    //     </div>
+    //     <div>
+    //       <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
+    //     </div>
+    //   </div>
+    //   )
+    // }
+
+     return status ? 
+        <Portlet> <PortletHeader>
+        <Typography variant="h4" color="textSecondary">Event is active</Typography>
+        </PortletHeader>
+        <PortletContent>
+          <Typography variant="subtitle1" color="textSecondary">Team Selection is locked until event is completed</Typography>
+        </PortletContent>
+      </Portlet> 
+    :
+    <div>
+    <div>
+      <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
+    </div>
+    <div>
+      <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
+    </div>
+  </div>
+
+    // else {
+    //   console.log("RENDADDTEAM::5", status)
+    //   return (
+    //     <div>
+    //     <div>
+    //       <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
+    //     </div>
+    //     <div>
+    //       <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
+    //     </div>
+    //   </div>
+    //   )
+    // }
   }
 
   render() {
     console.log("TEAMPROPS::", this.props)
     const { classes, className, profileDetail, compStatus } = this.props;
-    const { completeness, toggle } = this.state;
     const rootClassName = classNames(classes.root, className);
     return (
       <div className={rootClassName}>
@@ -233,10 +220,7 @@ class TeamPage extends Component {
         </Portlet>
         <br />
         <div>
-          {this.renderToggle()}
-        </div>
-        <div>
-           {this.renderAddTeam()}
+          {this.renderAddTeam(compStatus)}
         </div>
       </div>
     );
