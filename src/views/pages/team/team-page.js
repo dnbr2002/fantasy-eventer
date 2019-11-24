@@ -143,19 +143,19 @@ class TeamPage extends Component {
 
   renderAddTeam = (status) => {
     console.log("RENDADDTEAM::3", status)
-    // if (status) {
-    //   console.log("RENDADDTEAM::4", status)
-    //   return (
-    //     <Portlet>
-    //       <PortletHeader>
-    //       <Typography variant="h4" color="textSecondary">Event is active</Typography>
-    //       </PortletHeader>
-    //       <PortletContent>
-    //         <Typography variant="subtitle1" color="textSecondary">Team Selection is locked until event is completed</Typography>
-    //       </PortletContent>
-    //     </Portlet>
-    //   )
-    // }
+    if (status === 'true') {
+      console.log("RENDADDTEAM::4", status)
+      return (
+        <Portlet>
+          <PortletHeader>
+          <Typography variant="h4" color="textSecondary">Event is active</Typography>
+          </PortletHeader>
+          <PortletContent>
+            <Typography variant="subtitle1" color="textSecondary">Team Selection is locked until event is completed</Typography>
+          </PortletContent>
+        </Portlet>
+      )
+    }
     // if (!!status) {
     //   console.log("RENDADDTEAM::5", status)
     //   return (
@@ -170,37 +170,37 @@ class TeamPage extends Component {
     //   )
     // }
 
-     return status ? 
-        <Portlet> <PortletHeader>
-        <Typography variant="h4" color="textSecondary">Event is active</Typography>
-        </PortletHeader>
-        <PortletContent>
-          <Typography variant="subtitle1" color="textSecondary">Team Selection is locked until event is completed</Typography>
-        </PortletContent>
-      </Portlet> 
-    :
-    <div>
-    <div>
-      <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
-    </div>
-    <div>
-      <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
-    </div>
-  </div>
+  //    return status ? 
+  //       <Portlet> <PortletHeader>
+  //       <Typography variant="h4" color="textSecondary">Event is active</Typography>
+  //       </PortletHeader>
+  //       <PortletContent>
+  //         <Typography variant="subtitle1" color="textSecondary">Team Selection is locked until event is completed</Typography>
+  //       </PortletContent>
+  //     </Portlet> 
+  //   :
+  //   <div>
+  //   <div>
+  //     <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
+  //   </div>
+  //   <div>
+  //     <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
+  //   </div>
+  // </div>
 
-    // else {
-    //   console.log("RENDADDTEAM::5", status)
-    //   return (
-    //     <div>
-    //     <div>
-    //       <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
-    //     </div>
-    //     <div>
-    //       <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
-    //     </div>
-    //   </div>
-    //   )
-    // }
+    else {
+      console.log("RENDADDTEAM::5", status)
+      return (
+        <div>
+        <div>
+          <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
+        </div>
+        <div>
+          <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
+        </div>
+      </div>
+      )
+    }
   }
 
   render() {
