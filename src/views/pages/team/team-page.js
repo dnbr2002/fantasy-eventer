@@ -144,10 +144,6 @@ class TeamPage extends Component {
   // }
   // }
 
-  handleToggle = (event) => {
-    console.log("HANDLETOGGLE::", event.target.checked);
-    this.setState({ toggle: event.target.checked });
-  };
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -181,26 +177,31 @@ class TeamPage extends Component {
     }
   }
 
+  handleToggle = (event) => {
+    console.log("HANDLETOGGLE::", event.target.checked);
+    this.setState({ toggle: event.target.checked });
+  };
+
   renderToggle = (status) => {
     console.log("RENDADDTEAM::1",status)
     if (status) {
      return <FormControlLabel disabled control={<Switch value="true" />} label="Disabled - Teams are locked until event is completed" />
     }
     else {
-     return <Toggle label="Pick or Update Your Team in the tables below" handleToggle={this.handleToggle} togglePosition={status} />
+    //  return <Toggle label="Pick or Update Your Team in the tables below" handleToggle={this.handleToggle} togglePosition={status} />
+    return  <Switch
+    checked={status}
+    onChange={this.handleToggle.bind(this)}
+    value="Event Active"
+    label="Pick or Update Your Team in the tables below"
+    inputProps={{ 'aria-label': 'secondary checkbox' }}
+  />
     }
   }
 
-
-  // renderDefaultTitle = () => {
-  //   return <Typography variant="display2" gutterBottom>
-  //     Fantasy Eventer Team
-  //     </Typography>
-  // }
-
   renderAddTeam = (status) => {
     console.log("RENDADDTEAM::2",status)
-    if(status === "false") {
+    if (!status) {
       return (
         <div>
           <div>
