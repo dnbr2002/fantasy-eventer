@@ -143,7 +143,7 @@ class TeamPage extends Component {
 
   renderAddTeam = (status) => {
     console.log("RENDADDTEAM::3", status)
-    if (status === 'true') {
+    if (status) {
       console.log("RENDADDTEAM::4", status)
       return (
         <Portlet>
