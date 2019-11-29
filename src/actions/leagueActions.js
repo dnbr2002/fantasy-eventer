@@ -1,13 +1,14 @@
 import * as types from './actionTypes';
 import { firebaseDb } from '../firebase';
-import _ from 'lodash';
+// import _ from 'lodash';
+import values from 'lodash/values'
 
 export function loadLeague() {
   const ref = firebaseDb.ref('users');
   return dispatch => {
     ref.once('value').then(snapshot => {
-      console.log("VALUES::",_.values(snapshot.val()))
-      return _.values(snapshot.val())       
+      console.log("VALUES::", values(snapshot.val()))
+      return values(snapshot.val())       
     }).then(snapshot => {
         dispatch(loadLeagueSuccess(snapshot));
       }).catch((error) => {

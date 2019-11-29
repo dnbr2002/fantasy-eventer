@@ -3,7 +3,8 @@ import { Record } from 'immutable';
 import { FirebaseList } from 'src/firebase';
 import { firebaseDb } from '../firebase';
 import toastr from 'toastr';
-import _ from 'lodash';
+// import _ from 'lodash';
+import toArray from 'lodash/toArray';
 
 export const Competitor = new Record({
   horse: null,
@@ -236,7 +237,7 @@ export function bulkUpdateScores(competitors) {
   return dispatch => {
     const ref = firebaseDb.ref('users');
     ref.once('value').then(snapshot => {
-      const users = _.toArray(snapshot.val());
+      const users = toArray(snapshot.val());
       console.log("USERS::", users);
       users.forEach(user_id => {
         const record = user_id[Object.keys(user_id)[0]];
