@@ -11,9 +11,7 @@ import { withStyles } from '@material-ui/core';
 
 // Material components
 import {
-    Badge,
     IconButton,
-    Popover,
     Toolbar,
     Typography
 } from '@material-ui/core';

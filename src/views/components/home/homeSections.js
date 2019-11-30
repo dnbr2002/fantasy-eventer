@@ -5,9 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 import Profile from "@material-ui/icons/AccountBoxOutlined";
 import Rules from "@material-ui/icons/DescriptionOutlined";
-
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 // core components
 import GridContainer from "../grid/gridContainer";
 import GridItem from "../grid/gridItem.js";

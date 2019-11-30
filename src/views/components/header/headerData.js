@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import HomeIcon from '@material-ui/icons/Home';
 import ProfileIcon from '@material-ui/icons/AccountCircle'
 import TeamIcon from '@material-ui/icons/List';
@@ -14,7 +14,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  ListSubheader,
   Typography
 } from '@material-ui/core';
 //loader
@@ -22,15 +21,7 @@ import Loader from 'react-loaders'
 import 'loaders.css/src/animations/line-scale.scss'
 
 // Material helpers
-import { withStyles } from '@material-ui/core/styles';
 import { firebaseDb } from '../../../firebase';
-import styles from './styles';
-
-const defaultProfile = {
-  profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSbKocOHG3dan_M0mG_jlwZysGmg2rIgkTermzsv61yrmW7mcgUQ",
-  profileName: "default",
-  teamName: "defaultTeam"
-}
 
 export function TopHeaderDataItem(props) {
   console.log("HEADERPROPS::", props);
@@ -53,7 +44,7 @@ export function TopHeaderDataItem(props) {
           setTeam(snapshot.val().teamName);
         }       
       })
-    }, [])
+    }, [id])
 
   return (
     <List>

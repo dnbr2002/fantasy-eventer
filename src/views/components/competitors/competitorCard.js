@@ -1,8 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from "prop-types";
-
-//Redux Actions
-import CardActions from "@material-ui/core/CardActions";
+import React from 'react';
 
 //Material UI
 import { withStyles } from "@material-ui/core/styles";

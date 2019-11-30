@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useState, useLayoutEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 //Redux
 // import useActions from 'react-redux';
-import { LoadProfile } from '../../actions/profileActions.js'
 // Externals
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -31,11 +30,6 @@ import {
     QuestionAnswerOutlined as NewsfeedIcon,
     ContactSupportOutlined as ContactsIcon,
     DateRangeOutlined as ScheduleIcon,
-    ShoppingBasketOutlined as ShoppingBasketIcon,
-    LockOpenOutlined as LockOpenIcon,
-    TextFields as TextFieldsIcon,
-    ImageOutlined as ImageIcon,
-    InfoOutlined as InfoIcon,
     AccountBoxOutlined as AccountBoxIcon,
     BuildOutlined as BuildIcon
 } from '@material-ui/icons';
@@ -43,7 +37,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHorse } from '@fortawesome/free-solid-svg-icons'
 
-import Horse from '../../views/components/icon/horse'
 // Component styles
 import styles from './styles';
 
@@ -62,8 +55,8 @@ function Sidebar(props) {
     //     color: 'black'
     // }
     // let loader = <Loader type="ball-scale" style={loaderStyle} active />
-    const { classes, className, id, authenticated, open } = props;
-    const [auth] = useState(authenticated);
+    const { classes, className, id, authenticated } = props;
+    // const [auth] = useState(authenticated);
     const [pic, setPic] = useState("https://www.sackettwaconia.com/wp-content/uploads/default-profile.png")
     const [name, setName] = useState("");
     const [team, setTeam] = useState("");
@@ -83,7 +76,7 @@ function Sidebar(props) {
 
                 }
             })
-        }, [authenticated])
+        }, [authenticated, id])
 
     // useEffect(
     // () => {

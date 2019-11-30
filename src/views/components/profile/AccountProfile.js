@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect }  from 'react';
+import React, { useState, useEffect }  from 'react';
 
 // Externals
 import PropTypes from 'prop-types';
@@ -8,22 +8,14 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core';
 
 // Material components
-import { Avatar, Button, CircularProgress, LinearProgress, Typography } from '@material-ui/core';
+import { Avatar, CircularProgress, Typography } from '@material-ui/core';
 
-//Loader
-import { Loader } from '../../components/loader'
 
 // Shared components
 import Portlet from '../../components/Portlet';
 import PortletContent from '../../components/PortletContent';
 import PortletFooter from '../../components/PortletFooter';
-import ProgressBar from '../progressBar/progressBar.js';
 
-//Data
-import { firebaseDb } from '../../../firebase';
-
-// Component styles
-// import styles from './styles';
 
 const styles = theme => ({
     root: {},
@@ -70,9 +62,6 @@ const styles = theme => ({
 function AccountProfile(props) {
   console.log("ACCTPROFPROPS::",props);
   const { classes, className, profileDetail, ...rest } = props;
-  var today = new Date()
-  // date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear()
-  const [date] = useState((today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear())
   const [name, setName] = useState("");
   const [team, setTeam] = useState("");
   const [pic, setPic] = useState("");
@@ -96,9 +85,9 @@ function AccountProfile(props) {
         setEventScore(profileDetail.score);
         setEventRank(profileDetail.rank);
         setLoading(false);
-        setTier1Count(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length != 0}).length)
-        setTier2Count(profileDetail.teamKeysTier2.split(",").filter(x => {return x.length != 0}).length)
-        setCompleteness(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length != 0}).length + profileDetail.teamKeysTier2.split(",").filter(x => {return x.length != 0}).length)
+        setTier1Count(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length !== 0}).length)
+        setTier2Count(profileDetail.teamKeysTier2.split(",").filter(x => {return x.length !== 0}).length)
+        setCompleteness(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length !== 0}).length + profileDetail.teamKeysTier2.split(",").filter(x => {return x.length !== 0}).length)
       }
   }, [profileDetail])
 

@@ -40,23 +40,17 @@ const styles = theme => ({
   },
   sticky: {
     background: 'white',
-    position: '-webkit-sticky',
+    // position: '-webkit-sticky',
     position: 'sticky',
     top: 10,
     bottom: 0,
-    paddingTop: '40px',
-    paddingBottom: '40px',
+    paddingTop: '10px',
+    paddingBottom: '10px',
     zIndex: 5,
-    paddingTop: 0,
-    paddingBottom: 0,
+    // paddingTop: 0,
+    // paddingBottom: 0,
   }
 });
-
-const stickIt = {
-  position: '-webkit-sticky',
-  position: 'sticky',
-  top: 0,
-}
 
 
 class TeamPage extends Component {
@@ -156,37 +150,6 @@ class TeamPage extends Component {
         </Portlet>
       )
     }
-    // if (!!status) {
-    //   console.log("RENDADDTEAM::5", status)
-    //   return (
-    //     <div>
-    //     <div>
-    //       <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
-    //     </div>
-    //     <div>
-    //       <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
-    //     </div>
-    //   </div>
-    //   )
-    // }
-
-  //    return status ? 
-  //       <Portlet> <PortletHeader>
-  //       <Typography variant="h4" color="textSecondary">Event is active</Typography>
-  //       </PortletHeader>
-  //       <PortletContent>
-  //         <Typography variant="subtitle1" color="textSecondary">Team Selection is locked until event is completed</Typography>
-  //       </PortletContent>
-  //     </Portlet> 
-  //   :
-  //   <div>
-  //   <div>
-  //     <Tier1Table numComps={2} eventName={this.state.eventName} {...this.props} />
-  //   </div>
-  //   <div>
-  //     <Tier2Table numComps={5} eventName={this.state.eventName} {...this.props} />
-  //   </div>
-  // </div>
 
     else {
       console.log("RENDADDTEAM::5", status)

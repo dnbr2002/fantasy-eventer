@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames';
 // Material helpers
-import { withStyles, Typography, LinearProgress, Paper, Divider } from '@material-ui/core';
+import { withStyles, Typography, Divider } from '@material-ui/core';
 
 // Icons
 import {
@@ -19,7 +19,6 @@ import {
 // Shared components
 import Portlet from '../../components/Portlet';
 import PortletContent from '../../components/PortletContent';
-import PortletFooter from '../../components/PortletFooter';
 
 // Component styles
 const styles = theme => ({

@@ -11,7 +11,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { List } from 'immutable';
-import CustomAvatar from '../../components/avatars/avatars';
 import Grid from '@material-ui/core/Grid';
 import toastr from 'toastr';
 

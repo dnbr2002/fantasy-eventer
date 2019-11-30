@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import classNames from 'classnames';
+import React, { Component } from 'react';
+
 // Material helpers
 import {
     withStyles,
@@ -21,8 +21,6 @@ const styles = theme => ({
 
 class RulesPage extends Component {
     render() {
-        const { classes, className } = this.props;
-        const rootClassName = classNames(classes.root, className);
         return (
             <div>
                 <br />

@@ -1,84 +1,27 @@
-import React, { Component, useState, useEffect, useLayoutEffect } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { render } from 'react-dom'
 
-//Firebase
-import { firebaseDb } from '../../../firebase';
+// //Firebase
+// import { firebaseDb } from '../../../firebase';
 
-// class RequireAdminRoute extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             role: "user",
-//         };
-//     }
 
-//     componentDidMount() {
-//         firebaseDb.ref(`users`).child(`${this.props.id}`).child(`${this.props.id}`).on('value', snapshot => {
-//             console.log("ADMINAUTH::", snapshot.val());
-//             if (snapshot.exists()) {
-//                 console.log("ADMINAUTH2::", snapshot.val().role);
-//                 this.setState({ role: snapshot.val().role });
-//             }
+// const getRole = (id) => {
+//     firebaseDb.ref(`users`).child(`${id}`).child(`${id}`).on('value', snapshot => {
+//         console.log("ADMINAUTH::", snapshot.val());
+//         if (snapshot.exists()) {
+//             console.log("ADMINAUTH::2", snapshot.val().role);
+//             return snapshot.val().role
 //         }
-//         )
-
 //     }
-
-//     componentWillMount() {
-
-//     }
-
-//     //     getRole = (id) => {
-//     //     firebaseDb.ref(`users`).child(`${id}`).child(`${id}`).on('value', snapshot => {
-//     //         console.log("ADMINAUTH::", snapshot.val());
-//     //         if (snapshot.exists()) {
-//     //             console.log("ADMINAUTH2::", snapshot.val().role);
-//     //             this.setState({ role: snapshot.val().role });
-//     //         }
-//     //     }
-//     //     )
-//     // }
-
-//     render() {
-//         console.log("RAR::", this.props);
-//         console.log("RAR::2", this.state);
-//         const { authenticated, location } = this.props;
-//         return (
-//             <Route {...this.props.rest} render={props => {
-//                 console.log("ADMINAUTH1::", this.state.role);
-//                 return authenticated && this.state.role === 'admin' ? (
-//                     <Component {...props} />
-//                 ) : (
-//                         <Redirect to={{
-//                             pathname: '/',
-//                             state: { from: location }
-//                         }} />
-//                     )
-//             }}
-//             />
-//         )
-//     }
+//     )
 // }
-
-
-const getRole = (id) => {
-    firebaseDb.ref(`users`).child(`${id}`).child(`${id}`).on('value', snapshot => {
-        console.log("ADMINAUTH::", snapshot.val());
-        if (snapshot.exists()) {
-            console.log("ADMINAUTH::2", snapshot.val().role);
-            return snapshot.val().role
-        }
-    }
-    )
-}
 
 const RequireAdminRoute = ({ component: Component, authenticated, id, role, ...rest }) => (
     <Route
     {...rest}
     render={props => {
       console.log("AUTH::", id)
-      return authenticated && id == "s9DolMTaZuWDntFEA5KBlE2Wc2o1" ? (
+      return authenticated && id === "s9DolMTaZuWDntFEA5KBlE2Wc2o1" ? (
         <Component {...props} />
       ) : (
         <Redirect to={{
@@ -89,46 +32,5 @@ const RequireAdminRoute = ({ component: Component, authenticated, id, role, ...r
     }}
   />
 );
-
-//     // console.log("ADMINAUTH::::", props)\
-//     const [auth] = useState(authenticated);
-//     const [role, setRole] = useState(null);
-
-//     useEffect(
-//         () => {
-//             setRole(getRole(id));
-//         }, [])
-
-//         const getRole = (id) => {
-//             firebaseDb.ref(`users`).child(`${id}`).child(`${id}`).on('value', snapshot => {
-//                 console.log("ADMINAUTH::", snapshot.val());
-//                 if (snapshot.exists()) {
-//                     console.log("ADMINAUTH::2", snapshot.val().role);
-//                     // setRole(getRole(id));
-//                     return snapshot.val().role
-//                 }
-//             }
-//             )
-//         }
-
-
-//     return (
-//         <Route
-//             {...rest}
-//             render={props => {
-//                 return auth && role2 === 'admin' ? (
-//                     <Component {...props} />
-//                 ) : (
-//                         <Redirect to={{
-//                             pathname: '/',
-//                             state: { from: props.location }
-//                         }} />
-//                     )
-//             }}
-//         /> 
-
-
-//     );
-// }
 
 export default RequireAdminRoute;

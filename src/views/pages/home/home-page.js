@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import classNames from 'classnames';
+
 // Material helpers
 import { 
     withStyles,
@@ -17,19 +17,11 @@ import HomeSections from "../../components/home/homeSections";
 
 // Component styles
 import styles from "./styles";
-import { mergeClasses } from '@material-ui/styles';
-// const styles = theme => ({
-//     root: {
-//         padding: theme.spacing(4)
-//     }
-// });
 
 
 class HomePage extends Component {
     render() {
-        const { className, classes } = this.props;
-        // const classes = useStyles();
-         const rootClassName = classNames(classes.root, className);
+        const { classes } = this.props;
         
         return (
             <div className={classes.page}>

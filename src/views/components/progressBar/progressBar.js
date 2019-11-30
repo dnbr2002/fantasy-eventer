@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
 //Material UI
-import { Typography, LinearProgress, Paper } from '@material-ui/core';
+import { Typography, LinearProgress } from '@material-ui/core';
 
 // Material helpers
 import { withStyles } from '@material-ui/core';
 
-// Shared components
-import Portlet from '../../components/Portlet';
-import PortletContent from '../../components/PortletContent';
-import PortletFooter from '../../components/PortletFooter';
 
 const styles = theme => ({
     root: {
         background: 'white',
-        position: '-webkit-sticky',
+        // position: '-webkit-sticky',
         position: 'sticky',
         top: 20,
         bottom: 0,
@@ -41,7 +37,7 @@ export function ProgressBar(props) {
 
     useEffect(() => {
         if (profileDetail) {
-            setCompleteness(profileDetail.teamKeysTier1.split(",").filter(x => { return x.length != 0 }).length + profileDetail.teamKeysTier2.split(",").filter(x => { return x.length != 0 }).length)
+            setCompleteness(profileDetail.teamKeysTier1.split(",").filter(x => { return x.length !== 0 }).length + profileDetail.teamKeysTier2.split(",").filter(x => { return x.length !== 0 }).length)
         }
     }, [profileDetail])
 

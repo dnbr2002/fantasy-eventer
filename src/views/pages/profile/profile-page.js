@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as profileActions from '../../../actions/profileActions';
-import ProfileCard from '../../components/profile/profileCard';
 import { ProfileSelector } from '../../../selectors/profileSelector';
 // Custom components
 import AccountProfile from '../../components/profile/AccountProfile';

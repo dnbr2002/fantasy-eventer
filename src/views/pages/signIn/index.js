@@ -33,13 +33,13 @@ import styles from './styles';
 import schema from './schema';
 
 // Service methods
-const signIn = () => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(true);
-    }, 1500);
-  });
-};
+// const signIn = () => {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       resolve(true);
+//     }, 1500);
+//   });
+// };
 
 class SignIn extends Component {
   _isMounted = false;

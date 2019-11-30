@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import compose from 'recompose/compose';
 import { authActions, getAuth } from 'src/auth';
-import Header from '../components/header';
 import RequireAuthRoute from '../components/require-auth-route';
 import RequireAdminRoute from '../components/require-admin-route';
 import RequireUnauthRoute from '../components/require-unauth-route';
@@ -23,12 +21,11 @@ import Schedule from '../pages/schedule';
 // Component styles
 import styles from './styles';
 import classNames from 'classnames';
-import { withStyles, withWidth } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 // Material components
 import { Drawer } from '@material-ui/core';
 //Custom components
 import { Topbar, Sidebar, Footer } from '../../layout';
-import { classPrivateProperty } from '@babel/types';
 
 //Firebase
 import { firebaseDb } from '../../firebase';
@@ -91,7 +88,7 @@ componentWillReceiveProps(nextProps) {
   };
 
   render() {
-    const { classes, authenticated, signOut, id, width, location } = this.props;
+    const { classes, authenticated, signOut, id, width } = this.props;
     const { isOpen } = this.state;
 
     const isMobile = ['xs', 'sm', 'md'].includes(width);
