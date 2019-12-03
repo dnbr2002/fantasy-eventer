@@ -13,7 +13,8 @@ import history from './history';
 import configureStore from './store';
 import registerServiceWorker from './utils/register-service-worker';
 import App from './views/app';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+// import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '../src/common/theme';
 
 const store = configureStore();

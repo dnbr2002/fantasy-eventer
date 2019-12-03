@@ -178,7 +178,7 @@ class TeamPage extends Component {
         <br />
         <Portlet className={classes.sticky} >
           <PortletContent>
-            <Team team={this.props.team} profileDetail={profileDetail} {...this.props} />
+            <Team team={this.props.team} profiledetail={profileDetail} {...this.props} />
           </PortletContent>
         </Portlet>
         <br />

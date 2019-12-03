@@ -3,8 +3,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
-import Profile from "@material-ui/icons/AccountBoxOutlined";
-import Rules from "@material-ui/icons/DescriptionOutlined";
+import Profile from "../icon/profile/profileIcon";
+import Rules from "../icon/rules/rulesIcon";
 // core components
 import GridContainer from "../grid/gridContainer";
 import GridItem from "../grid/gridItem.js";

@@ -1,18 +1,10 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import {
-    Divider,
-    Grid,
-    Paper,
     Typography
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Portlet from '../../components/Portlet';
 import PortletContent from '../../components/PortletContent';
-import PortletHeader from '../../components/PortletHeader';
-import PortletFooter from '../../components/PortletFooter';
-import PortletLabel from '../../components/PortletLabel';
 
 const styles = theme => ({
     root: {},
@@ -67,7 +59,7 @@ function NewsLink(props) {
                 console.log("NEWITEMS1", props.news.items)
                 setNewsItems(props.news.items)
             }
-        }, [items])
+        }, [props.news, items.length])
 
     function parsecontentSnippet(value) {
          var newString = value.replace("&nbsp;", " ");
@@ -97,7 +89,6 @@ function NewsLink(props) {
     return (
         <div>
             {getNewsLinks().map((item, index) => (
-                console.log("MC2::", item),
                 <Fragment>
                     <Portlet
                         {...rest}
@@ -110,7 +101,7 @@ function NewsLink(props) {
                                         className={classes.newsText}
                                         variant="h3"
                                     >
-                                        <a href={item.value.link} target="_blank">  {item.value.title} </a>
+                                        <a href={item.value.link} target="_blank" rel="noopener noreferrer">  {item.value.title} </a>
                                     </Typography>
 
                                     <Typography

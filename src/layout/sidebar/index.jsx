@@ -49,7 +49,7 @@ import 'loaders.css/src/animations/line-scale.scss'
 
 
 function Sidebar(props) {
-    console.log("SIDEBARPROPS::", props)
+    // console.log("SIDEBARPROPS::", props)
 
     // var loaderStyle = {
     //     color: 'black'
@@ -65,7 +65,7 @@ function Sidebar(props) {
     useLayoutEffect(
         () => {
             firebaseDb.ref(`users`).child(`${id}`).child(`${id}`).on('value', snapshot => {
-                console.log("PROFILENAME::", snapshot.val());
+                // console.log("PROFILENAME::", snapshot.val());
                 if (snapshot.exists()) {
                     setName(snapshot.val().profileName);
                     setPic(snapshot.val().profilePic);
@@ -85,10 +85,10 @@ function Sidebar(props) {
 
     const rootClassName = classNames(classes.root, className);
 
-    console.log("SIDEBARPROPS2::", props)
+    // console.log("SIDEBARPROPS2::", props)
 
     return (
-        console.log("SIDEBARPROPS3::", role),
+        // console.log("SIDEBARPROPS3::", role),
         <div>
             {role !== "admin" ?
                 <nav className={rootClassName}>
@@ -136,7 +136,7 @@ function Sidebar(props) {
                     >
                         <a href="./">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -150,7 +150,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./profile">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -164,7 +164,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./teampage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -179,7 +179,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./leaguepage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -193,7 +193,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./schedulepage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -207,7 +207,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./rulespage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -221,7 +221,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./newsfeedpage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -246,7 +246,7 @@ function Sidebar(props) {
                     >
                         <a href="./contactpage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -306,7 +306,7 @@ function Sidebar(props) {
                     >
                         <a href="./">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -320,7 +320,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./profile">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -334,7 +334,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./teampage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -349,7 +349,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./leaguepage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -363,7 +363,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./schedulepage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -377,7 +377,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./rulespage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -391,7 +391,7 @@ function Sidebar(props) {
                         </a>
                         <a href="./newsfeedpage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>
@@ -416,7 +416,7 @@ function Sidebar(props) {
                     >
                         <a href="./contactpage">
                             <ListItem
-                                activeClassName={classes.activeListItem}
+                                activeclassname={classes.activeListItem}
                                 className={classes.listItem}
                             >
                                 <ListItemIcon className={classes.listItemIcon}>

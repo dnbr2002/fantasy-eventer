@@ -18,7 +18,7 @@ export default function Parallax(props) {
   } else {
     windowScrollTop = 0;
   }
-  const [transform, setTransform] = React.useState(
+  const [transform] = React.useState(
     "translate3d(0," + windowScrollTop + "px,0)"
   );
   // React.useEffect(() => {

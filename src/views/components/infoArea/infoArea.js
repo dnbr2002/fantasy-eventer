@@ -43,11 +43,11 @@ export default function InfoArea(props) {
 }
 
 InfoArea.defaultProps = {
-  iconColor: "gray"
+  iconColor: "gray",
 };
 
 InfoArea.propTypes = {
-  icon: PropTypes.object.isRequired,
+  icon: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   iconColor: PropTypes.oneOf([
@@ -57,7 +57,8 @@ InfoArea.propTypes = {
     "success",
     "info",
     "rose",
-    "gray"
+    "gray", 
+    "black"
   ]),
   vertical: PropTypes.bool
 };

@@ -247,7 +247,7 @@ export function bulkUpdateScores(competitors) {
         let totalScores = []
         team.map(key => {
           // eslint-disable-next-line
-          competitors.map(competitor => {
+          return competitors.map(competitor => {
             if (key === competitor.key) {
               totalScores.push(Number(competitor.score))
             }

@@ -37,7 +37,7 @@ class ProfilePage extends Component {
     }
 
     render() {
-        console.log("PROFILEPROPS::", this.props)
+        // console.log("PROFILEPROPS::", this.props)
         const { classes, className } = this.props;
         const rootClassName = classNames(classes.root, className);
         return (

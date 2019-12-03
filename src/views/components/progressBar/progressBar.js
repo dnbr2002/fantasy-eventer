@@ -32,19 +32,17 @@ const styles = theme => ({
 
 
 export function ProgressBar(props) {
-    const { profileDetail, classes } = props;
+    const { profiledetail, classes } = props;
     const [completeness, setCompleteness] = useState(0)
 
     useEffect(() => {
-        if (profileDetail) {
-            setCompleteness(profileDetail.teamKeysTier1.split(",").filter(x => { return x.length !== 0 }).length + profileDetail.teamKeysTier2.split(",").filter(x => { return x.length !== 0 }).length)
+        if (profiledetail) {
+            setCompleteness(profiledetail.teamKeysTier1.split(",").filter(x => { return x.length !== 0 }).length + profiledetail.teamKeysTier2.split(",").filter(x => { return x.length !== 0 }).length)
         }
-    }, [profileDetail])
+    }, [profiledetail])
 
     return (
-        console.log("PROGRESS::", props),
-        // <Portlet className={classes.root} >
-        //     <PortletContent >
+        // console.log("PROGRESS::", props),
         <div>
             {completeness > 8 ?
                 <div className={classes.progressWrapper}>
@@ -67,8 +65,6 @@ export function ProgressBar(props) {
                     />
                 </div>}
         </div>
-        //     </PortletContent>
-        // </Portlet>
 
     )
 

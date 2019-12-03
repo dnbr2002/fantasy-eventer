@@ -136,9 +136,8 @@ class Account extends Component {
   render() {
     const { classes, className, ...rest } = this.props;
     const { name, team, pic, email, country } = this.state;
-
     const rootClassName = classNames(classes.root, className);
-    console.log("PROFILEFORMPROPS::", this.props);
+    // console.log("PROFILEFORMPROPS::", this.props);
 
     return (
       <Portlet

@@ -61,9 +61,9 @@ componentWillMount() {
 
 getRole = (id) => {
   firebaseDb.ref(`users`).child(`${id}`).child(`${id}`).on('value', snapshot => {
-      console.log("ADMINAUTH::", snapshot.val());
+      // console.log("ADMINAUTH::", snapshot.val());
       if (snapshot.exists()) {
-          console.log("ADMINAUTH::2", snapshot.val().role);
+          // console.log("ADMINAUTH::2", snapshot.val().role);
           this.setState({ role: snapshot.val().role })
       }
   }
@@ -94,7 +94,7 @@ componentWillReceiveProps(nextProps) {
     const isMobile = ['xs', 'sm', 'md'].includes(width);
     const shiftTopbar = isOpen && !isMobile;
     const shiftContent = isOpen && !isMobile;
-    console.log("APPPROPS::",this.props)
+    // console.log("APPPROPS::",this.props)
     return (
       <div>
         {authenticated ? 

@@ -6,7 +6,7 @@ const RequireAuthRoute = ({component: Component, authenticated, ...rest}) => (
   <Route
     {...rest}
     render={props => {
-      console.log("AUTH::", authenticated)
+      // console.log("AUTH::", authenticated)
       return authenticated ? (
         <Component {...props} />
       ) : (

@@ -64,7 +64,6 @@ const HeaderCellBase = ({ classes, className, ...restProps }) => (
 const HeaderCell = withStyles(styles, { name: 'HeaderCellBase' })(HeaderCellBase);
 
 const DetailCellBase = ({ classes, className, ...restProps }) => (
-    console.log("RESTPROPS::", { ...restProps }),
     <TableHeaderRow.Cell
         {...restProps}
         className={`${classes.detail} ${className}`}
@@ -134,7 +133,7 @@ class LeagueTable extends React.Component {
     render() {
         console.log("LTPROPS::", this.props);
         const { classes, compStatus } = this.props;
-        const { columns, rows, expandedRowIds, pageSizes, loading } = this.state;
+        const { columns, rows, expandedRowIds, loading } = this.state;
         if (loading) {
             return (
                 <div className={classes.progressWrapper}>

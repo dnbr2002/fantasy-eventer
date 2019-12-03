@@ -1,4 +1,6 @@
-import firebase from 'firebase';
+// import firebase from 'firebase';
+// import firebase from 'firebase/auth';
+import { auth } from 'firebase/app';
 import { firebaseAuth } from 'src/firebase';
 import { createProfileFromSignUp, createProfileFromSocialLogin } from './profileActions.js';
 import {
@@ -6,7 +8,7 @@ import {
   SIGN_IN_ERROR,
   SIGN_IN_SUCCESS,
   SIGN_OUT_SUCCESS,
-  SIGN_UP_SUCCESS,
+  // SIGN_UP_SUCCESS,
   SIGN_UP_ERROR,
   SIGN_IN_EMAIL_SUCCESS,
   SIGN_IN_EMAIL_ERROR
@@ -30,7 +32,7 @@ function authenticate(provider) {
 }
 
 export function initAuth(user) {
-  console.log("AUTHUSER::", user);
+  // console.log("AUTHUSER::", user);
   return {
     type: INIT_AUTH,
     payload: user
@@ -55,7 +57,7 @@ export function signInError(error) {
 }
 
 export function signInSuccess(result) {
-  console.log('SISUCCESS::', result);
+  // console.log('SISUCCESS::', result);
   // return createProfileFromSocialLogin(result)
   return {
     type: SIGN_IN_SUCCESS,
@@ -64,7 +66,7 @@ export function signInSuccess(result) {
 }
 
 export function signInEmailSuccess(result) {
-  console.log('SISUCCESS::', result);
+  // console.log('SISUCCESS::', result);
   return {
     type: SIGN_IN_EMAIL_SUCCESS,
     payload: result
@@ -72,7 +74,7 @@ export function signInEmailSuccess(result) {
 }
 
 export function signInEmailError(error) {
-  console.log('SISUCCESS::', error);
+  // console.log('SISUCCESS::', error);
   return {
     type: SIGN_IN_EMAIL_ERROR,
     payload: error
@@ -80,13 +82,13 @@ export function signInEmailError(error) {
 }
 
 export function signUpSuccess(result, profileData) {
-  console.log("RESULT::",result);
+  // console.log("RESULT::",result);
   return createProfileFromSignUp(profileData, result)
-  return {
-    type: SIGN_UP_SUCCESS,
-    payload: result.user,
-    container: toastr.info('Registration completed successfully.  Please Login now', { timeOut: 9000, closeButton: true, })
-  };
+  // return {
+  //   type: SIGN_UP_SUCCESS,
+  //   payload: result.user,
+  //   container: toastr.info('Registration completed successfully.  Please Login now', { timeOut: 9000, closeButton: true, })
+  // };
 }
 
 export function signUpError(error) {
@@ -120,17 +122,17 @@ export function signInWithEmail(email, pass) {
 
 
 export function signInWithFacebook() {
-  return authenticate(new firebase.auth.FacebookAuthProvider());
+  return authenticate(new auth.FacebookAuthProvider());
 }
 
 
 export function signInWithGoogle() {
-  return authenticate(new firebase.auth.GoogleAuthProvider());
+  return authenticate(new auth.GoogleAuthProvider());
 }
 
 
 export function signInWithTwitter() {
-  return authenticate(new firebase.auth.TwitterAuthProvider());
+  return authenticate(new auth.TwitterAuthProvider());
 }
 
 

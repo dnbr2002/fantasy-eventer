@@ -45,7 +45,7 @@ const Team = ({ team, classes, profileDetail }, props) => {
                     </Grid>
                 </Grid>
 
-                <ProgressBar profileDetail={profileDetail} {...props} />
+                <ProgressBar profiledetail={profileDetail} {...props} />
             </div>
         );
     }

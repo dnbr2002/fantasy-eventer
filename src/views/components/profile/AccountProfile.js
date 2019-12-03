@@ -60,7 +60,7 @@ const styles = theme => ({
 
 
 function AccountProfile(props) {
-  console.log("ACCTPROFPROPS::",props);
+  // console.log("ACCTPROFPROPS::",props);
   const { classes, className, profileDetail, ...rest } = props;
   const [name, setName] = useState("");
   const [team, setTeam] = useState("");
@@ -94,10 +94,6 @@ function AccountProfile(props) {
 
 
     const rootClassName = classNames(classes.root, className);
-    console.log("KEYS1::",tier1Count);
-    console.log("KEYS2::",tier2Count);
-    console.log("KEYS3::",completeness);
-
     if (loading) {
       return (
         <div className={classes.loader}>
