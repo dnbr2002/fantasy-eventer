@@ -134,7 +134,7 @@ class Account extends Component {
   }
 
   render() {
-    const { classes, className, ...rest } = this.props;
+    const { classes, className, staticContext, profile, ...rest } = this.props;
     const { name, team, pic, email, country } = this.state;
     const rootClassName = classNames(classes.root, className);
     // console.log("PROFILEFORMPROPS::", this.props);
@@ -228,7 +228,6 @@ class Account extends Component {
                   <option
                     key={index}
                     value={option.abbreviation}
-                    selected={option.country}
                   >
                     {option.country}
                   </option>

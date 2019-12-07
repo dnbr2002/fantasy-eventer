@@ -33,15 +33,15 @@ const styles = theme => ({
 
 
 const Competition = ({ classes, competition }) => {
-    console.log("Comp::", competition);
+    // console.log("Comp::", competition);
     if (competition && competition.list.size > 0) {
         let sortedCompetition = competition.list.sort((a, b) => new Date(...b.date.split('/')) - new Date(...a.date.split('/')));
         return (
             <div>
-                {sortedCompetition.map(comp => (
-                    <Portlet>
+                {sortedCompetition.map((comp, key) => (
+                    <Portlet key={key}>
                         <PortletContent>
-                            <Grid key={comp.key} item>
+                            <Grid item>
                                 {/* <Paper className={classes.paper} > */}
                                 <Grid>
                                     <img
@@ -98,7 +98,7 @@ const Competition = ({ classes, competition }) => {
 };
 
 Competition.propTypes = {
-    Competition: PropTypes.object.isRequired
+    Competition: PropTypes.object
 };
 
 export default withStyles(styles)(Competition);

@@ -93,6 +93,22 @@ const styles = theme => ({
   },
   country: {
     width: 25
+  },
+  progressBar: {
+    position: "-webkit-sticky",
+    top: 0
+  },
+  sticky: {
+    background: 'white',
+    // position: '-webkit-sticky',
+    position: 'sticky',
+    top: 10,
+    bottom: 0,
+    paddingTop: '10px',
+    paddingBottom: '10px',
+    zIndex: 5,
+    // paddingTop: 0,
+    // paddingBottom: 0,
   }
 });
 
@@ -148,8 +164,6 @@ class Tier2Table extends React.Component {
       teamKeysTier1: this.props.profile.list.get(0).teamKeysTier1,
       teamKeysTier2: competitorKeys.toString()
     }
-    console.log("CHANGES::", changes)
-    console.log("KEY::", this.props.profile.key)
     this.props.updateProfile(this.props.profile.list.get(0).key, changes);
   }
 

@@ -26,20 +26,36 @@ const styles = theme => ({
     },
     paperDivider: {
         width: '100%'
-    }
+    },
+    progressBar: {
+        position: "-webkit-sticky",
+        top: 0
+      },
+      sticky: {
+        background: 'white',
+        // position: '-webkit-sticky',
+        position: 'sticky',
+        top: 10,
+        bottom: 0,
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        zIndex: 5,
+        // paddingTop: 0,
+        // paddingBottom: 0,
+      }
 });
 
 
-const Team = ({ team, classes, profileDetail }, props) => {
-    console.log("TEAM::", team);
+const Team = ({ team,  profileDetail, classes }, props) => {
+    // console.log("TEAM::", props);
     if (team && team.size > 0) {
         return (
             <div>
-                <Grid container className={classes.root} spacing={12}>
+                <Grid container className={classes.root}>
                     <Grid item xs={12}>
                         <Grid container className={classes.demo} justify="center" spacing={Number(1)}>
-                            {team.map(competitor => (
-                                <CompetitorCard competitor={competitor} />
+                            {team.map((competitor, key) => (
+                                <CompetitorCard competitor={competitor} key={key} />
                             ))}
                         </Grid>
                     </Grid>
@@ -68,7 +84,7 @@ const Team = ({ team, classes, profileDetail }, props) => {
 };
 
 Team.propTypes = {
-    team: PropTypes.object.isRequired
+    team: PropTypes.object
 };
 
 export default withStyles(styles)(Team);

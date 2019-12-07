@@ -24,7 +24,7 @@ export const profileFireDB = new FirebaseList({
 }, Profile);
 
 export function createProfile(data) {
-  console.log('CREATEPROFILE::', data)
+  // console.log('CREATEPROFILE::', data)
   var profileName = data.profileName;
   var teamName = data.teamName;
   var profilePic = data.profilePic;
@@ -45,8 +45,8 @@ export function createProfile(data) {
 }
 
 export function createProfileFromSignUp(data, fbData) {
-  console.log('CREATEPROFILE::', data);
-  console.log('CREATEPROFILE2::', fbData);
+  // console.log('CREATEPROFILE::', data);
+  // console.log('CREATEPROFILE2::', fbData);
   var profileName = data.profileName;
   var teamName = data.teamName;
   var profilePic = data.profilePic;
@@ -58,7 +58,7 @@ export function createProfileFromSignUp(data, fbData) {
   var teamKeysTier2 = '';
   var uid = fbData.user.uid;
   return dispatch => {
-    console.log("AUTHID::", uid);
+    // console.log("AUTHID::", uid);
     profileFireDB.path = `users/${uid}`;
     profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid, score, rank, teamKeysTier1, teamKeysTier2 })
       .then(result => dispatch(createProfileSuccess(result)))
@@ -67,7 +67,7 @@ export function createProfileFromSignUp(data, fbData) {
 }
 
 export function createProfileFromSocialLogin(metaData) {
-  console.log('CREATEPROFILE::', metaData)
+  // console.log('CREATEPROFILE::', metaData)
   var profileName = metaData.user.displayName;
   var teamName;
   if(metaData.credential.providerId === "google.com") {
@@ -86,10 +86,10 @@ export function createProfileFromSocialLogin(metaData) {
   var teamKeysTier2 = '';
   var uid = metaData.user.uid;
   return dispatch => {
-    console.log("CREATEPROFILE1::", uid);
+    // console.log("CREATEPROFILE1::", uid);
     firebaseDb.ref(`users`).child(`${uid}`).once('value').then(snapshot => {
       if (!snapshot.exists()) {
-        console.log('CREATEPROFILE2::', uid)
+        // console.log('CREATEPROFILE2::', uid)
         profileFireDB.path = `users/${uid}`;
         profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid, score, rank, teamKeysTier1, teamKeysTier2 })
           .then(result => dispatch(createProfileSuccess(result)))
@@ -101,7 +101,7 @@ export function createProfileFromSocialLogin(metaData) {
 
 
 export function createProfileSuccess(data) {
-  console.log('CREATEPROFILESUSUCCESS::', data)
+  // console.log('CREATEPROFILESUSUCCESS::', data)
   return {
     type: types.CREATE_PROFILE_SUCCESS,
     payload: data,
@@ -109,7 +109,7 @@ export function createProfileSuccess(data) {
 }
 
 export function createProfileError(error) {
-  console.log('CREATEPROFILEEROR::', error)
+  // console.log('CREATEPROFILEEROR::', error)
   return {
     type: types.CREATE_PROFILE_ERROR,
     payload: error,
@@ -141,18 +141,16 @@ export function loadProfileError(error) {
 }
 
 export function updateProfile(key, changes) {
-  console.log("PROFILECHANGES0::",changes + key);
-  console.log("PROFILECHANGES1::",key);
-  return (dispatch, getState) => {
-    const { auth } = getState();
-    console.log("PROFILECHANGES2::", auth.id);
+  // console.log("PROFILECHANGES0::",changes + key);
+  // console.log("PROFILECHANGES1::",key);
+  return (dispatch) => {
     profileFireDB.update(key, changes)
       .catch(error => dispatch(updateProfileError(error)));
   };
 }
 
 export function updateProfileSuccess(profile) {
-  console.log("PROFILECHANGESSUCCESS::",profile);
+  // console.log("PROFILECHANGESSUCCESS::",profile);
   return {
     type: types.UPDATE_PROFILE_SUCCESS,
     payload: profile
@@ -160,7 +158,7 @@ export function updateProfileSuccess(profile) {
 }
 
 export function updateProfileError(error) {
-  console.log("PROFILECHANGESERROR::",error);
+  // console.log("PROFILECHANGESERROR::",error);
   return {
     type: types.UPDATE_PROFILE_ERROR,
     payload: error

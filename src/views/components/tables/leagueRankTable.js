@@ -127,8 +127,8 @@ class LeagueRanktTable extends React.Component {
     render() {
         const { classes } = this.props;
         const { columns, rows, expandedRowIds, loading } = this.state;
-        console.log("RANKPROPS::", this.props)
-        console.log("RANK::", this.props.league.filter(x => x.uid === this.props.auth.id))
+        // console.log("RANKPROPS::", this.props)
+        // console.log("RANK::", this.props.league.filter(x => x.uid === this.props.auth.id))
         if (loading) {
             return (
                 <div className={classes.progressWrapper}>

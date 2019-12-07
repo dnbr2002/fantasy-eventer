@@ -87,16 +87,13 @@ class TeamPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("CDUPROPS::", this.props);
     if (prevProps.competition.size !== this.props.competition.size) {
       this.renderEventName();
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("RENDADDTEAM::", nextProps.compStatus)
     if (nextProps.compStatus !== this.state.compStatus) {
-      console.log("RENDADDTEAM::2", nextProps.compStatus);
       this.renderAddTeam(nextProps.compStatus);
       this.setState({ compStatus: nextProps.compStatus })
     }
@@ -126,19 +123,16 @@ class TeamPage extends Component {
 
   renderEventName = () => {
     const { competition } = this.props
-    console.log("competion::", competition.list)
     if (competition.size > 0) {
       competition.list.slice(0, 1).forEach(evt => {
-        console.log("here::", evt)
         this.setState({ eventName: evt.name })
       })
     }
   }
 
   renderAddTeam = (status) => {
-    console.log("RENDADDTEAM::3", status)
+    console.log("STATUS::",status);
     if (status) {
-      console.log("RENDADDTEAM::4", status)
       return (
         <Portlet>
           <PortletHeader>
@@ -152,7 +146,6 @@ class TeamPage extends Component {
     }
 
     else {
-      console.log("RENDADDTEAM::5", status)
       return (
         <div>
         <div>
@@ -167,7 +160,7 @@ class TeamPage extends Component {
   }
 
   render() {
-    console.log("TEAMPROPS::", this.props)
+    // console.log("TEAMPROPS::", this.props)
     const { classes, className, profileDetail, compStatus } = this.props;
     const rootClassName = classNames(classes.root, className);
     return (

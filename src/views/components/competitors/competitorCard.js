@@ -29,7 +29,7 @@ const styles = theme => ({
     },
     content: {
       textAlign: "left",
-      padding: theme.spacing.unit * 1
+      padding: theme.spacing(1)
     },
     divider: {
     //   margin: `${theme.spacing.unit * 3}px 0`

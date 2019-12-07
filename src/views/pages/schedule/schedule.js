@@ -27,7 +27,7 @@ const styles = theme => ({
     render() {
         const { classes, className } = this.props;
         const rootClassName = classNames(classes.root, className);
-        console.log("COMPETITON::",this.props);
+        // console.log("COMPETITON::",this.props);
         return (
             <div className={rootClassName}>
             {/* <div className="g-row">

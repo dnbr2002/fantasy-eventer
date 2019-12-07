@@ -4,21 +4,21 @@ var reduceArray = [];
 var sorted = [];
 
 export function getLeagueState(state) {
-    console.log("LEAGUESTATE::", state);
+    // console.log("LEAGUESTATE::", state);
     if (state) {
         return state;
     }
 }
 
 export function getLeagueList(state) {
-    console.log("LEAGUESTATE2::", state);
+    // console.log("LEAGUESTATE2::", state);
     // if (!Array.isArray(state) || !state.length) {
         if (state.length > 0) {
         reduceArray = state.reduce((reduceArray, obj) => {
         if (obj[Object.keys(obj)[0]].teamKeysTier1.split(",").length === 3 && obj[Object.keys(obj)[0]].teamKeysTier2.split(",").length === 6) {
           reduceArray.push(obj[Object.keys(obj)[0]]);
         }
-        console.log("LEAGUESTATE3::", reduceArray);
+        // console.log("LEAGUESTATE3::", reduceArray);
         return reduceArray
       }, []);
     }
@@ -27,12 +27,12 @@ export function getLeagueList(state) {
 export function getSortedList() {
     sorted = reduceArray.slice().sort((a, b) => a.score > b.score ? 1 : -1);
     sorted.map((x, index) => x.rank = index + 1)
-    console.log("LEAGUESTATE4::", sorted);
+    // console.log("LEAGUESTATE4::", sorted);
     return sorted;
 }
 
 export function getLeagueRanking() {
-    console.log("LEAGUESTATE5::", sorted);
+    // console.log("LEAGUESTATE5::", sorted);
     var rankLeague = []
     if (sorted) {
         for (var i = 0; i < sorted.length; i++) {
@@ -52,7 +52,7 @@ export function getLeagueRanking() {
                 }
             }
         }
-        console.log("LEAGUESTATE6::", rankLeague);
+        // console.log("LEAGUESTATE6::", rankLeague);
         return rankLeague;
     }
 }

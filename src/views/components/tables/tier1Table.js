@@ -11,7 +11,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { List } from 'immutable';
-import Grid from '@material-ui/core/Grid';
 import toastr from 'toastr';
 
 
@@ -38,18 +37,11 @@ let Tier1TableToolbar = props => {
     return (
         <Toolbar className={classes.root}>
             {numSelected > 0 ? (
-                <Grid container spacing={24}>
-                    <Grid item xs={12} sm={6}>
-                        <Typography color="inherit" variant="h4">
-                            {numSelected} Tier 1 Competitors selected
+                <Typography color="inherit" variant="h4">
+                    {numSelected} Tier 1 Competitors selected
+                    <br />
+                    {eventName}
           </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Typography color="inherit" variant="h4">
-                            {eventName}
-                        </Typography>
-                    </Grid>
-                </Grid>
             ) : (
                     <Typography variant="h4" id="tableTitle" className={classes.root}>
                         Pick {numComps + 1} Tier 1 Competitors
@@ -100,7 +92,23 @@ const styles = theme => ({
     },
     tablerow: {
         backgroundColor: theme.palette.primary.main
-    }
+    },
+    progressBar: {
+        position: "-webkit-sticky",
+        top: 0
+      },
+      sticky: {
+        background: 'white',
+        // position: '-webkit-sticky',
+        position: 'sticky',
+        top: 10,
+        bottom: 0,
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        zIndex: 5,
+        // paddingTop: 0,
+        // paddingBottom: 0,
+      }
 });
 
 const CustomHeaderCell = withStyles(theme => ({
@@ -136,11 +144,10 @@ class Tier1Table extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (typeof prevProps.team !== "undefined") {
-        console.log('PREPROPS::', prevProps)
-        if (prevProps.team.size !== this.props.team.size) {
-            this.renderChecks(this.props.team);
+            if (prevProps.team.size !== this.props.team.size) {
+                this.renderChecks(this.props.team);
+            }
         }
-    }
     }
 
     renderChecks(team) {
@@ -183,8 +190,6 @@ class Tier1Table extends React.Component {
             teamKeysTier1: competitorKeys.toString(),
             teamKeysTier2: this.props.profile.list.get(0).teamKeysTier2
         }
-        console.log("CHANGES::", changes)
-        console.log("KEY::", this.props.profile.list.get(0).key)
         this.props.updateProfile(this.props.profile.list.get(0).key, changes);
     }
 
@@ -279,7 +284,7 @@ class Tier1Table extends React.Component {
                                                 />
                                             </TableCell>
                                             <TableCell>{competitor.value.description}</TableCell>
-                                            <TableCell><img src={"https://www.countryflags.io/"+competitor.value.country+"/shiny/64.png"} width="40" height="30" alt={competitor.value.country} /></TableCell>
+                                            <TableCell><img src={"https://www.countryflags.io/" + competitor.value.country + "/shiny/64.png"} width="40" height="30" alt={competitor.value.country} /></TableCell>
                                         </TableRow>
                                     );
                                 })}

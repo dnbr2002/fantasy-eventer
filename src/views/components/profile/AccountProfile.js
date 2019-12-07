@@ -37,6 +37,22 @@ const styles = theme => ({
       flexShrink: 0,
       flexGrow: 0
     },
+    progressBar: {
+      position: "-webkit-sticky",
+      top: 0
+    },
+    sticky: {
+      background: 'white',
+      // position: '-webkit-sticky',
+      position: 'sticky',
+      top: 10,
+      bottom: 0,
+      paddingTop: '10px',
+      paddingBottom: '10px',
+      zIndex: 5,
+      // paddingTop: 0,
+      // paddingBottom: 0,
+    },
     progressWrapper: {
       marginTop: theme.spacing(2)
     },
@@ -70,9 +86,9 @@ function AccountProfile(props) {
   const [countryName, setCountryName] = useState("");
   const [eventScore, setEventScore] = useState(0)
   const [eventRank, setEventRank] = useState(0);
-  const [tier1Count, setTier1Count] = useState(0);
-  const [tier2Count, setTier2Count] = useState(0);
-  const [completeness, setCompleteness] = useState(0)
+  // const [tier1Count, setTier1Count] = useState(0);
+  // const [tier2Count, setTier2Count] = useState(0);
+  // const [completeness, setCompleteness] = useState(0)
 
 
   useEffect(() => {
@@ -85,9 +101,9 @@ function AccountProfile(props) {
         setEventScore(profileDetail.score);
         setEventRank(profileDetail.rank);
         setLoading(false);
-        setTier1Count(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length !== 0}).length)
-        setTier2Count(profileDetail.teamKeysTier2.split(",").filter(x => {return x.length !== 0}).length)
-        setCompleteness(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length !== 0}).length + profileDetail.teamKeysTier2.split(",").filter(x => {return x.length !== 0}).length)
+        // setTier1Count(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length !== 0}).length)
+        // setTier2Count(profileDetail.teamKeysTier2.split(",").filter(x => {return x.length !== 0}).length)
+        // setCompleteness(profileDetail.teamKeysTier1.split(",").filter(x => {return x.length !== 0}).length + profileDetail.teamKeysTier2.split(",").filter(x => {return x.length !== 0}).length)
       }
   }, [profileDetail])
 

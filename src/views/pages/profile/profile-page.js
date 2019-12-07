@@ -38,7 +38,7 @@ class ProfilePage extends Component {
 
     render() {
         // console.log("PROFILEPROPS::", this.props)
-        const { classes, className } = this.props;
+        const { classes, className, profileDetail } = this.props;
         const rootClassName = classNames(classes.root, className);
         return (
             <div className={rootClassName}>
@@ -55,7 +55,7 @@ class ProfilePage extends Component {
             >
                 <AccountProfile {...this.props} />
                 <br />
-                <ProgressBar {...this.props} />
+                <ProgressBar profiledetail={profileDetail} {...this.props} />
             </Grid>
 
             <Grid

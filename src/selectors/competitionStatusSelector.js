@@ -19,11 +19,11 @@ export function getCompetitionList(state) {
 // }
 
 export function getCompetitionStatus(competition) {
+    console.log("STATUS::1",competition);
     let sortedCompetition = competition.some(x => {
-        console.log("COMPSTATUS::",x);
        return x.active === "true"
     });
-    console.log("COMPSTATUS::1",sortedCompetition);
+    console.log("STATUS::2",sortedCompetition);
     return sortedCompetition
 }
 

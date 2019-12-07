@@ -19,7 +19,7 @@ const styles = () => ({
 });
 
 const Portlet = props => {
-  const { classes, className, children, ...rest } = props;
+  const { classes, className, children, profileDetail, staticContext, profile, ...rest } = props;
 
   const rootClassName = classNames(classes.root, className);
 

@@ -39,7 +39,7 @@ class RulesPage extends Component {
                     </Typography>
                     </PortletContent>
                     <PortletContent>
-                        <Typography variant="subtitle1" component="subtitle1">
+                        <Typography variant="subtitle1">
                             <blockquote>
                                 1.1.1 Team consists of 9 players you select up to 1 hour before start time of major FE Event.  3 Tier One Competitor, 6 Tier Two Competitors.
                                 <br />
@@ -60,7 +60,7 @@ class RulesPage extends Component {
                     </Typography>
                     </PortletContent>
                     <PortletContent>
-                        <Typography variant="subtitle1" component="subtitle1">
+                        <Typography variant="subtitle1">
                             <blockquote>
                                 1.2.1 Combined score of 3 Tier One Competitors and 6 Tier Two Competitors equals total Team Score.
                                 <br />
@@ -81,7 +81,7 @@ class RulesPage extends Component {
                     </Typography>
                     </PortletContent>
                     <PortletContent>
-                        <Typography variant="subtitle1" component="subtitle1">
+                        <Typography variant="subtitle1">
                             <blockquote>
                                 1.3.1 This a fantasy game site not a betting site.  While we promise to make every effort to give you the best fantasy game experience we make no gaurantees about the accuracy of the information on this site in regards to stats and scores.
                         </blockquote>
