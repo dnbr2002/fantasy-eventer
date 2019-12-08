@@ -1,7 +1,7 @@
 import { Simulate } from 'react-dom/test-utils';
 import { findDOMNode } from 'react-dom';
 import sinon from 'sinon';
-import { createTestComponent } from 'src/utils/create-test-component';
+import { createTestComponent } from '/utils/create-test-component';
 import TaskForm from './task-form';
 
 

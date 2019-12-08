@@ -1,7 +1,7 @@
 // import './views/styles/styles.css';
 import '../node_modules/toastr/build/toastr.min.css';
 import 'react-perfect-scrollbar/dist/css/styles.css'
-import '../src/assets/index.scss'
+import 'assets/index.scss'
 
 
 import React from 'react';
@@ -15,7 +15,7 @@ import registerServiceWorker from './utils/register-service-worker';
 import App from './views/app';
 // import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
-import theme from '../src/common/theme';
+import theme from 'common/theme';
 
 const store = configureStore();
 const rootElement = document.getElementById('root');

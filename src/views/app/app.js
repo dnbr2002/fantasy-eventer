@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import { authActions, getAuth } from 'src/auth';
+import { authActions, getAuth } from 'auth';
 import RequireAuthRoute from '../components/require-auth-route';
 import RequireAdminRoute from '../components/require-admin-route';
 import RequireUnauthRoute from '../components/require-unauth-route';

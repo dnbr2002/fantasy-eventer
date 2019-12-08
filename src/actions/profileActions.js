@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import { Record } from 'immutable';
-import { FirebaseList, firebaseDb } from 'src/firebase';
+import { FirebaseList, firebaseDb } from 'firebase/index.js';
 
 export const Profile = Record({
   key: '',

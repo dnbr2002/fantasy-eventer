@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
-import { Task } from 'src/tasks';
-import { createTestComponent } from 'src/utils/create-test-component';
+import { Task } from '/tasks';
+import { createTestComponent } from '/utils/create-test-component';
 import TaskItem from './task-item';
 
 

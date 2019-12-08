@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import { Record } from 'immutable';
-import { FirebaseList } from 'src/firebase';
+import { FirebaseList } from 'firebase/index.js';
 
 export const CompInfo = new Record({
   name: null,

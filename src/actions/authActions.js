@@ -1,7 +1,7 @@
 // import firebase from 'firebase';
 // import firebase from 'firebase/auth';
 import { auth } from 'firebase/app';
-import { firebaseAuth } from 'src/firebase';
+import { firebaseAuth } from 'firebase/index.js';
 import { createProfileFromSignUp, createProfileFromSocialLogin } from './profileActions.js';
 import {
   INIT_AUTH,

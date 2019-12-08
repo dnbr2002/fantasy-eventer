@@ -1,7 +1,6 @@
 import * as types from './actionTypes';
 import { Record } from 'immutable';
-import { FirebaseList } from 'src/firebase';
-import { firebaseDb } from '../firebase';
+import { FirebaseList, firebaseDb } from 'firebase/index.js';
 import toastr from 'toastr';
 // import _ from 'lodash';
 import toArray from 'lodash/toArray';
