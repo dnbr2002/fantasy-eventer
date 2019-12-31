@@ -13,7 +13,7 @@ import { withStyles } from '@material-ui/core';
 import {
     IconButton,
     Toolbar,
-    Typography
+    // Typography
 } from '@material-ui/core';
 
 // Material icons
@@ -22,6 +22,9 @@ import {
     Close as CloseIcon,
     Input as InputIcon
 } from '@material-ui/icons';
+
+//Cusom Componenents
+import FELogo from '../../views/components/logos/FELogo';
 
 // Component styles
 import styles from './styles';
@@ -48,7 +51,7 @@ class Topbar extends Component {
         const {
             classes,
             className,
-            title,
+            // title,
             isSidebarOpen,
             onToggleSidebar,
             signOut,
@@ -70,13 +73,27 @@ class Topbar extends Component {
                                 >
                                     {isSidebarOpen ? <CloseIcon /> : <MenuIcon />}
                                 </IconButton>
-                                <Typography
+                                {/* <Typography
                                     className={classes.title}
                                     variant="h4"
                                     color="textSecondary"
                                 >
                                     {title}
-                                </Typography>
+                                </Typography> */}
+                                {/* <img
+                                alt="Brainalytica logo"
+                                className={classes.logoImage}
+                                src="/images/logos/fe415.JPG"
+                                height="50"
+                                width="275"
+                                hspace="20"
+                                /> */}
+                                {/* <img
+                                alt="FE Logo"
+                                className={classes.logoImage}
+                                src="/images/logos/felogo.png"
+                                /> */}
+                                <FELogo h={220} w={550} vb='800 325 1080 1080' />
                                 <IconButton
                                     className={classes.signOutButton}
                                     onClick={signOut}

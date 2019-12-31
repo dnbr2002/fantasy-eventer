@@ -24,7 +24,7 @@ export default theme => ({
     },
     quoteInner: {
       textAlign: 'center',
-      flexBasis: '600px'
+       flexBasis: '600px'
     },
     quoteText: {
       color: theme.palette.common.white,
@@ -64,8 +64,8 @@ export default theme => ({
       }
     },
     form: {
-      paddingLeft: '100px',
-      paddingRight: '100px',
+      paddingLeft: '200px',
+      paddingRight: '0px',
       paddingBottom: '125px',
       flexBasis: '700px',
       [theme.breakpoints.down('sm')]: {

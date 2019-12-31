@@ -88,11 +88,11 @@ function Sidebar(props) {
     // console.log("SIDEBARPROPS2::", props)
 
     return (
-        // console.log("SIDEBARPROPS3::", role),
+        console.log("SIDEBARPROPS3::", props),
         <div>
             {role !== "admin" ?
                 <nav className={rootClassName}>
-                    <div className={classes.logoWrapper}>
+                    {/* <div className={classes.logoWrapper}>
                         <Link
                             className={classes.logoLink}
                             to="/"
@@ -100,14 +100,15 @@ function Sidebar(props) {
                             <img
                                 alt="Brainalytica logo"
                                 className={classes.logoImage}
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhlALV-ZF5Ubd9k41MsSepJPy3wVj14HSUQdhPGvMhCXmw1NBOMA"
-                                height="25"
-                                width="150"
+                                src="/images/logos/sm.JPG"
+                                height="50"
+                                width="275"
                                 hspace="20"
                             />
                         </Link>
-                    </div>
-                    <Divider className={classes.logoDivider} />
+                    </div> */}
+                    {/* <Divider className={classes.logoDivider} /> */}
+                    <br />
                     <div className={classes.profile}>
                         <Link to="/profile">
                             <Avatar
@@ -262,7 +263,7 @@ function Sidebar(props) {
                 </nav>
                 :
                 <nav className={rootClassName}>
-                    <div className={classes.logoWrapper}>
+                    {/* <div className={classes.logoWrapper}>
                         <Link
                             className={classes.logoLink}
                             to="/"
@@ -270,14 +271,15 @@ function Sidebar(props) {
                             <img
                                 alt="Brainalytica logo"
                                 className={classes.logoImage}
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhlALV-ZF5Ubd9k41MsSepJPy3wVj14HSUQdhPGvMhCXmw1NBOMA"
-                                height="25"
-                                width="150"
+                                src="/images/logos/sm.JPG"
+                                height="50"
+                                width="275"
                                 hspace="20"
                             />
                         </Link>
-                    </div>
-                    <Divider className={classes.logoDivider} />
+                    </div> */}
+                    {/* <Divider className={classes.logoDivider} /> */}
+                    <br />
                     <div className={classes.profile}>
                         <Link to="/profile">
                             <Avatar

@@ -20,7 +20,7 @@ import IconButton from '@material-ui/core/IconButton/index';
 import TextField from '@material-ui/core/TextField/index';
 import Typography from '@material-ui/core/Typography/index';
 
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+// import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 // Shared components
 import { FacebookLoginButton, GoogleLoginButton, TwitterLoginButton } from "react-social-login-buttons";
@@ -83,8 +83,8 @@ class SignIn extends Component {
 
     newState.errors = errors || {};
     newState.isValid = errors ? false : true;
-    if(this._isMounted)
-    this.setState(newState);
+    if (this._isMounted)
+      this.setState(newState);
   }, 300);
 
   handleFieldChange = (field, value) => {
@@ -93,16 +93,16 @@ class SignIn extends Component {
     newState.submitError = null;
     newState.touched[field] = true;
     newState.values[field] = value;
-    if(this._isMounted)
-    this.setState(newState, this.validateForm);
+    if (this._isMounted)
+      this.setState(newState, this.validateForm);
   };
 
   handleSignIn = () => {
     try {
       const { history } = this.props;
       const { values } = this.state;
-      if(this._isMounted)
-      this.setState({ isLoading: true });
+      if (this._isMounted)
+        this.setState({ isLoading: true });
 
       this.props.signInWithEmail(values.email, values.password);
 
@@ -110,12 +110,12 @@ class SignIn extends Component {
 
       history.push('/');
     } catch (error) {
-      if(this._isMounted){
-      this.setState({
-        isLoading: false,
-        serviceError: error
-      });
-    }
+      if (this._isMounted) {
+        this.setState({
+          isLoading: false,
+          serviceError: error
+        });
+      }
     }
   };
 
@@ -139,7 +139,7 @@ class SignIn extends Component {
           className={classes.grid}
           container
         >
-          <Grid
+          {/* <Grid
             className={classes.quoteWrapper}
             item
             lg={5}
@@ -168,7 +168,15 @@ class SignIn extends Component {
                 </div>
               </div>
             </div>
-          </Grid>
+          </Grid> */}
+          <div>
+            <img
+              alt="FE Logo"
+              className={classes.logoImage}
+              src="/images/logos/felogoLogin.png"
+              height=""
+            />
+          </div>
           <Grid
             className={classes.contentWrapper}
             item
@@ -181,7 +189,7 @@ class SignIn extends Component {
                   className={classes.backButton}
                   onClick={this.handleBack}
                 >
-                  <ArrowBackIcon />
+                  {/* <ArrowBackIcon /> */}
                 </IconButton>
                 {/* <a
                   href="https://devias.io"
@@ -209,13 +217,13 @@ class SignIn extends Component {
                   >
                     Sign in with social media
                   </Typography>
-                  <FacebookLoginButton 
+                  <FacebookLoginButton
                     className={classes.facebookButton}
                     color="primary"
-                    onClick={this.props.signInWithFacebook} 
+                    onClick={this.props.signInWithFacebook}
                     size="small"
                     variant="contained"
-                  >                    
+                  >
                     Login with Facebook
                   </FacebookLoginButton>
                   <GoogleLoginButton
@@ -290,17 +298,17 @@ class SignIn extends Component {
                   {isLoading ? (
                     <CircularProgress className={classes.progress} />
                   ) : (
-                    <Button
-                      className={classes.signInButton}
-                      color="primary"
-                      disabled={!isValid}
-                      onClick={this.handleSignIn}
-                      size="large"
-                      variant="contained"
-                    >
-                      Sign in now
+                      <Button
+                        className={classes.signInButton}
+                        color="primary"
+                        disabled={!isValid}
+                        onClick={this.handleSignIn}
+                        size="large"
+                        variant="contained"
+                      >
+                        Sign in now
                     </Button>
-                  )}
+                    )}
                   <Typography
                     className={classes.signUp}
                     variant="body1"
@@ -347,5 +355,5 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-    withStyles(styles),
-    withRouter)(connect(null,mapDispatchToProps)(SignIn));
+  withStyles(styles),
+  withRouter)(connect(null, mapDispatchToProps)(SignIn));

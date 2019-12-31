@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 // Material helpers
 import { 
     withStyles,
-    Typography 
+    // Typography 
 } from '@material-ui/core';
 //import PropTypes from 'prop-types'
 
@@ -25,18 +25,18 @@ class HomePage extends Component {
         
         return (
             <div className={classes.page}>
-                <Parallax filter image={require("../../../assets/images/landing-bg2.jpg")}>
+                <Parallax filter image={require("../../../assets/images/landing-bg2.png")}>
                     <div className={classes.container}>
                         <GridContainer>
                             <GridItem xs={12} sm={12} md={6}>
-                                <Typography className={classes.title} variant="h1">
+                                {/* <Typography className={classes.title} variant="h1">
                                 Welcome Fantasy Eventers
-                                </Typography>
+                                </Typography> */}
                                 {/* <h1 className={classes.title}>Welcome Fantasy Eventers</h1> */}
-                                <h3>
+                                {/* <Typography className={classes.subtitle}  variant="h2">
                                     Test your skills at the biggests events in the world. Pick a team of 
                                     eventers.  Lowest score wins!  
-                                 </h3>
+                                 </Typography> */}
                                 {/* <Button
                                     color="danger"
                                     size="lg"

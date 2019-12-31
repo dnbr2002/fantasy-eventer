@@ -10,8 +10,8 @@ const styles = {
     position: "relative",
     width: "100%",
     minHeight: "1px",
-    paddingRight: "150px",
-    paddingLeft: "150px",
+    paddingRight: "100px",
+    paddingLeft: "100px",
     flexBasis: "auto"
   }
 };

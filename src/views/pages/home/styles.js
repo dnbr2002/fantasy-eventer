@@ -2,7 +2,7 @@ import { container, title } from "../../../assets/jss/material-kit-react";
   
 const landingPageStyle = {
   page: {
-    backgroundColor: "#f0f1f5"
+    backgroundColor: "#f0f1f5",
   },
   container: {
     zIndex: "12",
@@ -10,18 +10,23 @@ const landingPageStyle = {
     ...container
   },
   title: {
-    ...title,
-    display: "inline-block",
-    position: "relative",
-    marginTop: "30px",
+    // ...title,
+    // display: "inline-block",
+    // position: "relative",
+    // marginTop: "30px",
+    marginBottom: "30px",
     minHeight: "32px",
     color: "#FFFFFF",
-    textDecoration: "none",
+    paddingTop: "625px",
+    paddingLeft: "1000px"
+    // textDecoration: "none",
   },
   subtitle: {
-    fontSize: "1.313rem",
-    maxWidth: "500px",
-    margin: "10px auto 0"
+    // fontSize: "1.313rem",
+    // maxWidth: "500px",
+    // margin: "10px auto 0",
+    color: "#FFFFFF",
+    paddingLeft: "1000px"
   },
   main: {
     background: "#FFFFFF",

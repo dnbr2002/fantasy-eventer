@@ -20,6 +20,10 @@ import {
 import Portlet from '../../components/Portlet';
 import PortletContent from '../../components/PortletContent';
 
+//Cusom Componenents
+import FELogo from '../../components/logos/FELogo';
+import FELogoSquare from '../../components/logos/FELogoSquare';
+
 // Component styles
 const styles = theme => ({
     root: {
@@ -89,6 +93,10 @@ class ContactPage extends Component {
                                 label={"https://twitter.com/EventerFantasy"}
                                 labelPlacement="end"
                             />
+
+                            <FELogo h={200} w={550} fb='80 725 1080 1080' />
+                                                    
+                        <FELogoSquare />
                             
                         </div>
                     </PortletContent>
