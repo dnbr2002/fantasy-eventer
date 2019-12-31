@@ -11,26 +11,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { List } from 'immutable';
-import CustomAvatar from '../../components/avatars/avatars';
-import { lighten } from "@material-ui/core/styles/colorManipulator";
-import Grid from '@material-ui/core/Grid';
 import toastr from 'toastr';
 
 
 const toolbarStyles = theme => ({
     root: {
         paddingRight: theme.spacing(1),
+        backgroundColor: theme.palette.primary.medium,
+        color: theme.palette.common.white,
     },
-    highlight:
-        theme.palette.type === 'light'
-            ? {
-                color: theme.palette.secondary.main,
-                backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-            }
-            : {
-                color: theme.palette.text.primary,
-                backgroundColor: theme.palette.secondary.dark,
-            },
     spacer: {
         flex: '1 1 100%',
     },
@@ -39,30 +28,23 @@ const toolbarStyles = theme => ({
     },
     title: {
         flex: '0 0 auto',
-    },
+    }
 });
 
 
 let Tier1TableToolbar = props => {
-    const { numSelected, numComps, eventName } = props;
+    const { numSelected, numComps, eventName, classes } = props;
     return (
-        <Toolbar>
+        <Toolbar className={classes.root}>
             {numSelected > 0 ? (
-                <Grid container spacing={24}>
-                    <Grid item xs={12} sm={6}>
-                        <Typography color="inherit" variant="subheading">
-                            {numSelected} selected
+                <Typography color="inherit" variant="h4">
+                    {numSelected} Tier 1 Competitors selected
+                    <br />
+                    {eventName}
           </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Typography color="inherit" variant="subheading">
-                            {eventName}
-                        </Typography>
-                    </Grid>
-                </Grid>
             ) : (
-                    <Typography variant="title" id="tableTitle">
-                        Pick {numComps + 1}
+                    <Typography variant="h4" id="tableTitle" className={classes.root}>
+                        Pick {numComps + 1} Tier 1 Competitors
                     </Typography>
                 )}
         </Toolbar>
@@ -86,12 +68,53 @@ const styles = theme => ({
     table: {
         minWidth: 100,
     },
+    image: {
+        height: 60,
+        width: 60,
+    },
+    select: {
+        width: 12
+    },
+    horse: {
+        width: 100
+    },
+    rider: {
+        width: 100
+    },
+    avatar: {
+        width: 25
+    },
+    description: {
+        width: 200
+    },
+    country: {
+        width: 25
+    },
+    tablerow: {
+        backgroundColor: theme.palette.primary.main
+    },
+    progressBar: {
+        position: "-webkit-sticky",
+        top: 0
+      },
+      sticky: {
+        background: 'white',
+        // position: '-webkit-sticky',
+        position: 'sticky',
+        top: 10,
+        bottom: 0,
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        zIndex: 5,
+        // paddingTop: 0,
+        // paddingBottom: 0,
+      }
 });
 
 const CustomHeaderCell = withStyles(theme => ({
     head: {
-        backgroundColor: theme.palette.common.white,
-        color: theme.palette.common.black,
+        backgroundColor: theme.palette.primary.medium,
+        color: theme.palette.common.white,
     },
     body: {
         fontSize: 14,
@@ -120,9 +143,10 @@ class Tier1Table extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('PREPROPS::', prevProps)
-        if (prevProps.team.size !== this.props.team.size) {
-            this.renderChecks(this.props.team);
+        if (typeof prevProps.team !== "undefined") {
+            if (prevProps.team.size !== this.props.team.size) {
+                this.renderChecks(this.props.team);
+            }
         }
     }
 
@@ -166,8 +190,6 @@ class Tier1Table extends React.Component {
             teamKeysTier1: competitorKeys.toString(),
             teamKeysTier2: this.props.profile.list.get(0).teamKeysTier2
         }
-        console.log("CHANGES::", changes)
-        console.log("KEY::", this.props.profile.list.get(0).key)
         this.props.updateProfile(this.props.profile.list.get(0).key, changes);
     }
 
@@ -224,14 +246,14 @@ class Tier1Table extends React.Component {
                     />
                     <div>
                         <Table className={classes.table}>
-                            <TableHead>
-                                <TableRow>
-                                    <CustomHeaderCell>Select</CustomHeaderCell>
-                                    <CustomHeaderCell>Horse</CustomHeaderCell>
-                                    <CustomHeaderCell>Rider</CustomHeaderCell>
-                                    <CustomHeaderCell>Avatar</CustomHeaderCell>
-                                    <CustomHeaderCell>Description</CustomHeaderCell>
-                                    <CustomHeaderCell>Country</CustomHeaderCell>
+                            <TableHead className={classes.tablehead}>
+                                <TableRow className={classes.tablerow}>
+                                    <CustomHeaderCell className={classes.select}>Select</CustomHeaderCell>
+                                    <CustomHeaderCell className={classes.horse}>Horse</CustomHeaderCell>
+                                    <CustomHeaderCell className={classes.rider}>Rider</CustomHeaderCell>
+                                    <CustomHeaderCell className={classes.avatar}>Avatar</CustomHeaderCell>
+                                    <CustomHeaderCell className={classes.description}>Description</CustomHeaderCell>
+                                    <CustomHeaderCell className={classes.country}>Country</CustomHeaderCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -255,14 +277,14 @@ class Tier1Table extends React.Component {
                                             </TableCell>
                                             <TableCell>{competitor.value.rider}</TableCell>
                                             <TableCell>
-                                                <CustomAvatar
+                                                <img
+                                                    className={classes.image}
                                                     src={competitor.value.pic}
                                                     alt="competitor pic"
-                                                    bigAvatar="BigAvatar"
                                                 />
                                             </TableCell>
                                             <TableCell>{competitor.value.description}</TableCell>
-                                            <TableCell>{competitor.value.country}</TableCell>
+                                            <TableCell><img src={"https://www.countryflags.io/" + competitor.value.country + "/shiny/64.png"} width="40" height="30" alt={competitor.value.country} /></TableCell>
                                         </TableRow>
                                     );
                                 })}

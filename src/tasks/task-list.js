@@ -1,4 +1,4 @@
-import { FirebaseList } from 'src/firebase';
+import { FirebaseList } from 'firebase/index.js';
 import * as taskActions from '../actions/taskActions';
 import { Task } from './task';
 

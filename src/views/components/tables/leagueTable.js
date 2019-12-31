@@ -1,11 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import * as leagueActions from '../../../actions/leagueActions';
-import * as teamActions from '../../../actions/teamActions';
-import * as adminActions from '../../../actions/adminActions';
+import compose from 'recompose/compose';
 import LeagueRowDetail from './leagueRowDetail';
-import Paper from '@material-ui/core/Paper';
 import {
     RowDetailState,
     SortingState,
@@ -20,16 +16,61 @@ import {
     TableRowDetail,
     PagingPanel
 } from '@devexpress/dx-react-grid-material-ui';
-import Avatar from '@material-ui/core/Avatar';
 
+import { Getter } from "@devexpress/dx-react-core";
 
+//Material IU Components
+import { Avatar, CircularProgress, Paper } from '@material-ui/core';
+// Material helpers
+import { withStyles } from '@material-ui/core';
+
+const styles = theme => ({
+    root: {
+        padding: theme.spacing(3)
+    },
+    content: {
+        marginTop: theme.spacing(2)
+    },
+    progressWrapper: {
+        paddingTop: '48px',
+        paddingBottom: '24px',
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    head: {
+        backgroundColor: theme.palette.primary.medium,
+        color: theme.palette.primary.contrastText
+    },
+    detail: {
+        backgroundColor: '#e4e7eb',
+        color: theme.palette.primary.contrastText
+    }
+});
 
 const TeamAvatar = ({ value, style }) => (
     <Table.Cell>
-        <Avatar alt="Remy Sharp" src={value} />
+        <Avatar alt="avatar imagee for rider" src={value} />
     </Table.Cell>
 );
 
+const HeaderCellBase = ({ classes, className, ...restProps }) => (
+    <TableHeaderRow.Cell
+        {...restProps}
+        className={`${classes.head} ${className}`}
+    />
+);
+
+
+const HeaderCell = withStyles(styles, { name: 'HeaderCellBase' })(HeaderCellBase);
+
+const DetailCellBase = ({ classes, className, ...restProps }) => (
+    <TableHeaderRow.Cell
+        {...restProps}
+        className={`${classes.detail} ${className}`}
+    />
+);
+
+const DetailCell = withStyles(styles, { name: 'DetailCell' })(DetailCellBase);
 
 const Cell = (props) => {
     const { column } = props;
@@ -39,8 +80,20 @@ const Cell = (props) => {
     return <Table.Cell {...props} />;
 };
 
+const StubHeaderCelllBase = ({ classes, className, ...restProps }) => (
+    <Table.StubHeaderCell
+        {...restProps}
+        className={`${classes.head} ${className}`} />
+);
 
-const getRowId = row => row.rank;
+const StubHeaderCell = withStyles(styles, { name: 'StubHeaderCell' })(StubHeaderCelllBase);
+
+const tableColumnsComputed = ({ tableColumns }) => {
+    const [detailColumn, ...restColumns] = tableColumns;
+    return [detailColumn, ...restColumns];
+};
+
+const getRowId = row => row.uid;
 
 class LeagueTable extends React.Component {
     constructor(props) {
@@ -62,23 +115,32 @@ class LeagueTable extends React.Component {
         };
     }
 
-    componentWillMount() {
-        this.props.loadLeague();
-        this.props.loadCompetitors();
-    }
-
     componentWillReceiveProps(nextProps) {
-        if (nextProps.league.length > 1) {
-            this.setState({ rows: nextProps.league })
+        if (this.props.league) {
+            if (nextProps.league.length > 1) {
+                this.setState({ rows: nextProps.league })
+                this.setState({ loading: false })
+            }
         }
     }
 
     handleExpandedRowIdsChange = (expandedRowIds) => {
-        this.setState({ expandedRowIds });
+            this.setState({ expandedRowIds });
+            this.setState({ rows: this.props.league });
     }
 
+
     render() {
-        const { columns, rows, expandedRowIds, pageSizes } = this.state;
+        // console.log("LTPROPS::", this.props);
+        const { classes, compStatus } = this.props;
+        const { columns, rows, expandedRowIds, loading } = this.state;
+        if (loading) {
+            return (
+                <div className={classes.progressWrapper}>
+                    <CircularProgress />
+                </div>
+            );
+        }
         return (
             <div>
                 <Paper>
@@ -88,7 +150,7 @@ class LeagueTable extends React.Component {
                         getRowId={getRowId}
                     >
                         <SortingState
-                            // defaultSorting={[{ columnName: 'score', direction: 'desc' }]}
+                        // defaultSorting={[{ columnName: 'score', direction: 'desc' }]}
                         />
                         <IntegratedSorting />
                         <PagingState
@@ -102,35 +164,26 @@ class LeagueTable extends React.Component {
                         <IntegratedPaging />
                         <Table
                             cellComponent={Cell}
+                            stubHeaderCellComponent={StubHeaderCell}
                         />
-                        <TableHeaderRow />
-                        <TableRowDetail
+                        <TableHeaderRow
+                            cellComponent={HeaderCell}
+                        />
+                        {compStatus ? <TableRowDetail
                             contentComponent={LeagueRowDetail}
-                        />
-
+                            cellComponent={DetailCell}
+                        /> :
+                        null
+                    }
+                        <Getter name="tableColumns" computed={tableColumnsComputed} />
                         <PagingPanel />
                     </Grid>
-
                 </Paper>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    console.log("MYSTATE::", state)
-    return {
-        league: state.league,
-        // team: LeagueTeamSelector(state),
-        competitors: state.competitors
-    }
-}
-
-const mapDispatchToProps = Object.assign(
-    {},
-    leagueActions,
-    teamActions,
-    adminActions,
-);
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LeagueTable));
+export default compose(
+    withStyles(styles),
+)(withRouter(LeagueTable));

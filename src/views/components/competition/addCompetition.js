@@ -34,6 +34,7 @@ class AddCompetition extends Component {
         event.preventDefault();
         this.setState({ open: false });
         const name = event.target.elements.name.value
+        const url = event.target.elements.url.value
         const desc = event.target.elements.desc.value
         const location = event.target.elements.location.value
         const date = event.target.elements.date.value
@@ -41,6 +42,7 @@ class AddCompetition extends Component {
         const pic = event.target.elements.pic.value
         const competition = {
             name: name,
+            url: url,
             desc: desc,
             location: location,
             date: date,
@@ -73,6 +75,9 @@ class AddCompetition extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <div className="g-row">
                                 <TextField label="Name" id="name" type="text" name="name" />
+                            </div>
+                            <div className="g-row">
+                                <TextField label="Url" id="url" type="text" name="url" />
                             </div>
                             <div className="g-row">
                                 <TextField multiline rows="2" label="Desc" id="desc" type="text" name="desc" />

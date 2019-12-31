@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import { Record } from 'immutable';
-import { FirebaseList } from 'src/firebase';
+import { FirebaseList } from 'firebase/index.js';
 
 export const Team = new Record({
   key: null,
@@ -60,7 +60,7 @@ export function loadTeamError(error) {
 }
 
 export function updateTeam(changes) {
-  console.log("UPDATETEAM::",changes)
+  // console.log("UPDATETEAM::",changes)
   return (dispatch, getState) => {
     const { auth } = getState();
     teamFireDB.update(auth.id, changes)
@@ -69,7 +69,7 @@ export function updateTeam(changes) {
 }
 
 export function updateTeammateSuccess(team) {
-  console.log("UPDATETEAMSUCCESS::",team)
+  // console.log("UPDATETEAMSUCCESS::",team)
   return {
     type: types.UPDATE_TEAMMATE_SUCCESS,
     payload: team
@@ -77,7 +77,7 @@ export function updateTeammateSuccess(team) {
 }
 
 export function updateTeammateError(error) {
-  console.log("UPDATETEAMERRROR::",error)
+  // console.log("UPDATETEAMERRROR::",error)
   return {
     type: types.UPDATE_TEAMMATE_ERROR,
     payload: error

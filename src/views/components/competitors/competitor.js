@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+  
 
 function Competitor({competitor,removeCompetitor}) {
 
@@ -13,7 +14,6 @@ function Competitor({competitor,removeCompetitor}) {
                 }}> Remove </button>
             </div>
         </figure>
-
     )
 }
 
@@ -23,4 +23,4 @@ Competitor.propTypes = {
 }
 
 
-export default Competitor
+export default Competitor;

@@ -93,7 +93,6 @@ export class FirebaseList {
     });
 
     ref.on('child_changed', snapshot => {
-      console.log('SNAP::',snapshot);
       emit(this._actions.onChange(this.unwrapSnapshot(snapshot)));
     });
 
@@ -106,39 +105,20 @@ export class FirebaseList {
 
   subscribeOnce(emit) {
     let ref = firebaseDb.ref(this._path);
-    console.log("REF::",ref)
     // eslint-disable-next-line
     let initialized = false;
     // eslint-disable-next-line
-    let list = [];
-    console.log("ACTIONS::",this._actions)
-   
+    let list = [];   
     ref.once('value', snapshot => {
       initialized = true
-      console.log("SNAPSHOT::", snapshot);
       // emit(this._actions.onLoad(list));
       emit(this._actions.onLoad(this.unwrapSnapshot(snapshot)));
     });
-
-    // ref.on('child_added', snapshot => {
-    //   if (initialized) {
-    //     emit(this._actions.onAdd(this.unwrapSnapshot(snapshot)));
-    //   }
-    //   else {
-    //     // debugger;
-    //     list.push(this.unwrapSnapshot(snapshot));
-    //   }
-    // });
 
     ref.on('child_changed', snapshot => {
       console.log('SNAP::',snapshot);
       emit(this._actions.onChange(this.unwrapSnapshot(snapshot)));
     });
-
-    // ref.on('child_removed', snapshot => {
-    //   emit(this._actions.onRemove(this.unwrapSnapshot(snapshot)));
-    // });
-
     this._unsubscribe = () => ref.off();
   }
 
@@ -148,8 +128,7 @@ export class FirebaseList {
       emit(this._actions.onLoad(this.unwrapSnapshot(snapshot)));
     });
   }
-
-
+  
   unsubscribe() {
     this._unsubscribe();
   }

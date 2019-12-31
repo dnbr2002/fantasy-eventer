@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, shallow } from 'enzyme';
 import sinon from 'sinon';
-import { createTestComponent } from 'src/utils/create-test-component';
+import { createTestComponent } from '/utils/create-test-component';
 import Notification from './notification';
 
 

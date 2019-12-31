@@ -11,21 +11,36 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { List } from 'immutable';
-import CustomAvatar from '../../components/avatars/avatars';
 import toastr from 'toastr';
 
+const toolbarStyles = theme => ({
+  root: {
+    paddingRight: theme.spacing(1),
+    backgroundColor: theme.palette.primary.medium,
+    color: theme.palette.common.white,
+  },
+  spacer: {
+    flex: '1 1 100%',
+  },
+  actions: {
+    color: theme.palette.text.secondary,
+  },
+  title: {
+    flex: '0 0 auto',
+  }
+});
 
 let Tier2TableToolbar = props => {
-  const { numSelected, numComps } = props;
+  const { numSelected, numComps, classes } = props;
   return (
-    <Toolbar>
+    <Toolbar className={classes.root}>
       {numSelected > 0 ? (
-        <Typography color="inherit" variant="subheading">
-          {numSelected} selected
+        <Typography color="inherit" variant="h4">
+          {numSelected} Tier 2 Competitors selected
           </Typography>
       ) : (
-          <Typography variant="title" id="tableTitle">
-            Pick {numComps + 1}
+          <Typography variant="h4" id="tableTitle" className={classes.root}>
+            Pick {numComps + 1} Tier 2 Competitors
           </Typography>
         )}
     </Toolbar>
@@ -36,10 +51,12 @@ Tier2TableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
+Tier2TableToolbar = withStyles(toolbarStyles)(Tier2TableToolbar);
+
 const CustomHeaderCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.medium,
+    color: theme.palette.common.white,
   },
   body: {
     fontSize: 14,
@@ -55,6 +72,44 @@ const styles = theme => ({
   table: {
     minWidth: 100,
   },
+  image: {
+    height: 60,
+    width: 60,
+  },
+  select: {
+    width: 12
+  },
+  horse: {
+    width: 100
+  },
+  rider: {
+    width: 100
+  },
+  avatar: {
+    width: 25
+  },
+  description: {
+    width: 200
+  },
+  country: {
+    width: 25
+  },
+  progressBar: {
+    position: "-webkit-sticky",
+    top: 0
+  },
+  sticky: {
+    background: 'white',
+    // position: '-webkit-sticky',
+    position: 'sticky',
+    top: 10,
+    bottom: 0,
+    paddingTop: '10px',
+    paddingBottom: '10px',
+    zIndex: 5,
+    // paddingTop: 0,
+    // paddingBottom: 0,
+  }
 });
 
 class Tier2Table extends React.Component {
@@ -78,8 +133,10 @@ class Tier2Table extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.team.size !== this.props.team.size) {
-      this.renderChecks(this.props.team);
+    if (typeof prevProps.team !== "undefined") {
+      if (prevProps.team.size !== this.props.team.size) {
+        this.renderChecks(this.props.team);
+      }
     }
   }
 
@@ -106,26 +163,24 @@ class Tier2Table extends React.Component {
       score: this.props.profile.list.get(0).score,
       teamKeysTier1: this.props.profile.list.get(0).teamKeysTier1,
       teamKeysTier2: competitorKeys.toString()
-  }
-  console.log("CHANGES::", changes)
-  console.log("KEY::", this.props.profile.key)
-  this.props.updateProfile(this.props.profile.list.get(0).key, changes);
+    }
+    this.props.updateProfile(this.props.profile.list.get(0).key, changes);
   }
 
   renderChecks(team) {
     const { selected } = this.state;
     let newSelected = [];
     if (team) {
-    team.forEach(competitor => {
-      if (competitor.tier === '2') {
-        var selectedIndex = selected.indexOf(competitor.key);
-        if (selectedIndex === -1) {
-          newSelected = newSelected.concat(selected, competitor.key)
-          this.setState({ selected: newSelected });
+      team.forEach(competitor => {
+        if (competitor.tier === '2') {
+          var selectedIndex = selected.indexOf(competitor.key);
+          if (selectedIndex === -1) {
+            newSelected = newSelected.concat(selected, competitor.key)
+            this.setState({ selected: newSelected });
+          }
         }
-      }
-    })
-  }
+      })
+    }
   }
 
   handleClick = (event, competitor) => {
@@ -170,6 +225,7 @@ class Tier2Table extends React.Component {
     const { classes } = this.props;
     // console.log("T1SELECTed2::", this.state.selected);
     // console.log("T1PROPS::", this.props);
+
     return (
       <div>
         <Paper className={classes.root}>
@@ -181,12 +237,12 @@ class Tier2Table extends React.Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <CustomHeaderCell>Select</CustomHeaderCell>
-                <CustomHeaderCell>Horse</CustomHeaderCell>
-                <CustomHeaderCell>Rider</CustomHeaderCell>
-                <CustomHeaderCell>Avatar</CustomHeaderCell>
-                <CustomHeaderCell>Description</CustomHeaderCell>
-                <CustomHeaderCell>Country</CustomHeaderCell>
+                <CustomHeaderCell className={classes.select}>Select</CustomHeaderCell>
+                <CustomHeaderCell className={classes.horse}>Horse</CustomHeaderCell>
+                <CustomHeaderCell className={classes.rider}>Rider</CustomHeaderCell>
+                <CustomHeaderCell className={classes.avatar}>Avatar</CustomHeaderCell>
+                <CustomHeaderCell className={classes.description}>Description</CustomHeaderCell>
+                <CustomHeaderCell className={classes.country}>Country</CustomHeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -209,14 +265,15 @@ class Tier2Table extends React.Component {
                     </TableCell>
                     <TableCell>{competitor.value.rider}</TableCell>
                     <TableCell>
-                      <CustomAvatar
+                      <img
+                        className={classes.image}
                         src={competitor.value.pic}
                         alt="competitor pic"
-                        bigAvatar="BigAvatar"
                       />
                     </TableCell>
                     <TableCell>{competitor.value.description}</TableCell>
-                    <TableCell>{competitor.value.country}</TableCell>
+                    <TableCell><img src={"https://www.countryflags.io/" + competitor.value.country + "/shiny/64.png"} width="40" height="30" alt={competitor.value.country} /> </TableCell>
+
                   </TableRow>
                 );
               })}

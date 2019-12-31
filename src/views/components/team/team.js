@@ -1,88 +1,90 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import CustomAvatar from '../../components/avatars/avatars';
+import {
+    Grid,
+    Typography
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import ProgressBar from '../../components/progressBar/progressBar.js';
+
+//Custom Comps
+import CompetitorCard from "../competitors/competitorCard";
 
 const styles = theme => ({
     root: {
         flexGrow: 1,
+        // paddingTop: 0,
     },
     paper: {
         height: 175,
         width: 100,
+        margin: theme.spacing(1)
     },
-    control: {
-        padding: theme.spacing(2),
+    image: {
+        height: 100,
+        width: 100,
     },
+    paperDivider: {
+        width: '100%'
+    },
+    progressBar: {
+        position: "-webkit-sticky",
+        top: 0
+      },
+      sticky: {
+        background: 'white',
+        // position: '-webkit-sticky',
+        position: 'sticky',
+        top: 10,
+        bottom: 0,
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        zIndex: 5,
+        // paddingTop: 0,
+        // paddingBottom: 0,
+      }
 });
 
-const Team = ({ team, classes }) => {
-    if (team) {
+
+const Team = ({ team,  profileDetail, classes }, props) => {
+    // console.log("TEAM::", props);
+    if (team && team.size > 0) {
         return (
             <div>
-                <Grid container className={classes.root} spacing={16}>
+                <Grid container className={classes.root}>
                     <Grid item xs={12}>
-                        <Grid container className={classes.demo} justify="center" spacing={Number(8)}>
-                            {team.map(competitor => (
-                                <Grid key={competitor.key} item>
-                                    <Paper className={classes.paper} >
-                                        <Grid container justify="center">
-                                            <CustomAvatar
-                                                src={competitor.pic}
-                                                alt="competitor pic"
-                                                bigAvatar="BigAvatar"
-                                            />
-                                            <br />
-                                            <Grid container justify="center">
-                                                <Typography variant="caption">
-                                                    Rider: <b>{competitor.rider}</b>
-                                                </Typography>
-                                            </Grid>
-                                            <Grid container justify="center">
-                                                <Typography variant="caption">
-                                                    Horse: <b>{competitor.horse}</b>
-                                                </Typography>
-                                            </Grid>
-                                            <Grid container justify="center">
-                                                <Typography variant="caption">
-                                                    Score: <b>{competitor.score}</b>
-                                                </Typography>
-                                            </Grid>
-                                            <Grid container justify="center">
-                                                <Typography variant="caption">
-                                                    Tier: <b>{competitor.tier}</b>
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
+                        <Grid container className={classes.demo} justify="center" spacing={Number(1)}>
+                            {team.map((competitor, key) => (
+                                <CompetitorCard competitor={competitor} key={key} />
                             ))}
                         </Grid>
                     </Grid>
                 </Grid>
+
+                <ProgressBar profiledetail={profileDetail} {...props} />
             </div>
         );
     }
     else {
-        return (
-            <div>
-                <Grid container className={classes.root} spacing={16}>
-                    <Grid item xs={12}>
-                        <Grid container className={classes.demo} justify="center" spacing={Number(8)}>
-                            <Typography component="h2" variant="h1">Pick your team...</Typography>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </div>
-        );
+        return (<div>
+            <Typography
+                variant="h3"
+                color="textSecondary"
+            >
+                The Stable Area
+          </Typography>
+            <Typography
+                variant="body1"
+                color="textSecondary"
+            >
+                Pick your team.  When the team selection completeness reaches 100% your team will be ready for leagues once selection locking commences about 1 hour before first ride on day one of competition.  You can adjust your team as much as you like before this time.  Good luck!
+          </Typography>
+        </div>);
     }
 };
 
 Team.propTypes = {
-    team: PropTypes.object.isRequired
+    team: PropTypes.object
 };
 
 export default withStyles(styles)(Team);

@@ -9,14 +9,10 @@ import ProfilePic from '../../components//profile/profilePic';
 import Button from "@material-ui/core/Button";
 
 const styles = theme => ({
-    card: {
-        //maxWidth: 1000
-    },
-    media: {
-        height: 0,
-        // paddingTop: "56.25%" // 16:9
+    root: {
+      padding: theme.spacing(4)
     }
-});
+  });
 
 class ProfileCard extends Component {
     constructor(props) {
@@ -78,8 +74,8 @@ class ProfileCard extends Component {
         console.log('PCPROP::',this.props);
         return (
             <div>
-                <Grid container justify="center">
-                    <Grid item xs={8}>
+                {/* <Grid container justify="center"> */}
+                    {/* <Grid item xs={8}> */}
                         <Card style={{ position: 'relative' }}>
                             <form onSubmit={this.handleSubmit}>
                                 <CardContent>
@@ -125,8 +121,8 @@ class ProfileCard extends Component {
                                 </CardActions>
                             </form>
                         </Card>
-                    </Grid>
-                </Grid>
+                    {/* </Grid>
+                </Grid> */}
             </div>
         );
     }

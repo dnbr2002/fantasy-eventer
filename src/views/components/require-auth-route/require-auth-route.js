@@ -6,8 +6,9 @@ const RequireAuthRoute = ({component: Component, authenticated, ...rest}) => (
   <Route
     {...rest}
     render={props => {
+      // console.log("AUTH::", authenticated)
       return authenticated ? (
-        <Component {...props}/>
+        <Component {...props} />
       ) : (
         <Redirect to={{
           pathname: '/signin',
