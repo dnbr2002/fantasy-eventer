@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import LeagueTable from '../../components/tables/leagueTable';
-import LeagueRankTable from '../../components/tables/leagueRankTable.js';
 import classNames from 'classnames';
 
 //Redux stuff
@@ -16,6 +14,11 @@ import { CompetitionStatusSelector } from '../../../selectors/competitionStatusS
 // Material helpers
 import { withStyles } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
+
+//Custom Components
+import LeagueTable from '../../components/tables/leagueTable';
+import LeagueRankTable from '../../components/tables/leagueRankTable.js';
+import UpdateLeagueRank from '../../components/league/updateLeagueRank';
 
 
 // Component styles
@@ -33,10 +36,8 @@ class LeaguePage extends Component {
     this.props.loadCompetition();
 }
 
-
-
     render() {
-        // console.log("LEAGUEPROPS::",this.props);
+        console.log("LEAGUEPROPS::",this.props);
         const { classes, className } = this.props;
         
         const rootClassName = classNames(classes.root, className);
@@ -58,6 +59,7 @@ class LeaguePage extends Component {
                 <LeagueTable  league={this.props.league} competitors={this.props.competitors} compStatus={this.props.compStatus} />
                 <br />
                 <br />
+                {/* <UpdateLeagueRank /> */}
                 <br />
                 <br />
                 <br />

@@ -169,6 +169,7 @@ class SignIn extends Component {
               </div>
             </div>
           </Grid> */}
+
           <div>
             <img
               alt="FE Logo"
@@ -177,6 +178,7 @@ class SignIn extends Component {
               height=""
             />
           </div>
+          
           <Grid
             className={classes.contentWrapper}
             item

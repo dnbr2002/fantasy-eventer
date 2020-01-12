@@ -10,7 +10,7 @@ const parallaxStyle = {
       // padding: "0",
       border: "0",
       
-      // display: "flex",
+      display: "flex",
       // alignItems: "center"
     },
     filter: {

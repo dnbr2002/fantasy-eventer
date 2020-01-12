@@ -4,7 +4,7 @@ import { faHorse } from '@fortawesome/free-solid-svg-icons'
 
 
  const HorseIcon = () => (
-    <FontAwesomeIcon icon={faHorse} size="4x" />
+    <FontAwesomeIcon icon={faHorse} size="2x" />
  );
 
 export default HorseIcon;
