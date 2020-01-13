@@ -76,6 +76,7 @@ export class AdminPage extends Component {
                 <br />
                 <br />
                 <Typography variant="h2" color="textSecondary">Bulk User Controls</Typography>
+                <br />
                 <Typography variant="h3" color="textSecondary">Total Existing Users: {userCount}</Typography>
                 <br />
                 <Grid

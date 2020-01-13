@@ -52,9 +52,10 @@ export function createCompetition(competition) {
   var location = competition.location
   var name = competition.name
   var pic = competition.pic
+  var url = competition.url
 return dispatch => {
     compFireDB.path = `competition/`;
-    compFireDB.push({ active, date, desc, location, name, pic })
+    compFireDB.push({ active, date, desc, location, name, pic , url })
         .catch(error => dispatch(createCompetitionError(error)));
   };
 }

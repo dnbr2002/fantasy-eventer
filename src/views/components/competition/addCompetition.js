@@ -9,6 +9,7 @@ import AddLocation from '@material-ui/icons/AddLocation';
 import {
     MuiPickersUtilsProvider,
     DatePicker,
+    KeyboardDatePicker
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 //Custom Components
@@ -50,7 +51,7 @@ class AddCompetition extends Component {
         super()
         this.state = {
             open: false,
-            selectedDate: new Date('2014-08-18T21:11:54')
+            selectedDate: null
         };
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClickOpen = this.handleClickOpen.bind(this)
@@ -66,6 +67,7 @@ class AddCompetition extends Component {
     };
 
     handleDateChange = (date) => {
+        console.log('NEWDATE::', date);
         this.setState({ selectedDate: date })
     };
 
@@ -93,7 +95,8 @@ class AddCompetition extends Component {
     }
 
     render() {
-        const { classes, selectedDate } = this.props;
+        const { classes } = this.props;
+        const { selectedDate } = this.state
         return (
             <Portlet>
                 <form
@@ -150,9 +153,10 @@ class AddCompetition extends Component {
 
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <DatePicker
-                                    autoOk
+                                    autoFocus
                                     variant="inline"
                                     inputVariant="outlined"
+                                    id="date"
                                     label="Date"
                                     format="MM/dd/yyyy"
                                     value={selectedDate}
