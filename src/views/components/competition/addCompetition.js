@@ -12,6 +12,7 @@ import {
     KeyboardDatePicker
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import toastr from 'toastr';
 //Custom Components
 import Portlet from '../../components/Portlet';
 import PortletFooter from '../../components/Portlet';
@@ -66,6 +67,11 @@ class AddCompetition extends Component {
         this.setState({ open: false });
     };
 
+    handleClearForm = () => { 
+        document.getElementById("addCompetition-form").reset();
+      }
+
+
     handleDateChange = (date) => {
         console.log('NEWDATE::', date);
         this.setState({ selectedDate: date })
@@ -92,6 +98,8 @@ class AddCompetition extends Component {
         }
 
         this.props.createCompetition(competition)
+        toastr.success("Competition '" + name + "' added!");
+        this.handleClearForm();
     }
 
     render() {
@@ -103,6 +111,7 @@ class AddCompetition extends Component {
                     autoComplete="off"
                     noValidate
                     onSubmit={this.handleSubmit}
+                    id="addCompetition-form"
                 >
                     <PortletHeader>
 

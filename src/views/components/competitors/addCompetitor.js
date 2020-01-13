@@ -13,6 +13,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { Countries } from '../countries/countryName';
+import toastr from 'toastr';
 
 //Custom Components
 import Portlet from '../../components/Portlet';
@@ -80,6 +81,9 @@ class AddCompetitor extends Component {
         this.setState({ open: false });
     };
 
+    handleClearForm = () => { 
+        document.getElementById("addCompetitor-form").reset();
+      }
 
     handleChange = event => {
         this.setState({ value: event.target.value });
@@ -111,7 +115,9 @@ class AddCompetitor extends Component {
             description: description
         }
 
-        this.props.createCompetitor(competitor)
+        this.props.createCompetitor(competitor);
+        toastr.success("Competitor '" + horse + " " + rider + "' added!");
+        this.handleClearForm();
     }
 
     render() {
@@ -124,6 +130,7 @@ class AddCompetitor extends Component {
                     autoComplete="off"
                     noValidate
                     onSubmit={this.handleSubmit}
+                    id="addCompetitor-form"
                 >
                     <PortletHeader>
 
