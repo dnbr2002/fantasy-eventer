@@ -1,11 +1,45 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import {
+    TextField,
+    Button,
+    withStyles
+} from '@material-ui/core';
 import AddLocation from '@material-ui/icons/AddLocation';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+    MuiPickersUtilsProvider,
+    DatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+//Custom Components
+import Portlet from '../../components/Portlet';
+import PortletFooter from '../../components/Portlet';
+import PortletLabel from '../../components/PortletLabel';
+import PortletHeader from '../../components/PortletHeader';
+import PortletContent from '../../components/PortletContent';
+
+const styles = theme => ({
+    root: {},
+    field: {
+        margin: theme.spacing(3)
+    },
+    textField: {
+        width: '330px',
+        maxWidth: '100%',
+        marginRight: theme.spacing(3)
+    },
+    descriptionField: {
+        width: '685px',
+        maxWidth: '100%',
+        marginRight: theme.spacing(3)
+    },
+    portletFooter: {
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2)
+    }
+});
 
 class AddCompetition extends Component {
     static propTypes = {
@@ -16,6 +50,7 @@ class AddCompetition extends Component {
         super()
         this.state = {
             open: false,
+            selectedDate: new Date('2014-08-18T21:11:54')
         };
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClickOpen = this.handleClickOpen.bind(this)
@@ -28,6 +63,10 @@ class AddCompetition extends Component {
 
     handleClose = () => {
         this.setState({ open: false });
+    };
+
+    handleDateChange = (date) => {
+        this.setState({ selectedDate: date })
     };
 
     handleSubmit(event) {
@@ -54,60 +93,137 @@ class AddCompetition extends Component {
     }
 
     render() {
+        const { classes, selectedDate } = this.props;
         return (
-            <div>
-                <Button
-                    variant="raised"
-                    size="large"
-                    color="primary"
-                    onClick={this.handleClickOpen}
+            <Portlet>
+                <form
+                    autoComplete="off"
+                    noValidate
+                    onSubmit={this.handleSubmit}
                 >
-                    <AddLocation />
-                    &nbsp; Add Competition
-                </Button>
-                <Dialog
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                    aria-labelledby="form-dialog-title"
-                >
-                    <DialogTitle id="form-dialog-title">Add Competition</DialogTitle>
-                    <DialogContent>
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="g-row">
-                                <TextField label="Name" id="name" type="text" name="name" />
-                            </div>
-                            <div className="g-row">
-                                <TextField label="Url" id="url" type="text" name="url" />
-                            </div>
-                            <div className="g-row">
-                                <TextField multiline rows="2" label="Desc" id="desc" type="text" name="desc" />
-                            </div>
-                            <br />
-                            <div className="g-row">
-                                <TextField label="Location" id="location" type="text" name="location" />
-                            </div>
-                            <br />
-                            <div className="g-row">
-                                <TextField label="Date" id="date" type="text" name="date" />
-                            </div>
-                            <br />
-                            <div className="g-row">
-                            <TextField label="Active" id="active" type="text" name="active" />
-                            </div>
-                            <br />
-                            <div className="g-row">
-                                <TextField label="Pic-Url" id="pic" type="text" name="pic" />
-                            </div>
-                            <br />
-                            <br />
-                            <Button variant="raised" size="medium" color="primary" id="addCompetitionBtn" type="submit">Submit</Button>
-                        </form>
-                    </DialogContent>
-                </Dialog>
-            </div>
+                    <PortletHeader>
+
+                        <PortletLabel
+                            subtitle="Enter new competitoons here."
+                            title="Add Competition"
+                        />
+                    </PortletHeader>
+                    <PortletContent noPadding>
+
+
+                        <div className={classes.field}>
+                            <TextField
+                                autoFocus
+                                className={classes.textField}
+                                margin="dense"
+                                label="Name"
+                                id="name"
+                                type="text"
+                                name="name"
+                                variant="outlined"
+                            />
+
+                            <TextField
+                                autoFocus
+                                className={classes.textField}
+                                margin="dense"
+                                label="Url"
+                                id="url"
+                                type="text"
+                                name="url"
+                                variant="outlined"
+                            />
+                        </div>
+
+
+                        <div className={classes.field}>
+                            <TextField
+                                autoFocus
+                                className={classes.textField}
+                                margin="dense"
+                                label="Location"
+                                id="location"
+                                type="text"
+                                name="location"
+                                variant="outlined"
+                            />
+
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <DatePicker
+                                    autoOk
+                                    variant="inline"
+                                    inputVariant="outlined"
+                                    label="Date"
+                                    format="MM/dd/yyyy"
+                                    value={selectedDate}
+                                    InputAdornmentProps={{ position: "start" }}
+                                    onChange={date => this.handleDateChange(date)}
+                                />
+                            </MuiPickersUtilsProvider>
+                        </div>
+
+                        <div className={classes.field}>
+
+                            <TextField
+                                autoFocus
+                                className={classes.textField}
+                                margin="dense"
+                                label="Active"
+                                id="active"
+                                type="text"
+                                name="active"
+                                variant="outlined"
+
+                            />
+
+                            <TextField
+                                autoFocus
+                                className={classes.textField}
+                                margin="dense"
+                                label="Pic-Url"
+                                id="pic"
+                                type="text"
+                                name="pic"
+                                variant="outlined"
+                            />
+                        </div>
+
+                        <div className={classes.field}>
+                            <TextField
+                                autoFocus
+                                className={classes.descriptionField}
+                                margin="dense"
+                                multiline rows="4"
+                                label="Desc"
+                                id="desc"
+                                type="text"
+                                name="desc"
+                                variant="outlined"
+                            />
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+
+                    </PortletContent>
+                    <PortletFooter className={classes.portletFooter}>
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            type="submit"
+                            id="addCompetitionBtn"
+                            size="medium"
+                        >
+                            <AddLocation />
+                            &nbsp; Add Competition
+                        </Button>
+                    </PortletFooter>
+                </form>
+            </Portlet>
         )
     }
 }
 
 
-export default AddCompetition
+export default withStyles(styles)(AddCompetition);

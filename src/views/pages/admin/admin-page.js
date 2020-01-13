@@ -18,13 +18,20 @@ import classNames from 'classnames';
 import compose from 'recompose/compose';
 // Material helpers
 import { withStyles } from '@material-ui/core';
+import {
+    Grid,
+    Divider
+} from '@material-ui/core';
+
+import { firebaseDb } from '../../../firebase/index';
+
 
 // Component styles
 const styles = theme => ({
     root: {
-      padding: theme.spacing(4)
+        padding: theme.spacing(4)
     }
-  });
+});
 
 
 export class AdminPage extends Component {
@@ -36,31 +43,87 @@ export class AdminPage extends Component {
 
     };
 
+    constructor() {
+        super()
+        this.state = {
+            userCount: 0,
+        };
+    }
+
     componentWillMount() {
         this.props.loadCompetitors();
+        firebaseDb.ref('users').once('value').then(snapshot => {
+            const users = snapshot.numChildren();
+            console.log("USERLENGTH::", users);
+            this.setState({
+                userCount: users
+            })
+        })
     }
 
     render() {
-        console.log("ADMINPROPS::",this.props)
+        console.log("ADMINPROPS::", this.props)
         const { classes, className } = this.props;
+        const { userCount } = this.state
         const rootClassName = classNames(classes.root, className);
         return (
             <div className={rootClassName}>
-            <div className="g-row">
-                <div className="g-col">                    
-                <Typography variant="h2" color="textSecondary">Admin Center </Typography>
-                    <br />
-                    <RemoveTeams {...this.props} />
-                    <br />
-                    <UpdateScores {...this.props} />
-                    <br />
+                {/* <div className="g-row">
+                <div className="g-col">                     */}
+                <Typography variant="h1" color="textSecondary">Admin Center</Typography>
+                <br />
+                <Divider />
+                <br />
+                <br />
+                <Typography variant="h2" color="textSecondary">Bulk User Controls</Typography>
+                <Typography variant="h3" color="textSecondary">Total Existing Users: {userCount}</Typography>
+                <br />
+                <Grid
+                    container
+                    spacing={3}
+                >
+
+                    <Grid
+                        item
+                        xs={6}
+                    >
+                        <RemoveTeams {...this.props} />
+                    </Grid>
+                    <Grid
+                        item
+                        xs={6}
+                    >
+                        <UpdateScores {...this.props} />
+                    </Grid>
+                </Grid>
+                <br />
+                <br />
+                <Typography variant="h2" color="textSecondary">Add Controls</Typography>
+                <br />
+                <Grid
+                    container
+                    spacing={3}
+                >
+                <Grid
+                    item
+                    xs={6}
+                >
                     <AddCompetitor {...this.props} />
-                    <br />
+                </Grid>
+                <Grid
+                    item
+                    xs={6}
+                >
                     <AddCompetition {...this.props} />
-                    <br />
-                    <AdminTable {...this.props} />
-                </div>
-            </div>
+                </Grid>
+                </Grid>
+
+                <br />
+                <br />
+                <Typography variant="h2" color="textSecondary">Competitors Updates</Typography>
+                <AdminTable {...this.props} />
+                {/* </div>
+            </div> */}
             </div>
         );
     }
@@ -86,4 +149,4 @@ const mapDispatchToProps = Object.assign(
 );
 
 export default compose(
-    withStyles(styles),connect(mapStateToProps, mapDispatchToProps))(withRouter(AdminPage));
+    withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(withRouter(AdminPage));

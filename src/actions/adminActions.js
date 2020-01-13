@@ -214,24 +214,6 @@ export function bulkRemoveCompetitor(competitor) {
 }
 
 
-export function bulkRemoveTeams() {
-  return dispatch => {
-    var counter = 0;
-    const ref = firebaseDb.ref('users');
-    ref.once('value').then(snapshot => {
-      const users = snapshot.val();
-      for (var user_id in users) {
-        counter++
-        console.log("count::", counter)
-        var profilerec = firebaseDb.ref(`users/${user_id}/${user_id}`)
-        profilerec.child('teamKeysTier1').set('PH');
-        profilerec.child('teamKeysTier2').set('PH');
-      }
-      toastr.success("Removed " + counter + " teams");
-    })
-  }
-}
-
 export function bulkUpdateScores(competitors) {
   return dispatch => {
     const ref = firebaseDb.ref('users');
