@@ -25,7 +25,7 @@ class HomePage extends Component {
         
         return (
             <div className={classes.page}>
-                <Parallax filter image={require("../../../assets/images/GMI-18-0708-AD5a-280.png")}>
+                <Parallax image={require("../../../assets/images/test4.jpg")}>
                     <div className={classes.container}>
                         <GridContainer>
                             <GridItem xs={12} sm={12} md={6}>

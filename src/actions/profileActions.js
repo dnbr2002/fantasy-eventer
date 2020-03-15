@@ -11,6 +11,8 @@ export const Profile = Record({
   country: null,
   uid: null,
   score: 0,
+  totalScore: 0,
+  totalRank: 0,
   rank: 0,
   teamKeysTier1: '',
   teamKeysTier2: 'teamkeysplaceholder'
@@ -32,13 +34,15 @@ export function createProfile(data) {
   var country = data.country
   var score = 0;
   var rank = 0;
+  var totalScore = 0;
+  var totalRank = 0;
   var teamKeysTier1 ='';
   var teamKeysTier2 = '';
   return (dispatch, getState) => {
     const { auth } = getState();
     const uid = auth.id
     console.log("AUTHID::", uid);
-    profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid, score, rank, teamKeysTier1, teamKeysTier2 })
+    profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid, score, rank, totalScore, totalRank, teamKeysTier1, teamKeysTier2 })
       .then(result => dispatch(createProfileSuccess(result)))
       .catch(error => dispatch(createProfileError(error)));
   };
@@ -54,20 +58,22 @@ export function createProfileFromSignUp(data, fbData) {
   var country = "US";
   var score = 0;
   var rank = 0;
+  var totalScore = 0;
+  var totalRank = 0;
   var teamKeysTier1 ='';
   var teamKeysTier2 = '';
   var uid = fbData.user.uid;
   return dispatch => {
     // console.log("AUTHID::", uid);
     profileFireDB.path = `users/${uid}`;
-    profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid, score, rank, teamKeysTier1, teamKeysTier2 })
+    profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid, score, rank, totalScore, totalRank, teamKeysTier1, teamKeysTier2 })
       .then(result => dispatch(createProfileSuccess(result)))
       .catch(error => dispatch(createProfileError(error)));
   };
 }
 
 export function createProfileFromSocialLogin(metaData) {
-  // console.log('CREATEPROFILE::', metaData)
+  console.log('CREATEPROFILE::', metaData)
   var profileName = metaData.user.displayName;
   var teamName;
   if(metaData.credential.providerId === "google.com") {
@@ -76,12 +82,22 @@ export function createProfileFromSocialLogin(metaData) {
     teamName = metaData.additionalUserInfo.profile.first_name + "'s team";
   } else {
     teamName = metaData.additionalUserInfo.profile.screen_name;
-  }    
-  var profilePic = metaData.user.photoURL;
-  var email = metaData.user.email;
+  }   
+  var profilePic;
+  if(metaData.credential.providerId === "google.com") {
+    profilePic = metaData.additionalUserInfo.profile.profile_image_url
+  } else if (metaData.credential.providerId === "facebook.com") {
+    profilePic = metaData.additionalUserInfo.profile.picture.data.url
+  } else {
+    teamName = metaData.additionalUserInfo.profile.profile_image_url;
+  }   
+
+  var email = metaData.additionalUserInfo.profile.email;
   var country = "US";
   var score = 0;
   var rank = 0;
+  var totalScore = 0;
+  var totalRank = 0;
   var teamKeysTier1 ='';
   var teamKeysTier2 = '';
   var uid = metaData.user.uid;
@@ -91,7 +107,7 @@ export function createProfileFromSocialLogin(metaData) {
       if (!snapshot.exists()) {
         // console.log('CREATEPROFILE2::', uid)
         profileFireDB.path = `users/${uid}`;
-        profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid, score, rank, teamKeysTier1, teamKeysTier2 })
+        profileFireDB.set(uid, { profileName, teamName, profilePic, email, country, uid, score, rank, totalScore, totalRank, teamKeysTier1, teamKeysTier2 })
           .then(result => dispatch(createProfileSuccess(result)))
           .catch(error => dispatch(createProfileError(error)));
       }
@@ -125,7 +141,7 @@ export function loadProfile(key) {
 }
 
 export function loadProfileSuccess(data) {
-  // console.log('LOADPROFILESUSUCCESS::', data)
+  console.log('LOADPROFILESUSUCCESS::', data);
   return {
     type: types.LOAD_PROFILE_SUCCESS,
     payload: data,

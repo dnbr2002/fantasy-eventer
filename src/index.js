@@ -22,6 +22,7 @@ const rootElement = document.getElementById('root');
 
 
 function render(Component) {
+  console.log("ReactVersion::",React.version);
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>

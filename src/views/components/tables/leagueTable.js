@@ -131,7 +131,7 @@ class LeagueTable extends React.Component {
 
 
     render() {
-        // console.log("LTPROPS::", this.props);
+        console.log("LTPROPS::", this.props);
         const { classes, compStatus } = this.props;
         const { columns, rows, expandedRowIds, loading } = this.state;
         if (loading) {

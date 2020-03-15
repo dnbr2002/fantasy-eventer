@@ -19,12 +19,12 @@ function authenticate(provider) {
   return dispatch => {
     firebaseAuth.signInWithPopup(provider)
       .then(result => {
-        console.log("HERE::", result)
+        console.log("AUTHResult::", result)
         dispatch(signInSuccess(result))
         return dispatch(createProfileFromSocialLogin(result))
       })
       .catch(error => {
-        console.log("ERROR::",error);
+        console.log("AUTHError::",error);
         dispatch(signInError(error))
       }
         );
@@ -40,6 +40,7 @@ export function initAuth(user) {
 }
 
 export function signInError(error) {
+  console.log('SIERROR2::', error);
   if (error.code === "auth/account-exists-with-different-credential") {
     return {
       type: SIGN_IN_ERROR,
@@ -57,7 +58,7 @@ export function signInError(error) {
 }
 
 export function signInSuccess(result) {
-  // console.log('SISUCCESS::', result);
+  console.log('SISUCCESS::', result);
   // return createProfileFromSocialLogin(result)
   return {
     type: SIGN_IN_SUCCESS,
@@ -92,6 +93,7 @@ export function signUpSuccess(result, profileData) {
 }
 
 export function signUpError(error) {
+  console.log('SIERROR2::', error);
     return {
       type: SIGN_UP_ERROR,
       payload: error,
@@ -108,7 +110,7 @@ export function signUpWithEmail(email, pass, name, team) {
   return dispatch => {
       firebaseAuth.createUserWithEmailAndPassword(email, pass)
           .then(result => dispatch(signUpSuccess(result, profileData)))      
-          .catch(error => dispatch(signUpError(console.log(error))));
+          .catch(error => dispatch(signUpError(console.log("EmailSUError::",error))));
   };
 }
 
