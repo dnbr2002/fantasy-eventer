@@ -43,6 +43,7 @@ class UpdateScores extends Component {
     }
 
     handleUpdate(competitors) {
+            console.log("UPDATESCORE::",competitors);
             // this.props.bulkUpdateScores(competitors)
                 var hucounter = 0;
                 firebaseDb.ref('users').once('value').then(snapshot => {
@@ -51,19 +52,24 @@ class UpdateScores extends Component {
                     users.forEach(user_id => {
                       const record = user_id[Object.keys(user_id)[0]];
                       var teamstring = record.teamKeysTier1 + ',' + record.teamKeysTier2
+                      console.log("UPDATESCORE::2",teamstring);
                       var team = teamstring.split(',');
+                      console.log("UPDATESCORE::3",team);
                       // eslint-disable-next-line
-                      let totalScores = []
+                      let scores = []
                       team.map(key => {
                         // eslint-disable-next-line
                         return competitors.map(competitor => {
                           if (key === competitor.key) {
-                            totalScores.push(Number(competitor.score))
+                            scores.push(Number(competitor.score))
                           }
                         })
                       })
-                      const sum = totalScores.reduce((total, value) => total + value, 0);
-                      firebaseDb.ref(`users/${record.uid}/${record.uid}/score`).set(sum.toString());
+                      const score = scores.reduce((total, value) => total + value, 0);
+                      const totalScore = Number(record.totalScore) + score;
+                      console.log("UPDATESCORE::4",totalScore);
+                      firebaseDb.ref(`users/${record.uid}/${record.uid}/score`).set(score.toString());
+                      firebaseDb.ref(`users/${record.uid}/${record.uid}/totalScore`).set(totalScore.toString());
                       hucounter++
                       this.setState({counter: hucounter})
                     })
