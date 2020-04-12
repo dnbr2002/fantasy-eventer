@@ -15,6 +15,7 @@ import registerServiceWorker from './utils/register-service-worker';
 import App from './views/app';
 // import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import { ConfirmProvider } from 'material-ui-confirm';
 import theme from 'common/theme';
 
 const store = configureStore();
@@ -27,7 +28,9 @@ function render(Component) {
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <MuiThemeProvider theme={theme}>
+        {/* <ConfirmProvider> */}
           <Component />
+          {/* </ConfirmProvider> */}
         </MuiThemeProvider>
       </ConnectedRouter>
     </Provider>,

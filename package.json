@@ -53,6 +53,7 @@
     "immutable": "^3.8.1",
     "loaders.css": "^0.1.2",
     "lodash": "^4.17.15",
+    "material-ui-confirm": "^2.0.4",
     "mudash": "^0.10.0",
     "prop-types": "^15.5.10",
     "react": "^16.8.6",

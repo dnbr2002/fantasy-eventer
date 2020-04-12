@@ -25,6 +25,8 @@ import {
 
 import { firebaseDb } from '../../../firebase/index';
 
+import { ConfirmProvider } from "material-ui-confirm";
+
 
 // Component styles
 const styles = theme => ({
@@ -94,7 +96,9 @@ export class AdminPage extends Component {
                         item
                         xs={6}
                     >
+                            <ConfirmProvider>
                         <UpdateScores {...this.props} />
+                        </ConfirmProvider>
                     </Grid>
                 </Grid>
                 <br />
